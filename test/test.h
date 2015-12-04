@@ -18,7 +18,7 @@ static int spec = 0;
 static void test (int (*func)(void), const char *name) {
   int r;
   if (spec) {
-    printf("%s\n", name);
+    printf("\n%s\n", name);
   }
   r = func();
 }
