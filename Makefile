@@ -1,15 +1,15 @@
-CFLAGS=-I./src
+CFLAGS=-I./src -Wall
 
 all: test
 
 
-obj/test.o:
+obj/test.o: test/test.c
 	$(CC) -c $(CFLAGS) test/test.c -o obj/test.o
 
-obj/emdb.o:
+obj/emdb.o: src/emdb.c src/emdb.h
 	$(CC) -c $(CFLAGS) src/emdb.c -o obj/emdb.o
 
-obj/storage/memory.o:
+obj/storage/memory.o: src/storage/memory.c src/storage/memory.h src/emdb.h
 	$(CC) -c $(CFLAGS) src/storage/memory.c -o obj/storage/memory.o
 
 test: obj/test.o obj/emdb.o obj/storage/memory.o

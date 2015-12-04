@@ -4,6 +4,17 @@
 #include "memory.h"
 
 static MemoryKey *head = NULL;
+static MemoryKey *find_key (unsigned char *);
+
+static Entry *read (unsigned char *);
+static unsigned char write (unsigned char *, unsigned char *, int);
+static unsigned char delete (unsigned char *);
+static void init ( );
+static Stats *stats ( );
+
+
+static void *_malloc(unsigned int);
+static void _free(void *);
 
 static Stats _stats = { 0, 0 };
 
