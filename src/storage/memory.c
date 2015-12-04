@@ -11,6 +11,8 @@ static unsigned char write (unsigned char *, unsigned char *, int);
 static unsigned char delete (unsigned char *);
 static void init ( );
 static Stats *stats ( );
+static char *last_error ( );
+static void scan (void (*)(unsigned char *, unsigned char *), void (*)(), void (*)(char *));
 
 
 static void *_malloc(unsigned int);
@@ -19,12 +21,23 @@ static void _free(void *);
 static Stats _stats = { 0, 0 };
 
 Storage MemoryStorage = {
+  init,
   write,
   read,
   delete,
-  init,
-  stats
+  scan,
+  stats,
+  last_error
 };
+
+static char *errors[] = {
+  NULL,
+  "Unable to allocate memory",
+  "Unknown state"
+};
+
+static int error = 0;
+
 
 static void init ( ) {
 
@@ -50,6 +63,7 @@ static unsigned char write (unsigned char *key, unsigned char *value, int size) 
 
     // failed to allocate memory
     if (current == NULL) {
+      error = 1;
       return 0;
     }
 
@@ -59,6 +73,7 @@ static unsigned char write (unsigned char *key, unsigned char *value, int size) 
     // failed to allocate memory
     if (current->key == NULL) {
       _free(current);
+      error = 1;
       return 0;
     }
 
@@ -68,6 +83,7 @@ static unsigned char write (unsigned char *key, unsigned char *value, int size) 
     if (current->key->key == NULL) {
       _free(current->key);
       _free(current);
+      error = 1;
       return 0;
     }
 
@@ -82,6 +98,7 @@ static unsigned char write (unsigned char *key, unsigned char *value, int size) 
       _free(current->key->key);
       _free(current->key);
       _free(current);
+      error = 1;
       return 0;
     }
 
@@ -94,6 +111,7 @@ static unsigned char write (unsigned char *key, unsigned char *value, int size) 
       _free(current->key);
       _free(current->entry);
       _free(current);
+      error = 1;
       return 0;
     }
 
@@ -110,6 +128,7 @@ static unsigned char write (unsigned char *key, unsigned char *value, int size) 
     current->entry->ptr = (void *) _malloc(sizeof (unsigned char) * size);
 
     if (current->entry->ptr == NULL) {
+      error = 1;
       return 0;
     }
 
@@ -141,6 +160,7 @@ static unsigned char delete (unsigned char *key) {
 
     if (prev == NULL) {
       // odd, not found
+      error = 2;
       return 0;
     }
 
@@ -176,6 +196,29 @@ static MemoryKey *find_key (unsigned char *key) {
 
 Stats *stats ( ) {
   return &_stats;
+}
+
+static void scan (void (*dataHandler)(unsigned char *, unsigned char *), void (*endHandler)(), void (*errorHandler)(char *)) {
+  MemoryKey *current;
+
+  current = head;
+  while (current != NULL) {
+    dataHandler(current->key->key, (unsigned char *) current->entry->ptr);
+
+    current = current->next;
+  }
+
+  endHandler();
+}
+
+static char *last_error ( ) {
+  int cur = error;
+  if (cur) {
+    error = 0;
+    return errors[error];
+  } else {
+    return NULL;
+  }
 }
 
 static void *_malloc (unsigned int size) {

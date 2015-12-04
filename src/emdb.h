@@ -20,11 +20,13 @@ typedef struct Stats {
 
 
 typedef struct {
+  void (*init)();
   unsigned char (*write)(unsigned char *, unsigned char *, int);
   Entry *(*read)(unsigned char *);
   unsigned char (*delete)(unsigned char *);
-  void (*init)();
+  void (*scan)(void (*)(unsigned char *, unsigned char *), void (*)(), void (*)(char *));
   Stats *(*stats)();
+  char *(*last_error)();
 
   /*
   byte write(unsigned char *key, unsigned char *value)
