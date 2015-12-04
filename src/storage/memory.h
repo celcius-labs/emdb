@@ -17,5 +17,10 @@ static Entry *read (unsigned char *);
 static unsigned char write (unsigned char *, unsigned char *, int);
 static unsigned char delete (unsigned char *);
 static void init ( );
+static Stats *stats ( );
+
+
+static void *_malloc(unsigned int);
+static void _free(void *);
 
 #endif /* MEMORY_H */

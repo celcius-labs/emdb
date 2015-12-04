@@ -11,6 +11,8 @@
 int test_memory ( ) {
   Entry *entry;
   unsigned char ret;
+  Stats *stats;
+
   entry = MemoryStorage.read((unsigned char *) "foo");
 
   check(entry == NULL, "entry is null after read");
@@ -24,10 +26,16 @@ int test_memory ( ) {
   check(entry->size == 4, "entry size is 4");
   check(strcmp(entry->ptr, "bar") == 0, "entry is correct");
 
+  stats = MemoryStorage.stats();
+  check(stats->memory_usage == 84, "memory usage is correctly reported");
+
   MemoryStorage.delete((unsigned char *) "foo");
   entry = MemoryStorage.read((unsigned char *) "foo");
 
   check(entry == NULL, "entry is null after delete called");
+
+  stats = MemoryStorage.stats();
+  check(stats->memory_usage == 0, "memory usage is correctly reported");
 
   done();
 }

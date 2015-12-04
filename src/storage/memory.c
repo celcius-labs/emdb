@@ -5,11 +5,14 @@
 
 static MemoryKey *head = NULL;
 
+static Stats _stats = { 0, 0 };
+
 Storage MemoryStorage = {
   write,
   read,
   delete,
-  init
+  init,
+  stats
 };
 
 static void init ( ) {
@@ -32,7 +35,7 @@ static unsigned char write (unsigned char *key, unsigned char *value, int size) 
 
   if (current == NULL) {
     // new entry, create it, and add it to the list as the head
-    current = (MemoryKey *) malloc(sizeof (MemoryKey));
+    current = (MemoryKey *) _malloc(sizeof (MemoryKey));
 
     // failed to allocate memory
     if (current == NULL) {
@@ -40,20 +43,20 @@ static unsigned char write (unsigned char *key, unsigned char *value, int size) 
     }
 
     // allocate the memory for the key
-    current->key = (Key *) malloc(sizeof (Key));
+    current->key = (Key *) _malloc(sizeof (Key));
 
     // failed to allocate memory
     if (current->key == NULL) {
-      free(current);
+      _free(current);
       return 0;
     }
 
-    current->key->key = (unsigned char *) malloc(sizeof (unsigned char) * key_size);
+    current->key->key = (unsigned char *) _malloc(sizeof (unsigned char) * key_size);
 
     // falled to allocate memory
     if (current->key->key == NULL) {
-      free(current->key);
-      free(current);
+      _free(current->key);
+      _free(current);
       return 0;
     }
 
@@ -61,25 +64,25 @@ static unsigned char write (unsigned char *key, unsigned char *value, int size) 
     memcpy(current->key->key, key, sizeof (unsigned char) * key_size);
 
     // allocate memory for the Entry
-    current->entry = (Entry *) malloc(sizeof (Entry));
+    current->entry = (Entry *) _malloc(sizeof (Entry));
 
     // failed to allocate memory
     if (current->entry == NULL) {
-      free(current->key->key);
-      free(current->key);
-      free(current);
+      _free(current->key->key);
+      _free(current->key);
+      _free(current);
       return 0;
     }
 
     // allocate the memory for the data itself
-    current->entry->ptr = (void *) malloc(sizeof (unsigned char) * size);
+    current->entry->ptr = (void *) _malloc(sizeof (unsigned char) * size);
 
     // unable to malloc, free up the container and return 0
     if (current->entry->ptr == NULL) {
-      free(current->key->key);
-      free(current->key);
-      free(current->entry);
-      free(current);
+      _free(current->key->key);
+      _free(current->key);
+      _free(current->entry);
+      _free(current);
       return 0;
     }
 
@@ -90,10 +93,10 @@ static unsigned char write (unsigned char *key, unsigned char *value, int size) 
   } else {
     // replace the existing data with the new data
     if (current->entry->ptr) {
-      free(current->entry->ptr);
+      _free(current->entry->ptr);
     }
 
-    current->entry->ptr = (void *) malloc(sizeof (unsigned char) * size);
+    current->entry->ptr = (void *) _malloc(sizeof (unsigned char) * size);
 
     if (current->entry->ptr == NULL) {
       return 0;
@@ -133,11 +136,11 @@ static unsigned char delete (unsigned char *key) {
     prev->next = current->next;
   }
 
-  free(current->key->key);
-  free(current->key);
-  free(current->entry->ptr);
-  free(current->entry);
-  free(current);
+  _free(current->key->key);
+  _free(current->key);
+  _free(current->entry->ptr);
+  _free(current->entry);
+  _free(current);
 
   return 1;
 }
@@ -158,4 +161,39 @@ static MemoryKey *find_key (unsigned char *key) {
   }
 
   return NULL;
+}
+
+Stats *stats ( ) {
+  return &_stats;
+}
+
+static void *_malloc (unsigned int size) {
+  void *ptr;
+  void *new_ptr;
+  unsigned int *sz;
+
+  size += sizeof(unsigned int);
+
+  ptr = malloc(size);
+  _stats.memory_usage += size;
+
+  sz = ptr;
+  *sz = size;
+
+  new_ptr = ptr + sizeof(unsigned int);
+
+  return new_ptr;
+}
+
+static void _free (void *ptr) {
+  unsigned int *sz;
+  void *true_ptr;
+
+  true_ptr = ptr - sizeof(unsigned int);
+
+  sz = true_ptr;
+
+  _stats.memory_usage -= *sz;
+
+  free(true_ptr);
 }

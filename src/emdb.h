@@ -13,11 +13,18 @@ typedef struct Key {
   unsigned char *key;
 } Key;
 
+typedef struct Stats {
+  unsigned int memory_usage;
+  unsigned int entries;
+} Stats;
+
+
 typedef struct {
   unsigned char (*write)(unsigned char *, unsigned char *, int);
   Entry *(*read)(unsigned char *);
   unsigned char (*delete)(unsigned char *);
   void (*init)();
+  Stats *(*stats)();
 
   /*
   byte write(unsigned char *key, unsigned char *value)
