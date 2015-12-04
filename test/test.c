@@ -24,6 +24,11 @@ int test_memory ( ) {
   check(entry->size == 4, "entry size is 4");
   check(strcmp(entry->ptr, "bar") == 0, "entry is correct");
 
+  MemoryStorage.delete((unsigned char *) "foo");
+  entry = MemoryStorage.read((unsigned char *) "foo");
+
+  check(entry == NULL, "entry is null after delete called");
+
   done();
 }
 
