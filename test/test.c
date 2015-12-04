@@ -27,14 +27,25 @@ int test_memory ( ) {
   done();
 }
 
+int test_emdb ( ) {
+  EMDB *db;
+
+  db = emdb_create_db(&MemoryStorage, 1024);
+
+  check(db != NULL, "database is created");
+
+  done();
+}
+
 int main (int argc, char **argv) {
   if (argc > 1) {
-    if (strcmp(argv[1], "--spec") == 0) {
+    if ((strcmp(argv[1], "--spec") == 0) || (strcmp(argv[1], "-s") == 0)) {
       spec = 1;
     }
   }
 
   test(test_memory, "test memory storage");
+  test(test_emdb, "test emdb");
 
   printf("\nPASSED: %d\nFAILED: %d\n", test_passed, test_failed);
 
