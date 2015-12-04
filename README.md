@@ -9,3 +9,5 @@ A Micro Key/Value Store with Query Support
 * Expandable
 * Querying of Data
 * Native JSON Support
+
+## Using
