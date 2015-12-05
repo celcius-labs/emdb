@@ -12,30 +12,37 @@ int test_memory ( ) {
   Entry *entry;
   unsigned char ret;
   Stats *stats;
+  void *ctx;
 
-  entry = MemoryStorage.read((unsigned char *) "foo");
+  ctx = MemoryStorage.create_context();
+
+  entry = MemoryStorage.read(ctx, (unsigned char *) "foo");
 
   check(entry == NULL, "entry is null after read");
 
-  ret = MemoryStorage.write((unsigned char *) "foo", (unsigned char *) "bar", 4);
+  ret = MemoryStorage.write(ctx, (unsigned char *) "foo", (unsigned char *) "bar", 4);
 
   check(ret == 1, "write succeeded");
 
-  entry = MemoryStorage.read((unsigned char *) "foo");
+  entry = MemoryStorage.read(ctx, (unsigned char *) "foo");
 
   check(entry->size == 4, "entry size is 4");
   check(strcmp(entry->ptr, "bar") == 0, "entry is correct");
 
-  stats = MemoryStorage.stats();
-  check(stats->memory_usage == 84, "memory usage is correctly reported");
+  emdb_free_entry(entry);
 
-  MemoryStorage.delete((unsigned char *) "foo");
-  entry = MemoryStorage.read((unsigned char *) "foo");
+  stats = MemoryStorage.stats(ctx);
+  check(stats->memory_usage == 116, "memory usage is correctly reported");
+
+  MemoryStorage.delete(ctx, (unsigned char *) "foo");
+  entry = MemoryStorage.read(ctx, (unsigned char *) "foo");
 
   check(entry == NULL, "entry is null after delete called");
 
-  stats = MemoryStorage.stats();
-  check(stats->memory_usage == 0, "memory usage is correctly reported");
+  stats = MemoryStorage.stats(ctx);
+  check(stats->memory_usage == 32, "memory usage is correctly reported");
+
+  MemoryStorage.destroy_context(ctx);
 
   done();
 }
@@ -43,9 +50,11 @@ int test_memory ( ) {
 int test_emdb ( ) {
   EMDB *db;
 
-  db = emdb_create_db(&MemoryStorage, 1024);
+  db = emdb_create_db(&MemoryStorage, 1024, NULL);
 
   check(db != NULL, "database is created");
+
+  emdb_destroy_db(db);
 
   done();
 }

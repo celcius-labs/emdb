@@ -16,11 +16,10 @@ static int spec = 0;
 
 /* Test runner */
 static void test (int (*func)(void), const char *name) {
-  int r;
   if (spec) {
     printf("\n%s\n", name);
   }
-  r = func();
+  func();
 }
 
 #endif /* __TEST_H__ */

@@ -20,35 +20,35 @@ typedef struct Stats {
 
 
 typedef struct {
-  void (*init)();
-  unsigned char (*write)(unsigned char *, unsigned char *, int);
-  Entry *(*read)(unsigned char *);
-  unsigned char (*delete)(unsigned char *);
-  void (*scan)(void (*)(unsigned char *, unsigned char *), void (*)(), void (*)(char *));
-  Stats *(*stats)();
-  char *(*last_error)();
-
-  /*
-  byte write(unsigned char *key, unsigned char *value)
-  unsigned char *read(unsigned char *key)
-  byte delete(unsgined char *key)
-  void scan(dataHandler, endHandler, errorHandler)
-  unsigned int memory()
-  */
+  unsigned char (*write)(void *, unsigned char *, unsigned char *, int);
+  Entry *(*read)(void *, unsigned char *);
+  unsigned char (*delete)(void *, unsigned char *);
+  void (*scan)(void *, void (*)(unsigned char *, unsigned char *), void (*)(), void (*)(char *));
+  Stats *(*stats)(void *);
+  char *(*last_error)(void *);
+  void *(*create_context)();
+  void (*destroy_context)(void *);
 } Storage;
 
 typedef struct {
   unsigned short count;
   unsigned int memory;
   unsigned int max_memory;
+  int error;
   Storage *store;
+  void *ctx;
 } EMDB;
 
 
-EMDB *emdb_create_db(Storage *, unsigned int max_memory);
+EMDB *emdb_create_db(Storage *, unsigned int, void *);
 void emdb_close_db(EMDB *);
 unsigned char emdb_write(EMDB *, unsigned char *, unsigned char *, int);
+Entry *emdb_read(EMDB *, unsigned char *);
+unsigned char emdb_delete(EMDB *, unsigned char *);
+char *emdb_last_error(EMDB *);
+void emdb_destroy_db(EMDB *);
 
+void emdb_free_entry(Entry *);
 Entry *emdb_copy_entry(Entry *);
 
 #endif /* EMDB_H */

@@ -1,4 +1,5 @@
-CFLAGS=-I./src -Wall
+CFLAGS=-I./src -Wall -g
+LDFLAGS=-g
 
 all: test
 
@@ -13,7 +14,7 @@ obj/storage/memory.o: src/storage/memory.c src/storage/memory.h src/emdb.h
 	$(CC) -c $(CFLAGS) src/storage/memory.c -o obj/storage/memory.o
 
 test: obj/test.o obj/emdb.o obj/storage/memory.o
-	$(CC) obj/test.o obj/emdb.o obj/storage/memory.o -o test_runner
+	$(CC) $(LDFLAGS) obj/test.o obj/emdb.o obj/storage/memory.o -o test_runner
 	./test_runner --spec
 
 
