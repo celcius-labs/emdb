@@ -1,5 +1,5 @@
-#ifndef EMDB_H
-#define EMDB_H
+#ifndef __EMDB_H__
+#define __EMDB_H__
 
 #include <limits.h>
 
@@ -51,4 +51,4 @@ void emdb_destroy_db(EMDB *);
 void emdb_free_entry(Entry *);
 Entry *emdb_copy_entry(Entry *);
 
-#endif /* EMDB_H */
+#endif /* __EMDB_H__ */

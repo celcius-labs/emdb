@@ -4,8 +4,11 @@ LDFLAGS=-g
 all: test
 
 
-obj/test.o: test/test.c
-	$(CC) -c $(CFLAGS) test/test.c -o obj/test.o
+test/test.o: test/test.c
+	$(CC) -c $(CFLAGS) test/test.c -o test/test.o
+
+test/memory.o: test/memory.c
+	$(CC) -c $(CFLAGS) test/memory.c -o test/memory.o
 
 obj/emdb.o: src/emdb.c src/emdb.h
 	$(CC) -c $(CFLAGS) src/emdb.c -o obj/emdb.o
@@ -13,8 +16,8 @@ obj/emdb.o: src/emdb.c src/emdb.h
 obj/storage/memory.o: src/storage/memory.c src/storage/memory.h src/emdb.h
 	$(CC) -c $(CFLAGS) src/storage/memory.c -o obj/storage/memory.o
 
-test: obj/test.o obj/emdb.o obj/storage/memory.o
-	$(CC) $(LDFLAGS) obj/test.o obj/emdb.o obj/storage/memory.o -o test_runner
+test: test/test.o test/memory.o obj/emdb.o obj/storage/memory.o
+	$(CC) $(LDFLAGS) test/test.o test/memory.o obj/emdb.o obj/storage/memory.o -o test_runner
 	./test_runner --spec
 
 

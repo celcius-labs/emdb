@@ -1,3 +1,4 @@
 test_runner
 obj/*.o
 obj/storage/*.o
+test/*.o

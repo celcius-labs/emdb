@@ -1,5 +1,5 @@
-#ifndef MEMORY_H
-#define MEMORY_H
+#ifndef __MEMORY_H__
+#define __MEMORY_H__
 
 #include "../emdb.h"
 
@@ -12,4 +12,4 @@ typedef struct MemoryKey {
 } MemoryKey;
 
 
-#endif /* MEMORY_H */
+#endif /* __MEMORY_H__ */

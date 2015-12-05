@@ -1,9 +1,9 @@
 #ifndef __TEST_H__
 #define __TEST_H__
 
-static int test_passed = 0;
-static int test_failed = 0;
-static int spec = 0;
+extern int spec;
+extern int test_passed;
+extern int test_failed;
 
 /* Terminate current test with error */
 #define fail(message)	{ if (spec) { printf("  𝙭 %s (%d)\n", message, __LINE__); } else { printf("𝙭"); } }
@@ -21,5 +21,8 @@ static void test (int (*func)(void), const char *name) {
   }
   func();
 }
+
+int test_memory ( );
+int test_emdb ( );
 
 #endif /* __TEST_H__ */
