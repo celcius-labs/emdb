@@ -1,7 +1,7 @@
 CFLAGS=-I./src -Wall -g
 LDFLAGS=-g
 
-all: test
+all: test run_tests
 
 
 test/test.o: test/test.c
@@ -18,6 +18,8 @@ obj/storage/memory.o: src/storage/memory.c src/storage/memory.h src/emdb.h
 
 test: test/test.o test/memory.o obj/emdb.o obj/storage/memory.o
 	$(CC) $(LDFLAGS) test/test.o test/memory.o obj/emdb.o obj/storage/memory.o -o test_runner
+
+run_tests:
 	./test_runner --spec
 
 
