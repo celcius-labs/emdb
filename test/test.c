@@ -34,13 +34,24 @@ int test_memory ( ) {
   stats = MemoryStorage.stats(ctx);
   check(stats->memory_usage == 116, "memory usage is correctly reported");
 
+  ret = MemoryStorage.write(ctx, (unsigned char *) "bar", (unsigned char *) "baz", 4);
+
+  check(ret == 1, "second write succeeded");
+
+  entry = MemoryStorage.read(ctx, (unsigned char *) "bar");
+
+  check(entry->size == 4, "entry size is 4");
+  check(strcmp(entry->ptr, "baz") == 0, "entry is correct");
+
+  emdb_free_entry(entry);
+
   MemoryStorage.delete(ctx, (unsigned char *) "foo");
   entry = MemoryStorage.read(ctx, (unsigned char *) "foo");
 
   check(entry == NULL, "entry is null after delete called");
 
   stats = MemoryStorage.stats(ctx);
-  check(stats->memory_usage == 32, "memory usage is correctly reported");
+  check(stats->memory_usage == 116, "memory usage is correctly reported");
 
   MemoryStorage.destroy_context(ctx);
 

@@ -192,9 +192,9 @@ static MemoryKey *find_key (void *ctx, unsigned char *key) {
       if (memcmp(current->key->key, key, len * sizeof(unsigned char)) == 0) {
         return current;
       }
-    } else {
-      current = current->next;
     }
+
+    current = current->next;
   }
 
   return NULL;
