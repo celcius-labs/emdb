@@ -26,7 +26,7 @@ typedef struct {
   void (*scan)(void *, void (*)(unsigned char *, unsigned char *), void (*)(), void (*)(char *));
   Stats *(*stats)(void *);
   char *(*last_error)(void *);
-  void *(*create_context)();
+  void *(*create_context)(void *);
   void (*destroy_context)(void *);
 } Storage;
 

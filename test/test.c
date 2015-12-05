@@ -14,7 +14,7 @@ int test_memory ( ) {
   Stats *stats;
   void *ctx;
 
-  ctx = MemoryStorage.create_context();
+  ctx = MemoryStorage.create_context(NULL);
 
   entry = MemoryStorage.read(ctx, (unsigned char *) "foo");
 
@@ -49,10 +49,26 @@ int test_memory ( ) {
 
 int test_emdb ( ) {
   EMDB *db;
+  Entry *entry;
+  unsigned char ret;
 
   db = emdb_create_db(&MemoryStorage, 1024, NULL);
 
   check(db != NULL, "database is created");
+
+  entry = emdb_read(db, (unsigned char *) "foo");
+
+  check(entry == NULL, "entry is null after read");
+
+  ret = emdb_write(db, (unsigned char *) "foo", (unsigned char *) "bar", 4);
+  check(ret == 1, "write is successful");
+
+  entry = emdb_read(db, (unsigned char *) "foo");
+
+  check(entry->size == 4, "entry size is 4");
+  check(strcmp(entry->ptr, "bar") == 0, "entry is correct");
+
+  emdb_free_entry(entry);
 
   emdb_destroy_db(db);
 

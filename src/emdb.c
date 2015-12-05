@@ -10,7 +10,7 @@ static char *errors[] = {
 };
 
 
-EMDB *emdb_create_db (Storage *store, unsigned int max_memory, void *ctx) {
+EMDB *emdb_create_db (Storage *store, unsigned int max_memory, void *cfg) {
   EMDB *db = (EMDB *) malloc(sizeof(EMDB));
 
   // error, unable to allocate memory
@@ -23,7 +23,7 @@ EMDB *emdb_create_db (Storage *store, unsigned int max_memory, void *ctx) {
   db->memory = 0;
   db->max_memory = max_memory;
   db->error = 0;
-  db->ctx = ctx;
+  db->ctx = store->create_context(cfg);
 
   return db;
 }

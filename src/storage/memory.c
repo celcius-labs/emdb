@@ -231,15 +231,7 @@ static char *last_error (void *ctx) {
   }
 }
 
-static void *create_context ( ) {
-  /*
-  // context to run within
-  static struct memory_ctx {
-    int error;
-    MemoryKey *head;
-    Stats stats;
-  };
-  */
+static void *create_context (void *cfg) {
   MemoryCtx *ctx = (MemoryCtx *) malloc(sizeof(MemoryCtx));
 
   ctx->error = 0;
@@ -253,6 +245,32 @@ static void *create_context ( ) {
 
 static void destroy_context (void *ctx) {
   MemoryCtx *context = (MemoryCtx *) ctx;
+  MemoryKey *current = context->head;
+  MemoryKey *last;
+
+  while (current != NULL) {
+    last = current;
+    current = last->next;
+
+    if (last->key) {
+      if (last->key->key) {
+        _free(ctx, last->key->key);
+      }
+
+      _free(ctx, last->key);
+    }
+
+    if (last->entry) {
+      if (last->entry->ptr) {
+        _free(ctx, last->entry->ptr);
+      }
+
+      _free(ctx, last->entry);
+    }
+
+    _free(ctx, last);
+  }
+
   free(context->stats);
   free(ctx);
 }
