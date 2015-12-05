@@ -57,3 +57,65 @@ int test_memory ( ) {
 
   done();
 }
+
+int test_context_isolation ( ) {
+  Entry *entry;
+  unsigned char ret;
+  Stats *stats;
+  void *ctx1;
+  void *ctx2;
+
+  ctx1 = MemoryStorage.create_context(NULL);
+  ctx2 = MemoryStorage.create_context(NULL);
+
+
+  ret = MemoryStorage.write(ctx1, (unsigned char *) "foo", (unsigned char *) "bar", 4);
+
+  check(ret == 1, "write to context 1 succeeded");
+
+  entry = MemoryStorage.read(ctx1, (unsigned char *) "foo");
+
+  check(entry->size == 4, "entry size is 4");
+  check(strcmp(entry->ptr, "bar") == 0, "entry is correct");
+
+  emdb_free_entry(entry);
+
+
+  stats = MemoryStorage.stats(ctx1);
+  check(stats->memory_usage == 116, "memory usage is correctly reported for context 1");
+
+  stats = MemoryStorage.stats(ctx2);
+  check(stats->memory_usage == 32, "memory usage is correctly reported for context 2");
+
+  entry = MemoryStorage.read(ctx2, (unsigned char *) "foo");
+
+  check(entry == NULL, "entry is null after read on context 2");
+
+  ret = MemoryStorage.write(ctx1, (unsigned char *) "bar", (unsigned char *) "baz", 4);
+
+  check(ret == 1, "second write to context 1 succeeded");
+
+  entry = MemoryStorage.read(ctx1, (unsigned char *) "bar");
+
+  check(entry->size == 4, "entry size is 4");
+  check(strcmp(entry->ptr, "baz") == 0, "entry is correct");
+
+  emdb_free_entry(entry);
+
+  entry = MemoryStorage.read(ctx2, (unsigned char *) "bar");
+
+  check(entry == NULL, "entry is null after read on context 2");
+
+  MemoryStorage.delete(ctx1, (unsigned char *) "foo");
+  entry = MemoryStorage.read(ctx1, (unsigned char *) "foo");
+
+  check(entry == NULL, "entry is null after delete called");
+
+  stats = MemoryStorage.stats(ctx1);
+  check(stats->memory_usage == 116, "memory usage is correctly reported");
+
+  MemoryStorage.destroy_context(ctx1);
+  MemoryStorage.destroy_context(ctx2);
+
+  done();
+}

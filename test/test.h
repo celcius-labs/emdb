@@ -24,5 +24,6 @@ static void test (int (*func)(void), const char *name) {
 
 int test_memory ( );
 int test_emdb ( );
+int test_context_isolation ( );
 
 #endif /* __TEST_H__ */
