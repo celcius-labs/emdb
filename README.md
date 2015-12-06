@@ -31,6 +31,13 @@ in one operating mode, but also to allow a device to remain disconnected from a
 network for a longer period of time, allowing for a device to remain in a lower
 power state at the expense of less up to date data.
 
+### TODO (Lots)
+
+* Speed optimized memory storage
+* Indexing
+* Builds
+
+
 ## Usage and Development
 
 This project is in rapid development, but attempts to be well tested.
