@@ -92,6 +92,10 @@ unsigned char emdb_delete(EMDB *db, unsigned char *key) {
   return ret;
 }
 
+void emdb_scan (EMDB *db, void entry_handler(unsigned char *, Entry *), void end_handler(), void error_handler(char *)) {
+  db->store->scan(db->ctx, entry_handler, end_handler, error_handler);
+}
+
 Entry *emdb_copy_entry (Entry *entry) {
   Entry *dup = (Entry *) malloc(sizeof (Entry));
 

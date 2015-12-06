@@ -9,7 +9,7 @@ static unsigned char write (void *, unsigned char *, unsigned char *, int);
 static unsigned char delete (void *, unsigned char *);
 static Stats *stats (void *);
 static char *last_error (void *);
-static void scan (void *, void (*)(unsigned char *, unsigned char *), void (*)(), void (*)(char *));
+static void scan (void *, void (*)(unsigned char *, Entry *), void (*)(), void (*)(char *));
 static void *create_context ( );
 static void destroy_context (void *);
 
@@ -206,13 +206,13 @@ Stats *stats (void *ctx) {
   return context->stats;
 }
 
-static void scan (void *ctx, void (*dataHandler)(unsigned char *, unsigned char *), void (*endHandler)(), void (*errorHandler)(char *)) {
+static void scan (void *ctx, void (*dataHandler)(unsigned char *, Entry *), void (*endHandler)(), void (*errorHandler)(char *)) {
   MemoryCtx *context = (MemoryCtx *) ctx;
   MemoryKey *current;
 
   current = context->head;
   while (current != NULL) {
-    dataHandler(current->key->key, (unsigned char *) current->entry->ptr);
+    dataHandler(current->key->key, emdb_copy_entry(current->entry));
 
     current = current->next;
   }

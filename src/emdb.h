@@ -23,7 +23,7 @@ typedef struct {
   unsigned char (*write)(void *, unsigned char *, unsigned char *, int);
   Entry *(*read)(void *, unsigned char *);
   unsigned char (*delete)(void *, unsigned char *);
-  void (*scan)(void *, void (*)(unsigned char *, unsigned char *), void (*)(), void (*)(char *));
+  void (*scan)(void *, void (*)(unsigned char *, Entry *), void (*)(), void (*)(char *));
   Stats *(*stats)(void *);
   char *(*last_error)(void *);
   void *(*create_context)(void *);
@@ -47,6 +47,7 @@ Entry *emdb_read(EMDB *, unsigned char *);
 unsigned char emdb_delete(EMDB *, unsigned char *);
 char *emdb_last_error(EMDB *);
 void emdb_destroy_db(EMDB *);
+void emdb_scan(EMDB *, void (*)(unsigned char *, Entry *), void (*)(), void (*)(char *));
 
 void emdb_free_entry(Entry *);
 Entry *emdb_copy_entry(Entry *);
