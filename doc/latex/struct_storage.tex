@@ -1,0 +1,67 @@
+\hypertarget{struct_storage}{}\section{Storage Struct Reference}
+\label{struct_storage}\index{Storage@{Storage}}
+
+
+Configuration of a \hyperlink{struct_storage}{Storage} Engine.  
+
+
+
+
+{\ttfamily \#include $<$emdb.\+h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char($\ast$ \hyperlink{struct_storage_a277c5f5a2ec42f4b66e83a95fb2b679c}{write} )(void $\ast$, unsigned char $\ast$, unsigned char $\ast$, int)
+\item 
+\hyperlink{struct_entry}{Entry} $\ast$($\ast$ \hyperlink{struct_storage_a6f8774ce9a6598367d47eaeafaf245d4}{read} )(void $\ast$, unsigned char $\ast$)
+\item 
+unsigned char($\ast$ \hyperlink{struct_storage_ae33c4c6b8e7dda3a854c3754ecbd22d9}{delete} )(void $\ast$, unsigned char $\ast$)
+\item 
+void($\ast$ \hyperlink{struct_storage_a2d0db132a4fefd7d3da72d2b27c2e98a}{scan} )(void $\ast$, void($\ast$)(unsigned char $\ast$, \hyperlink{struct_entry}{Entry} $\ast$), void($\ast$)(), void($\ast$)(char $\ast$))
+\item 
+\hyperlink{struct_stats}{Stats} $\ast$($\ast$ \hyperlink{struct_storage_a6642751e068c1e64f8b65703a8bc51a0}{stats} )(void $\ast$)
+\item 
+char $\ast$($\ast$ \hyperlink{struct_storage_a32909539bbc234d20b4bb0a51c575c9c}{last\+\_\+error} )(void $\ast$)
+\item 
+void $\ast$($\ast$ \hyperlink{struct_storage_a96d6e9b9bfd5b4943eb9660ca2293447}{create\+\_\+context} )(void $\ast$)
+\item 
+void($\ast$ \hyperlink{struct_storage_af425b1971a9fcfed315e6aec547df8da}{destroy\+\_\+context} )(void $\ast$)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Configuration of a \hyperlink{struct_storage}{Storage} Engine. 
+
+Contains pointers to methods implemented by a \hyperlink{struct_storage}{Storage} Engine. A \hyperlink{struct_storage}{Storage} Engine must implement all methods. 
+
+\subsection{Member Data Documentation}
+\hypertarget{struct_storage_a96d6e9b9bfd5b4943eb9660ca2293447}{}\index{Storage@{Storage}!create\+\_\+context@{create\+\_\+context}}
+\index{create\+\_\+context@{create\+\_\+context}!Storage@{Storage}}
+\subsubsection[{create\+\_\+context}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$($\ast$ Storage\+::create\+\_\+context) (void $\ast$)}\label{struct_storage_a96d6e9b9bfd5b4943eb9660ca2293447}
+create\+\_\+context method \hypertarget{struct_storage_ae33c4c6b8e7dda3a854c3754ecbd22d9}{}\index{Storage@{Storage}!delete@{delete}}
+\index{delete@{delete}!Storage@{Storage}}
+\subsubsection[{delete}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char($\ast$ Storage\+::delete) (void $\ast$, unsigned char $\ast$)}\label{struct_storage_ae33c4c6b8e7dda3a854c3754ecbd22d9}
+delete method \hypertarget{struct_storage_af425b1971a9fcfed315e6aec547df8da}{}\index{Storage@{Storage}!destroy\+\_\+context@{destroy\+\_\+context}}
+\index{destroy\+\_\+context@{destroy\+\_\+context}!Storage@{Storage}}
+\subsubsection[{destroy\+\_\+context}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ Storage\+::destroy\+\_\+context) (void $\ast$)}\label{struct_storage_af425b1971a9fcfed315e6aec547df8da}
+destroy\+\_\+context method \hypertarget{struct_storage_a32909539bbc234d20b4bb0a51c575c9c}{}\index{Storage@{Storage}!last\+\_\+error@{last\+\_\+error}}
+\index{last\+\_\+error@{last\+\_\+error}!Storage@{Storage}}
+\subsubsection[{last\+\_\+error}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$($\ast$ Storage\+::last\+\_\+error) (void $\ast$)}\label{struct_storage_a32909539bbc234d20b4bb0a51c575c9c}
+last\+\_\+error method \hypertarget{struct_storage_a6f8774ce9a6598367d47eaeafaf245d4}{}\index{Storage@{Storage}!read@{read}}
+\index{read@{read}!Storage@{Storage}}
+\subsubsection[{read}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Entry}$\ast$($\ast$ Storage\+::read) (void $\ast$, unsigned char $\ast$)}\label{struct_storage_a6f8774ce9a6598367d47eaeafaf245d4}
+read method \hypertarget{struct_storage_a2d0db132a4fefd7d3da72d2b27c2e98a}{}\index{Storage@{Storage}!scan@{scan}}
+\index{scan@{scan}!Storage@{Storage}}
+\subsubsection[{scan}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ Storage\+::scan) (void $\ast$, void($\ast$)(unsigned char $\ast$, {\bf Entry} $\ast$), void($\ast$)(), void($\ast$)(char $\ast$))}\label{struct_storage_a2d0db132a4fefd7d3da72d2b27c2e98a}
+scan method \hypertarget{struct_storage_a6642751e068c1e64f8b65703a8bc51a0}{}\index{Storage@{Storage}!stats@{stats}}
+\index{stats@{stats}!Storage@{Storage}}
+\subsubsection[{stats}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Stats}$\ast$($\ast$ Storage\+::stats) (void $\ast$)}\label{struct_storage_a6642751e068c1e64f8b65703a8bc51a0}
+stats method \hypertarget{struct_storage_a277c5f5a2ec42f4b66e83a95fb2b679c}{}\index{Storage@{Storage}!write@{write}}
+\index{write@{write}!Storage@{Storage}}
+\subsubsection[{write}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char($\ast$ Storage\+::write) (void $\ast$, unsigned char $\ast$, unsigned char $\ast$, int)}\label{struct_storage_a277c5f5a2ec42f4b66e83a95fb2b679c}
+write method 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{emdb_8h}{emdb.\+h}\end{DoxyCompactItemize}

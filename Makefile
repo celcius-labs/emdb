@@ -3,6 +3,10 @@ LDFLAGS=-g
 
 all: test run_tests
 
+doc:
+	@doxygen Doxyfile
+
+
 
 test/test.o: test/test.c
 	$(CC) -c $(CFLAGS) test/test.c -o test/test.o

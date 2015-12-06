@@ -9,7 +9,6 @@ static char *errors[] = {
   "Maximum memory used"
 };
 
-
 EMDB *emdb_create_db (Storage *store, unsigned int max_memory, void *cfg) {
   EMDB *db = (EMDB *) malloc(sizeof(EMDB));
 

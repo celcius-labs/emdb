@@ -1,0 +1,40 @@
+\hypertarget{struct_entry}{}\section{Entry Struct Reference}
+\label{struct_entry}\index{Entry@{Entry}}
+
+
+A database entry.  
+
+
+
+
+{\ttfamily \#include $<$emdb.\+h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{struct_entry_a5a49d6c117452903aa66273955f41ab9}{size}
+\item 
+void $\ast$ \hyperlink{struct_entry_aa88c7d1c3b4c4e69ea46dc9559224dc1}{ptr}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A database entry. 
+
+\hyperlink{struct_entry}{Entry} provides the basis of a database entry. Memory is allocated for the \hyperlink{struct_entry}{Entry}, and must be freed. If value is a {\ttfamily String}, the size should include the terminating N\+U\+L\+L byte. Thus, the size of \char`\"{}hello\char`\"{} would be 6, including the N\+U\+L\+L termination. \begin{DoxySeeAlso}{See also}
+\hyperlink{emdb_8h_a8fd691da056962b197364ac167e0d421}{emdb\+\_\+free\+\_\+entry(\+Entry $\ast$)} 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{struct_entry_aa88c7d1c3b4c4e69ea46dc9559224dc1}{}\index{Entry@{Entry}!ptr@{ptr}}
+\index{ptr@{ptr}!Entry@{Entry}}
+\subsubsection[{ptr}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ Entry\+::ptr}\label{struct_entry_aa88c7d1c3b4c4e69ea46dc9559224dc1}
+Pointer to the data that has been stored \hypertarget{struct_entry_a5a49d6c117452903aa66273955f41ab9}{}\index{Entry@{Entry}!size@{size}}
+\index{size@{size}!Entry@{Entry}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}int Entry\+::size}\label{struct_entry_a5a49d6c117452903aa66273955f41ab9}
+Size of the value stored 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{emdb_8h}{emdb.\+h}\end{DoxyCompactItemize}
