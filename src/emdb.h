@@ -1,7 +1,7 @@
 #ifndef __EMDB_H__
 #define __EMDB_H__
 
-#include <limits.h>
+#define EMDB_VERSION "0.1.0"
 
 typedef struct Entry {
   int size;

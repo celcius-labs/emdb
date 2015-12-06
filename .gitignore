@@ -2,3 +2,6 @@ test_runner
 obj/*.o
 obj/storage/*.o
 test/*.o
+examples/*/*.o
+examples/basic/basic
+examples/scan/scan

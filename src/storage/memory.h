@@ -3,6 +3,8 @@
 
 #include "../emdb.h"
 
+#define EMDB_MEMORYSTORAGE_VERSION "0.1.0"
+
 Storage MemoryStorage;
 
 typedef struct MemoryKey {
