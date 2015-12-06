@@ -1,6 +1,10 @@
 #ifndef __EMDB_H__
 #define __EMDB_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define EMDB_VERSION "0.1.0"
 
 typedef struct Entry {
@@ -51,5 +55,9 @@ void emdb_scan(EMDB *, void (*)(unsigned char *, Entry *), void (*)(), void (*)(
 
 void emdb_free_entry(Entry *);
 Entry *emdb_copy_entry(Entry *);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __EMDB_H__ */
