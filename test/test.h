@@ -15,12 +15,7 @@ extern int test_failed;
 #define check(cond,message) do { if (!(cond)) { fail(message); test_failed++; } else { if (spec) { printf("  ✓ %s\n", message); } else { printf("."); } test_passed++; } } while (0)
 
 /* Test runner */
-static void test (int (*func)(void), const char *name) {
-  if (spec) {
-    printf("\n%s\n", name);
-  }
-  func();
-}
+#define test(func, name) do { if (spec) { printf("\n%s\n", name); } func(); } while(0)
 
 int test_memory ( );
 int test_emdb ( );
