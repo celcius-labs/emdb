@@ -16,6 +16,7 @@ typedef struct Where {
   WhereType type;
   unsigned char *key;
   unsigned char *value;
+  unsigned char not;
   ValueType value_type;
   unsigned char child_count;
   void **children;

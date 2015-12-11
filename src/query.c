@@ -27,6 +27,14 @@ unsigned char compare_float (float value1, float value2, WhereType operand) {
   }
 }
 
+unsigned char compare_float_between (float value, float value1, float value2) {
+  if (value1 > value2) {
+    return (value >= value1 && value <= value2);
+  } else {
+    return (value >= value1 && value <= value2);
+  }
+}
+
 unsigned char compare_int (int value1, int value2, WhereType operand) {
   switch (operand) {
     case equals:
@@ -46,6 +54,14 @@ unsigned char compare_int (int value1, int value2, WhereType operand) {
 
     default:
     return 0;
+  }
+}
+
+unsigned char compare_int_between (int value, int value1, int value2) {
+  if (value1 > value2) {
+    return (value >= value1 && value <= value2);
+  } else {
+    return (value >= value1 && value <= value2);
   }
 }
 
@@ -74,6 +90,17 @@ unsigned char compare_string (char *value1, char * value2, WhereType operand) {
     return (memcmp(value1, value2, len) <= 0);
 
     default:
+    return 0;
+  }
+}
+
+unsigned char compare_string_between (char *value, char *value1, char *value2) {
+  int left = strcmp(value, value1);
+  int right = strcmp(value, value2);
+
+  if (left >= 0 && right <= 0) {
+    return 1;
+  } else {
     return 0;
   }
 }

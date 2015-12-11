@@ -49,7 +49,9 @@ int main (int argc, char **argv) {
   test(test_memory, "test memory storage");
   test(test_context_isolation, "test context isolation");
   test(test_emdb, "test emdb");
-  test(test_compare, "test comparison");
+  test(test_compare_string, "test comparison string");
+  test(test_compare_int, "test comparison int");
+  test(test_compare_float, "test comparison float");
 
   printf("\nPASSED: %d\nFAILED: %d\n", test_passed, test_failed);
 

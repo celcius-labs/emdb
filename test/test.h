@@ -20,6 +20,8 @@ extern int test_failed;
 int test_memory ( );
 int test_emdb ( );
 int test_context_isolation ( );
-int test_compare ( );
+int test_compare_string ( );
+int test_compare_int ( );
+int test_compare_float ( );
 
 #endif /* __TEST_H__ */
