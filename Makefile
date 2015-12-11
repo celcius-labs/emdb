@@ -14,14 +14,19 @@ test/test.o: test/test.c
 test/memory.o: test/memory.c
 	$(CC) -c $(CFLAGS) test/memory.c -o test/memory.o
 
+test/query.o: test/query.c
+
 obj/emdb.o: src/emdb.c src/emdb.h
 	$(CC) -c $(CFLAGS) src/emdb.c -o obj/emdb.o
 
 obj/storage/memory.o: src/storage/memory.c src/storage/memory.h src/emdb.h
 	$(CC) -c $(CFLAGS) src/storage/memory.c -o obj/storage/memory.o
 
-test: test/test.o test/memory.o obj/emdb.o obj/storage/memory.o
-	$(CC) $(LDFLAGS) test/test.o test/memory.o obj/emdb.o obj/storage/memory.o -o test_runner
+obj/query.o: src/query.c src/query.h
+	$(CC) -c $(CFLAGS) src/query.c -o obj/query.o
+
+test: test/test.o test/memory.o obj/emdb.o obj/storage/memory.o obj/query.o test/query.o
+	$(CC) $(LDFLAGS) test/test.o test/memory.o test/query.o obj/emdb.o obj/storage/memory.o obj/query.o -o test_runner
 
 run_tests:
 	./test_runner --spec
