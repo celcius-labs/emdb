@@ -25,6 +25,12 @@ int test_compare_string ( ) {
   check(compare_string(text1, text1, lte) == 1, "same text is considered lte");
   check(compare_string(text2, text1, lte) == 1, "lt text is considered lte");
 
+  check(compare_string_between("goo", text2, text1) == 1, "between returns true when between");
+  check(compare_string_between(text2, text2, text1) == 1, "between returns true when gte");
+  check(compare_string_between(text1, text2, text1) == 1, "between returns true when lte");
+  check(compare_string_between("ho", text2, text1) == 0, "between returns false when gt");
+  check(compare_string_between("fa", text2, text1) == 0, "between returns false when lt");
+
   done();
 }
 
@@ -47,6 +53,18 @@ int test_compare_int ( ) {
   check(compare_int(i1, i2, lte) == 1, "lt integer is considered lte");
   check(compare_int(i2, i1, lte) == 0, "gt integer is not considered lte");
 
+  check(compare_int_between(15, i2, i1) == 1, "between returns true when between");
+  check(compare_int_between(20, i2, i1) == 1, "between returns true when gte");
+  check(compare_int_between(10, i2, i1) == 1, "between returns true when lte");
+  check(compare_int_between(21, i2, i1) == 0, "between returns false when gt");
+  check(compare_int_between(9, i2, i1) == 0, "between returns false when lt");
+
+  check(compare_int_between(15, i1, i2) == 1, "between returns true when between reversed");
+  check(compare_int_between(20, i1, i2) == 1, "between returns true when gte reversed");
+  check(compare_int_between(10, i1, i2) == 1, "between returns true when lte reversed");
+  check(compare_int_between(21, i1, i2) == 0, "between returns false when gt reversed");
+  check(compare_int_between(9, i1, i2) == 0, "between returns false when lt reversed");
+
   done();
 }
 
@@ -68,6 +86,18 @@ int test_compare_float ( ) {
   check(compare_float(f1, f1, lte) == 1, "equal float is considered lte");
   check(compare_float(f1, f2, lte) == 1, "lt float is considered lte");
   check(compare_float(f2, f1, lte) == 0, "gt float is not considered lte");
+
+  check(compare_float_between(1.5, f2, f1) == 1, "between returns true when between");
+  check(compare_float_between(2.0, f2, f1) == 1, "between returns true when gte");
+  check(compare_float_between(1.0, f2, f1) == 1, "between returns true when lte");
+  check(compare_float_between(2.1, f2, f1) == 0, "between returns false when gt");
+  check(compare_float_between(0.9, f2, f1) == 0, "between returns false when lt");
+
+  check(compare_float_between(1.5, f1, f2) == 1, "between returns true when between reversed");
+  check(compare_float_between(2.0, f1, f2) == 1, "between returns true when gte reversed");
+  check(compare_float_between(1.0, f1, f2) == 1, "between returns true when lte reversed");
+  check(compare_float_between(2.1, f1, f2) == 0, "between returns false when gt reversed");
+  check(compare_float_between(0.9, f1, f2) == 0, "between returns false when lt reversed");
 
   done();
 }
