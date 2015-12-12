@@ -9,6 +9,9 @@ SRCS=src/emdb.c
 OBJS=obj/emdb.o
 TEST=test/test.o
 
+
+all: test run_tests
+
 ifdef EMDB_MEMORY_STORAGE
 CFLAGS += -DEMDB_MEMORY_STORAGE
 
@@ -37,7 +40,9 @@ test/query.o: test/query.c
 
 endif
 
-all: test run_tests
+ifdef LARGE
+CFLAGS += -DLARGE
+endif
 
 doc:
 	@doxygen Doxyfile

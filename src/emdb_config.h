@@ -2,20 +2,54 @@
 #define __EMDB_CONFIG__
 
 
-#ifdef USE_JSON
+#ifdef EMDB_JSON
 
 // maximum number of tokens per json document
 #ifndef JSON_MAX_TOKENS
+
+#ifdef TINY
 #define JSON_MAX_TOKENS 16
 #endif
 
-#endif /* USE_JSON */
+#ifdef SMALL
+#define JSON_MAX_TOKENS 32
+#endif
 
-#ifdef USE_QUERY
+#ifdef MEDIUM
+#define JSON_MAX_TOKENS 64
+#endif
+
+#ifdef LARGE
+#define JSON_MAX_TOKENS 128
+#endif
+
+#endif
+
+#endif /* EMDB_JSON */
+
+#ifdef EMDB_QUERY
 
 // maximum depth of keys to search
-#define MAX_KEY_DEPTH 4
+#ifndef MAX_KEY_DEPTH
 
-#endif /* USE_QUERY */
+#ifdef TINY
+#define MAX_KEY_DEPTH 4
+#endif
+
+#ifdef SMALL
+#define MAX_KEY_DEPTH 16
+#endif
+
+#ifdef MEDIUM
+#define MAX_KEY_DEPTH 64
+#endif
+
+#ifdef LARGE
+#define MAX_KEY_DEPTH 128
+#endif
+
+#endif
+
+#endif /* EMDB_QUERY */
 
 #endif /* __EMDB_CONFIG__ */
