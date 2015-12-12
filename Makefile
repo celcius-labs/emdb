@@ -1,5 +1,10 @@
+# You can put your build options here
+-include config.mk
+
 CFLAGS=-I./src -Wall -g
 LDFLAGS=-g
+
+SRCS=src/emdb.c
 
 all: test run_tests
 
@@ -28,9 +33,10 @@ obj/query.o: src/query.c src/query.h
 test: test/test.o test/memory.o obj/emdb.o obj/storage/memory.o obj/query.o test/query.o
 	$(CC) $(LDFLAGS) test/test.o test/memory.o test/query.o obj/emdb.o obj/storage/memory.o obj/query.o -o test_runner
 
+.PHONY: run_tests clean clean_src
+
 run_tests:
 	./test_runner --spec
-
 
 clean: clean_src clean_test
 
