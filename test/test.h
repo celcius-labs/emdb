@@ -20,8 +20,14 @@ extern int test_failed;
 int test_memory ( );
 int test_emdb ( );
 int test_context_isolation ( );
+
+#ifdef EMDB_QUERY
+
 int test_compare_string ( );
 int test_compare_int ( );
 int test_compare_float ( );
+
+#endif /* USE_QUERY */
+
 
 #endif /* __TEST_H__ */

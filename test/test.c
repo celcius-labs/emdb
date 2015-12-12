@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifdef EMDB_MEMORY_STORAGE
 #include "storage/memory.h"
+#endif
+
 #include "emdb.h"
 
 
@@ -46,12 +49,18 @@ int main (int argc, char **argv) {
     }
   }
 
+  test(test_emdb, "test emdb");
+
+#ifdef EMDB_MEMORY_STORAGE
   test(test_memory, "test memory storage");
   test(test_context_isolation, "test context isolation");
-  test(test_emdb, "test emdb");
+#endif
+
+#ifdef EMDB_QUERY
   test(test_compare_string, "test comparison string");
   test(test_compare_int, "test comparison int");
   test(test_compare_float, "test comparison float");
+#endif
 
   printf("\nPASSED: %d\nFAILED: %d\n", test_passed, test_failed);
 

@@ -6,6 +6,37 @@ LDFLAGS=-g
 
 SRCS=src/emdb.c
 
+OBJS=obj/emdb.o
+TEST=test/test.o
+
+ifdef EMDB_MEMORY_STORAGE
+CFLAGS += -DEMDB_MEMORY_STORAGE
+
+obj/storage/memory.o: src/storage/memory.c src/storage/memory.h src/emdb.h
+	$(CC) -c $(CFLAGS) src/storage/memory.c -o obj/storage/memory.o
+
+test/memory.o: test/memory.c src/storage/memory.c src/storage/memory.h
+	$(CC) -c $(CFLAGS) test/memory.c -o test/memory.o
+
+OBJS += obj/storage/memory.o
+TEST += test/memory.o
+
+endif
+
+ifdef EMDB_QUERY
+CFLAGS += -DEMDB_QUERY
+
+OBJS += obj/query.o
+TEST += test/query.o
+
+obj/query.o: src/query.h
+	$(CC) -c $(CFLAGS) src/query.c -o obj/query.o
+
+test/query.o: test/query.c
+	$(CC) -c $(CFLAGS) test/query.c -o test/query.o
+
+endif
+
 all: test run_tests
 
 doc:
@@ -16,24 +47,18 @@ doc:
 test/test.o: test/test.c
 	$(CC) -c $(CFLAGS) test/test.c -o test/test.o
 
-test/memory.o: test/memory.c
-	$(CC) -c $(CFLAGS) test/memory.c -o test/memory.o
 
-test/query.o: test/query.c
 
 obj/emdb.o: src/emdb.c src/emdb.h
 	$(CC) -c $(CFLAGS) src/emdb.c -o obj/emdb.o
 
-obj/storage/memory.o: src/storage/memory.c src/storage/memory.h src/emdb.h
-	$(CC) -c $(CFLAGS) src/storage/memory.c -o obj/storage/memory.o
 
-obj/query.o: src/query.c src/query.h
-	$(CC) -c $(CFLAGS) src/query.c -o obj/query.o
+test: $(OBJS) $(TEST)
+	echo $(OBJS)
+	echo $(TEST)
+	$(CC) $(LDFLAGS) $(OBJS) $(TEST) -o test_runner
 
-test: test/test.o test/memory.o obj/emdb.o obj/storage/memory.o obj/query.o test/query.o
-	$(CC) $(LDFLAGS) test/test.o test/memory.o test/query.o obj/emdb.o obj/storage/memory.o obj/query.o -o test_runner
-
-.PHONY: run_tests clean clean_src
+.PHONY: clean clean_src
 
 run_tests:
 	./test_runner --spec
