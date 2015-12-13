@@ -40,6 +40,20 @@ test/query.o: test/query.c
 
 endif
 
+ifdef EMDB_JSON
+CFLAGS += -DEMDB_JSON -I./jsmn
+
+OBJS += obj/json.o
+TEST += test/json.o
+
+obj/json.o: src/json.h
+	$(CC) -c $(CFLAGS) src/json.c -o obj/json.o
+
+test/json.o: test/json.c
+	$(CC) -c $(CFLAGS) test/json.c -o test/json.o
+
+endif
+
 ifdef LARGE
 CFLAGS += -DLARGE
 endif

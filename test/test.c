@@ -62,6 +62,10 @@ int main (int argc, char **argv) {
   test(test_compare_float, "test comparison float");
 #endif
 
+#ifdef EMDB_JSON
+  test(test_json_utils, "test json utilities");
+#endif
+
   printf("\nPASSED: %d\nFAILED: %d\n", test_passed, test_failed);
 
   return (test_failed > 0);

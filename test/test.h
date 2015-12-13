@@ -27,7 +27,12 @@ int test_compare_string ( );
 int test_compare_int ( );
 int test_compare_float ( );
 
-#endif /* USE_QUERY */
+#endif /* EMDB_QUERY */
 
+#ifdef EMDB_JSON
+
+int test_json_utils ( );
+
+#endif
 
 #endif /* __TEST_H__ */
