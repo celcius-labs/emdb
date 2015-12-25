@@ -64,6 +64,9 @@ int main (int argc, char **argv) {
 
 #ifdef EMDB_JSON
   test(test_json_utils, "test json utilities");
+  test(test_int_from_json, "test int_from_json");
+  test(test_float_from_json, "test float_from_json");
+
 #endif
 
   printf("\nPASSED: %d\nFAILED: %d\n", test_passed, test_failed);

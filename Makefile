@@ -12,6 +12,10 @@ TEST=test/test.o
 
 all: test run_tests
 
+ifdef LARGE
+CFLAGS += -DLARGE
+endif
+
 ifdef EMDB_MEMORY_STORAGE
 CFLAGS += -DEMDB_MEMORY_STORAGE
 
@@ -42,6 +46,7 @@ endif
 
 ifdef EMDB_JSON
 CFLAGS += -DEMDB_JSON -I./jsmn
+LDFLAGS += -L./jsmn -ljsmn
 
 OBJS += obj/json.o
 TEST += test/json.o
@@ -54,9 +59,6 @@ test/json.o: test/json.c
 
 endif
 
-ifdef LARGE
-CFLAGS += -DLARGE
-endif
 
 doc:
 	@doxygen Doxyfile
@@ -75,7 +77,7 @@ obj/emdb.o: src/emdb.c src/emdb.h
 test: $(OBJS) $(TEST)
 	echo $(OBJS)
 	echo $(TEST)
-	$(CC) $(LDFLAGS) $(OBJS) $(TEST) -o test_runner
+	$(CC) $(OBJS) $(TEST) $(LDFLAGS) -o test_runner
 
 .PHONY: clean clean_src
 
