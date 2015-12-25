@@ -16,6 +16,18 @@ ifdef LARGE
 CFLAGS += -DLARGE
 endif
 
+ifdef MEDIUM
+CFLAGS += -DMEDIUM
+endif
+
+ifdef SMALL
+CFLAGS += -DSMALL
+endif
+
+ifdef TINY
+CFLAGS += -DTINY
+endif
+
 ifdef EMDB_MEMORY_STORAGE
 CFLAGS += -DEMDB_MEMORY_STORAGE
 
