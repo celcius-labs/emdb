@@ -13,7 +13,8 @@ static char *errors[] = {
   NULL,
   "Unable to parse JSON",
   "Expected Object",
-  "Value not found"
+  "Value not found",
+  "Unable to allocate memory"
 };
 
 char **emdb_split_key (char *str) {
@@ -270,6 +271,34 @@ float float_from_json (JsonContext *ctx, char *json, char *key) {
   buf[(end - start) < 16 ? (end - start) : 15] = '\0';
 
   return atof(buf);
+}
+
+char *string_from_json (JsonContext *ctx, char *json, char *key) {
+  int start, end;
+  char *buf;
+
+  int ret = _ctx_token_from_json(ctx, json, key);
+
+  if (ret == -1) {
+    return NULL;
+  }
+
+  // make a copy of the value to convert into an integer for return
+  start = ctx->tokens[ret].start;
+  end = ctx->tokens[ret].end;
+
+  buf = (char *) malloc((end - start) + 1);
+
+  if (buf == NULL) {
+    ctx->error = 4;
+
+    return NULL;
+  }
+
+  strncpy(buf, &json[start], (end - start) + 1);
+  buf[(end - start) < 16 ? (end - start) : 15] = '\0';
+
+  return buf;
 }
 
 char *json_last_error (JsonContext *ctx) {

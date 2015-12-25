@@ -34,6 +34,7 @@ int test_compare_float ( );
 int test_json_utils ( );
 int test_int_from_json ( );
 int test_float_from_json ( );
+int test_string_from_json ( );
 
 #endif
 

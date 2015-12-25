@@ -66,6 +66,7 @@ int main (int argc, char **argv) {
   test(test_json_utils, "test json utilities");
   test(test_int_from_json, "test int_from_json");
   test(test_float_from_json, "test float_from_json");
+  test(test_string_from_json, "test string_from_json");
 
 #endif
 

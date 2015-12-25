@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int test_json_utils ( ) {
   char *string1 = "foo";
@@ -67,6 +68,30 @@ int test_float_from_json ( ) {
   check((float_from_json(ctx, json, "whee") == 0), "float_from_json returns 0 for unknown keys");
   check((ctx->error == 3), "and error is set to 3");
 
+
+  destroy_json_context(ctx);
+  done();
+}
+
+int test_string_from_json ( ) {
+  char json[] = "{ \"foo\": { \"bar\": \"whee\" }, \"grr\": [1, 2, 3], \"baz\": \"2.0\" }";
+  char *parts = "foo.bar";
+  char *parts2 = "baz";
+  char *buf;
+  JsonContext *ctx;
+
+  ctx = create_json_context();
+
+  buf = string_from_json(ctx, json, parts);
+  check(strcmp(buf, "whee") == 0, "string_from_json returns correct value for nested keys");
+  free(buf);
+
+  buf = string_from_json(ctx, json, parts2);
+  check(strcmp(buf, "2.0") == 0, "string_from_json returns correct value for normal keys");
+  free(buf);
+
+  check((string_from_json(ctx, json, "whee") == NULL), "string_from_json returns NULL for unknown keys");
+  check((ctx->error == 3), "and error is set to 3");
 
   destroy_json_context(ctx);
   done();

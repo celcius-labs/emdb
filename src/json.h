@@ -18,5 +18,6 @@ void destroy_json_context (JsonContext *);
 
 int int_from_json (JsonContext *, char *, char *);
 float float_from_json (JsonContext *, char *, char *);
+char *string_from_json (JsonContext *, char *, char *);
 
 #endif /* __JSON_H__ */
