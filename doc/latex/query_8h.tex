@@ -1,0 +1,314 @@
+\hypertarget{query_8h}{}\section{src/query.h File Reference}
+\label{query_8h}\index{src/query.\+h@{src/query.\+h}}
+
+
+Header for Query Functions.  
+
+
+{\ttfamily \#include \char`\"{}emdb.\+h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_where}{Where}
+\item 
+struct \hyperlink{struct_query_results}{Query\+Results}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \hyperlink{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}{Where\+Type} \hyperlink{query_8h_a958c451ac635cb3879268c0eeebde48b}{Where\+Type}
+\begin{DoxyCompactList}\small\item\em Type of Equality. \end{DoxyCompactList}\item 
+\hypertarget{query_8h_ad31f6dd8de41e66e50804440491a23c4}{}typedef enum Value\+Type {\bfseries Value\+Type}\label{query_8h_ad31f6dd8de41e66e50804440491a23c4}
+
+\item 
+\hypertarget{query_8h_a45f2121aa1f6e07f2174d14af1c0b517}{}typedef struct \hyperlink{struct_where}{Where} {\bfseries Where}\label{query_8h_a45f2121aa1f6e07f2174d14af1c0b517}
+
+\item 
+\hypertarget{query_8h_aa1fb440747d837ce87a9da47e0ad0eb7}{}typedef struct \hyperlink{struct_query_results}{Query\+Results} {\bfseries Query\+Results}\label{query_8h_aa1fb440747d837ce87a9da47e0ad0eb7}
+
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}{Where\+Type} \{ \\*
+{\bfseries and} = 0, 
+{\bfseries or} = 1, 
+{\bfseries equals} = 2, 
+{\bfseries gt} = 3, 
+\\*
+{\bfseries lt} = 4, 
+{\bfseries gte} = 5, 
+{\bfseries lte} = 6, 
+{\bfseries between} = 7, 
+\\*
+{\bfseries in} = 8
+ \}\begin{DoxyCompactList}\small\item\em Type of Equality. \end{DoxyCompactList}
+\item 
+\hypertarget{query_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{}enum {\bfseries Value\+Type} \{ {\bfseries string}, 
+{\bfseries integer}, 
+{\bfseries floatingpoint}
+ \}\label{query_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \hyperlink{query_8h_a06273d6546387269b21fd12ac4ed064e}{compare\+\_\+float} (float, float, \hyperlink{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}{Where\+Type})
+\begin{DoxyCompactList}\small\item\em Compares two floats. \end{DoxyCompactList}\item 
+unsigned char \hyperlink{query_8h_a2b4c0009a577fa59b355aa69129d5f4b}{compare\+\_\+int} (int, int, \hyperlink{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}{Where\+Type})
+\begin{DoxyCompactList}\small\item\em Compares two integers. \end{DoxyCompactList}\item 
+unsigned char \hyperlink{query_8h_a0eff07510d50ce12b4fa0fe9614bcdd1}{compare\+\_\+string} (char $\ast$, char $\ast$, \hyperlink{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}{Where\+Type})
+\begin{DoxyCompactList}\small\item\em Compares two strings. \end{DoxyCompactList}\item 
+unsigned char \hyperlink{query_8h_a4435a4d31a21fac155edf425aa6f25ca}{compare\+\_\+float\+\_\+between} (float, float, float)
+\begin{DoxyCompactList}\small\item\em Checks to see if a float is between two other floats, inclusively. \end{DoxyCompactList}\item 
+unsigned char \hyperlink{query_8h_ae721fa530064c7b72de8dc4ff99e6923}{compare\+\_\+int\+\_\+between} (int, int, int)
+\begin{DoxyCompactList}\small\item\em Checks to see if an integer is between two other integers, inclusively. \end{DoxyCompactList}\item 
+unsigned char \hyperlink{query_8h_a384897f6aa5c0201bfaba887ec0a451f}{compare\+\_\+string\+\_\+between} (char $\ast$, char $\ast$, char $\ast$)
+\begin{DoxyCompactList}\small\item\em Checks to see if a string is between two other strings, inclusively. \end{DoxyCompactList}\item 
+char $\ast$$\ast$ \hyperlink{query_8h_af31ff0445612d999c15a665dbfb08d99}{and\+\_\+list} (char $\ast$$\ast$, char $\ast$$\ast$, int, int)
+\begin{DoxyCompactList}\small\item\em Compares two lists and returns all entries that are in both lists. \end{DoxyCompactList}\item 
+char $\ast$$\ast$ \hyperlink{query_8h_a9c726867b7678a9e45d63d42acab5f3f}{or\+\_\+list} (char $\ast$$\ast$, char $\ast$$\ast$, int, int)
+\begin{DoxyCompactList}\small\item\em Compares two lists and returns all entries of the combined lists. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header for Query Functions. 
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{query_8h_a958c451ac635cb3879268c0eeebde48b}{}\index{query.\+h@{query.\+h}!Where\+Type@{Where\+Type}}
+\index{Where\+Type@{Where\+Type}!query.\+h@{query.\+h}}
+\subsubsection[{Where\+Type}]{\setlength{\rightskip}{0pt plus 5cm}typedef enum {\bf Where\+Type}  {\bf Where\+Type}}\label{query_8h_a958c451ac635cb3879268c0eeebde48b}
+
+
+Type of Equality. 
+
+Type of equality to check in comparisons. 
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}{}\index{query.\+h@{query.\+h}!Where\+Type@{Where\+Type}}
+\index{Where\+Type@{Where\+Type}!query.\+h@{query.\+h}}
+\subsubsection[{Where\+Type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Where\+Type}}\label{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}
+
+
+Type of Equality. 
+
+Type of equality to check in comparisons. 
+
+\subsection{Function Documentation}
+\hypertarget{query_8h_af31ff0445612d999c15a665dbfb08d99}{}\index{query.\+h@{query.\+h}!and\+\_\+list@{and\+\_\+list}}
+\index{and\+\_\+list@{and\+\_\+list}!query.\+h@{query.\+h}}
+\subsubsection[{and\+\_\+list(char $\ast$$\ast$, char $\ast$$\ast$, int, int)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$$\ast$ and\+\_\+list (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{, }
+\item[{char $\ast$$\ast$}]{, }
+\item[{int}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}\label{query_8h_af31ff0445612d999c15a665dbfb08d99}
+
+
+Compares two lists and returns all entries that are in both lists. 
+
+Iterates through two lists, and returns every entry that is in both lists, N\+U\+L\+L terminated. The results must be cleaned up by calling free(), as this will allocate memory. \begin{DoxyReturn}{Returns}
+char $\ast$$\ast$ -\/ allocated array of strings that points to the list of the combined lists. 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em list1} & -\/ char $\ast$$\ast$ first list \\
+\hline
+{\em list2} & -\/ char $\ast$$\ast$ second list \\
+\hline
+{\em len1} & -\/ length of list 1 \\
+\hline
+{\em len2} & -\/ length of list 2 \\
+\hline
+\end{DoxyParams}
+\hypertarget{query_8h_a06273d6546387269b21fd12ac4ed064e}{}\index{query.\+h@{query.\+h}!compare\+\_\+float@{compare\+\_\+float}}
+\index{compare\+\_\+float@{compare\+\_\+float}!query.\+h@{query.\+h}}
+\subsubsection[{compare\+\_\+float(float, float, Where\+Type)}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char compare\+\_\+float (
+\begin{DoxyParamCaption}
+\item[{float}]{, }
+\item[{float}]{, }
+\item[{{\bf Where\+Type}}]{}
+\end{DoxyParamCaption}
+)}\label{query_8h_a06273d6546387269b21fd12ac4ed064e}
+
+
+Compares two floats. 
+
+Compares the value of two floats for equality, less than, greater than, less than or equal, or greater than or equal. \begin{DoxyReturn}{Returns}
+true or false 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em float1} & -\/ float \\
+\hline
+{\em float2} & -\/ float \\
+\hline
+{\em type} & -\/ type of match to do \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}{Where\+Type} 
+\end{DoxySeeAlso}
+\hypertarget{query_8h_a4435a4d31a21fac155edf425aa6f25ca}{}\index{query.\+h@{query.\+h}!compare\+\_\+float\+\_\+between@{compare\+\_\+float\+\_\+between}}
+\index{compare\+\_\+float\+\_\+between@{compare\+\_\+float\+\_\+between}!query.\+h@{query.\+h}}
+\subsubsection[{compare\+\_\+float\+\_\+between(float, float, float)}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char compare\+\_\+float\+\_\+between (
+\begin{DoxyParamCaption}
+\item[{float}]{, }
+\item[{float}]{, }
+\item[{float}]{}
+\end{DoxyParamCaption}
+)}\label{query_8h_a4435a4d31a21fac155edf425aa6f25ca}
+
+
+Checks to see if a float is between two other floats, inclusively. 
+
+Compares the value of a float to two other floats, to see if it is between them, or equals them \begin{DoxyReturn}{Returns}
+true or false 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em float} & -\/ float to check \\
+\hline
+{\em minimum} & -\/ float marking the minimum \\
+\hline
+{\em maximum} & -\/ float marking the maximum \\
+\hline
+\end{DoxyParams}
+\hypertarget{query_8h_a2b4c0009a577fa59b355aa69129d5f4b}{}\index{query.\+h@{query.\+h}!compare\+\_\+int@{compare\+\_\+int}}
+\index{compare\+\_\+int@{compare\+\_\+int}!query.\+h@{query.\+h}}
+\subsubsection[{compare\+\_\+int(int, int, Where\+Type)}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char compare\+\_\+int (
+\begin{DoxyParamCaption}
+\item[{int}]{, }
+\item[{int}]{, }
+\item[{{\bf Where\+Type}}]{}
+\end{DoxyParamCaption}
+)}\label{query_8h_a2b4c0009a577fa59b355aa69129d5f4b}
+
+
+Compares two integers. 
+
+Compares the value of two integers for equality, less than, greater than, less than or equal, or greater than or equal. \begin{DoxyReturn}{Returns}
+true or false 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em int1} & -\/ int \\
+\hline
+{\em int2} & -\/ int \\
+\hline
+{\em type} & -\/ type of match to do \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}{Where\+Type} 
+\end{DoxySeeAlso}
+\hypertarget{query_8h_ae721fa530064c7b72de8dc4ff99e6923}{}\index{query.\+h@{query.\+h}!compare\+\_\+int\+\_\+between@{compare\+\_\+int\+\_\+between}}
+\index{compare\+\_\+int\+\_\+between@{compare\+\_\+int\+\_\+between}!query.\+h@{query.\+h}}
+\subsubsection[{compare\+\_\+int\+\_\+between(int, int, int)}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char compare\+\_\+int\+\_\+between (
+\begin{DoxyParamCaption}
+\item[{int}]{, }
+\item[{int}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}\label{query_8h_ae721fa530064c7b72de8dc4ff99e6923}
+
+
+Checks to see if an integer is between two other integers, inclusively. 
+
+Compares the value of an integer to two other integers, to see if it is between them, or equals them \begin{DoxyReturn}{Returns}
+true or false 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em integer} & -\/ integer to check \\
+\hline
+{\em minimum} & -\/ integer marking the minimum \\
+\hline
+{\em maximum} & -\/ integer marking the maximum \\
+\hline
+\end{DoxyParams}
+\hypertarget{query_8h_a0eff07510d50ce12b4fa0fe9614bcdd1}{}\index{query.\+h@{query.\+h}!compare\+\_\+string@{compare\+\_\+string}}
+\index{compare\+\_\+string@{compare\+\_\+string}!query.\+h@{query.\+h}}
+\subsubsection[{compare\+\_\+string(char $\ast$, char $\ast$, Where\+Type)}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char compare\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{, }
+\item[{char $\ast$}]{, }
+\item[{{\bf Where\+Type}}]{}
+\end{DoxyParamCaption}
+)}\label{query_8h_a0eff07510d50ce12b4fa0fe9614bcdd1}
+
+
+Compares two strings. 
+
+Compares the value of two strings for equality, less than, greater than, less than or equal, or greater than or equal. \begin{DoxyReturn}{Returns}
+true or false 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em string1} & -\/ char $\ast$ \\
+\hline
+{\em string2} & -\/ char $\ast$ \\
+\hline
+{\em type} & -\/ type of match to do \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}{Where\+Type} 
+\end{DoxySeeAlso}
+\hypertarget{query_8h_a384897f6aa5c0201bfaba887ec0a451f}{}\index{query.\+h@{query.\+h}!compare\+\_\+string\+\_\+between@{compare\+\_\+string\+\_\+between}}
+\index{compare\+\_\+string\+\_\+between@{compare\+\_\+string\+\_\+between}!query.\+h@{query.\+h}}
+\subsubsection[{compare\+\_\+string\+\_\+between(char $\ast$, char $\ast$, char $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char compare\+\_\+string\+\_\+between (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{, }
+\item[{char $\ast$}]{, }
+\item[{char $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{query_8h_a384897f6aa5c0201bfaba887ec0a451f}
+
+
+Checks to see if a string is between two other strings, inclusively. 
+
+Compares the value of a string to two other strings, to see if it is between them, or equals them \begin{DoxyReturn}{Returns}
+true or false 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em string} & -\/ string to check \\
+\hline
+{\em minimum} & -\/ string marking the minimum \\
+\hline
+{\em maximum} & -\/ string marking the maximum \\
+\hline
+\end{DoxyParams}
+\hypertarget{query_8h_a9c726867b7678a9e45d63d42acab5f3f}{}\index{query.\+h@{query.\+h}!or\+\_\+list@{or\+\_\+list}}
+\index{or\+\_\+list@{or\+\_\+list}!query.\+h@{query.\+h}}
+\subsubsection[{or\+\_\+list(char $\ast$$\ast$, char $\ast$$\ast$, int, int)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$$\ast$ or\+\_\+list (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{, }
+\item[{char $\ast$$\ast$}]{, }
+\item[{int}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}\label{query_8h_a9c726867b7678a9e45d63d42acab5f3f}
+
+
+Compares two lists and returns all entries of the combined lists. 
+
+Iterates through two lists, and returns every entry in each list, N\+U\+L\+L terminated. The results must be cleaned up by calling free(), as this will allocate memory. \begin{DoxyReturn}{Returns}
+char $\ast$$\ast$ -\/ allocated array of strings that points to the list of the combined lists. 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em list1} & -\/ char $\ast$$\ast$ first list \\
+\hline
+{\em list2} & -\/ char $\ast$$\ast$ second list \\
+\hline
+{\em len1} & -\/ length of list 1 \\
+\hline
+{\em len2} & -\/ length of list 2 \\
+\hline
+\end{DoxyParams}

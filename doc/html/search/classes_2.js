@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jsoncontext',['JsonContext',['../struct_json_context.html',1,'']]]
+  ['key',['Key',['../struct_key.html',1,'']]]
 ];

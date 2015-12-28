@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['querying',['Querying',['../md__q_u_e_r_y.html',1,'']]],
+  ['query_2eh',['query.h',['../query_8h.html',1,'']]],
   ['queryresults',['QueryResults',['../struct_query_results.html',1,'']]]
 ];

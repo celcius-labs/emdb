@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['last_5ferror',['last_error',['../struct_storage.html#a32909539bbc234d20b4bb0a51c575c9c',1,'Storage']]]
+  ['max_5fmemory',['max_memory',['../struct_e_m_d_b.html#ade62d88e06b82b474ce9a05a819c5924',1,'EMDB']]],
+  ['memory',['memory',['../struct_e_m_d_b.html#a660445dd107e08aebc47cf7690565d14',1,'EMDB']]],
+  ['memory_5fusage',['memory_usage',['../struct_stats.html#a35d46af7c6a28991267b36eb00b6f068',1,'Stats']]],
+  ['memoryctx',['MemoryCtx',['../struct_memory_ctx.html',1,'']]],
+  ['memorykey',['MemoryKey',['../struct_memory_key.html',1,'']]]
 ];

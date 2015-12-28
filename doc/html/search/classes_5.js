@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['queryresults',['QueryResults',['../struct_query_results.html',1,'']]]
+  ['stats',['Stats',['../struct_stats.html',1,'']]],
+  ['storage',['Storage',['../struct_storage.html',1,'']]]
 ];

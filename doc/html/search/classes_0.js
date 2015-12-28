@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['dailytemperature',['DailyTemperature',['../struct_daily_temperature.html',1,'']]]
+  ['emdb',['EMDB',['../struct_e_m_d_b.html',1,'']]],
+  ['entry',['Entry',['../struct_entry.html',1,'']]]
 ];

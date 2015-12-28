@@ -3,6 +3,11 @@
 
 #include "emdb.h"
 
+/**
+ * @file query.h
+ * @brief Header for Query Functions
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
