@@ -52,21 +52,21 @@ int main (int argc, char **argv) {
   test(test_emdb, "test emdb");
 
 #ifdef EMDB_MEMORY_STORAGE
-  test(test_memory, "test memory storage");
-  test(test_context_isolation, "test context isolation");
+  test(test_memory, "memory storage");
+  test(test_context_isolation, "context isolation");
 #endif
 
 #ifdef EMDB_QUERY
-  test(test_compare_string, "test comparison string");
-  test(test_compare_int, "test comparison int");
-  test(test_compare_float, "test comparison float");
+  test(test_compare_string, "comparison string");
+  test(test_compare_int, "comparison int");
+  test(test_compare_float, "comparison float");
 #endif
 
 #ifdef EMDB_JSON
-  test(test_json_utils, "test json utilities");
-  test(test_int_from_json, "test int_from_json");
-  test(test_float_from_json, "test float_from_json");
-  test(test_string_from_json, "test string_from_json");
+  test(test_json_utils, "json utilities");
+  test(test_int_from_json, "int_from_json");
+  test(test_float_from_json, "float_from_json");
+  test(test_string_from_json, "string_from_json");
 
 #endif
 
