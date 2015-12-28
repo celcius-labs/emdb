@@ -32,7 +32,14 @@ int test_memory ( ) {
   emdb_free_entry(entry);
 
   stats = MemoryStorage.stats(ctx);
+
+#if defined __x86_64 || defined i386
   check(stats->memory_usage == 116, "memory usage is correctly reported");
+#endif
+
+#ifdef __ARM_ARCH_6__
+  check(stats->memory_usage == 76, "memory usage is correctly reported");
+#endif
 
   ret = MemoryStorage.write(ctx, (unsigned char *) "bar", (unsigned char *) "baz", 4);
 
@@ -51,7 +58,14 @@ int test_memory ( ) {
   check(entry == NULL, "entry is null after delete called");
 
   stats = MemoryStorage.stats(ctx);
+
+#if defined __x86_64 || defined i386
   check(stats->memory_usage == 116, "memory usage is correctly reported");
+#endif
+
+#ifdef __ARM_ARCH_6__
+  check(stats->memory_usage == 76, "memory usage is correctly reported");
+#endif
 
   MemoryStorage.destroy_context(ctx);
 
@@ -82,10 +96,24 @@ int test_context_isolation ( ) {
 
 
   stats = MemoryStorage.stats(ctx1);
-  check(stats->memory_usage == 116, "memory usage is correctly reported for context 1");
+
+#if defined __x86_64 || defined i386
+  check(stats->memory_usage == 116, "memory usage is correctly reported");
+#endif
+
+#ifdef __ARM_ARCH_6__
+  check(stats->memory_usage == 76, "memory usage is correctly reported");
+#endif
 
   stats = MemoryStorage.stats(ctx2);
+
+#if defined __x86_64 || defined i386
   check(stats->memory_usage == 32, "memory usage is correctly reported for context 2");
+#endif
+
+#ifdef __ARM_ARCH_6__
+  check(stats->memory_usage == 20, "memory usage is correctly reported for context 2");
+#endif
 
   entry = MemoryStorage.read(ctx2, (unsigned char *) "foo");
 
@@ -112,7 +140,14 @@ int test_context_isolation ( ) {
   check(entry == NULL, "entry is null after delete called");
 
   stats = MemoryStorage.stats(ctx1);
+
+#if defined __x86_64 || defined i386
   check(stats->memory_usage == 116, "memory usage is correctly reported");
+#endif
+
+#ifdef __ARM_ARCH_6__
+  check(stats->memory_usage == 76, "memory usage is correctly reported");
+#endif
 
   MemoryStorage.destroy_context(ctx1);
   MemoryStorage.destroy_context(ctx2);
