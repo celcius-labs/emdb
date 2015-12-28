@@ -26,6 +26,8 @@ int test_context_isolation ( );
 int test_compare_string ( );
 int test_compare_int ( );
 int test_compare_float ( );
+int test_and_list ( );
+int test_or_list ( );
 
 #endif /* EMDB_QUERY */
 

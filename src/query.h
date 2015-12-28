@@ -46,4 +46,8 @@ unsigned char compare_float_between (float, float, float);
 unsigned char compare_int_between (int, int, int);
 unsigned char compare_string_between (char *, char *, char *);
 
+char **and_list (char **, char **, int, int);
+char **or_list (char **, char **, int, int);
+
+
 #endif /* __QUERY_H__ */

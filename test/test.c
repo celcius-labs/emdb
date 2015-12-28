@@ -60,6 +60,8 @@ int main (int argc, char **argv) {
   test(test_compare_string, "comparison string");
   test(test_compare_int, "comparison int");
   test(test_compare_float, "comparison float");
+  test(test_and_list, "and_list");
+  test(test_or_list, "or_list");
 #endif
 
 #ifdef EMDB_JSON
