@@ -3,6 +3,10 @@
 
 #include "emdb.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum WhereType {
   and     = 0,
   or      = 1,
@@ -49,5 +53,8 @@ unsigned char compare_string_between (char *, char *, char *);
 char **and_list (char **, char **, int, int);
 char **or_list (char **, char **, int, int);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __QUERY_H__ */
