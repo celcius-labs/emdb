@@ -1,0 +1,72 @@
+\subsection*{Data \hyperlink{struct_storage}{Storage}}
+
+In order to query data, it must be in a consumable form. The form that has been chosen for this is J\+S\+O\+N.
+
+\subsection*{Query Structure}
+
+Queries depend on a structured tree defined and iterated through. Currently, this must be generated, but plans are to include the ability to have a parser and to have a more structured query language.
+
+
+\begin{DoxyCode}
+1 typedef struct Where \{
+2   WhereType type;
+3   unsigned char *key;
+4   unsigned char *value;
+5   unsigned char not;
+6   ValueType value\_type;
+7   unsigned char child\_count;
+8   void **children;
+9 \} Where;
+\end{DoxyCode}
+
+
+A {\ttfamily Where\+Type} defines the query action to take. It is an {\ttfamily enum} that is defined as follows\+:
+
+
+\begin{DoxyCode}
+1 typedef enum WhereType \{
+2   and     = 0,
+3   or      = 1,
+4   equals  = 2,
+5   gt      = 3,
+6   lt      = 4,
+7   gte     = 5,
+8   lte     = 6,
+9   between = 7,
+10   in      = 8
+11 \} WhereType;
+\end{DoxyCode}
+
+
+C is a typed language, whereas J\+S\+O\+N is pretty free flow. A comparison needs to figure out what type of comparison to do -\/ {\ttfamily numeric} vs {\ttfamily string}. That\textquotesingle{}s where {\ttfamily Value\+Type} comes in.
+
+
+\begin{DoxyCode}
+1 typedef enum ValueType \{
+2   string,
+3   integer,
+4   floatingpoint
+5 \} ValueType;
+\end{DoxyCode}
+
+
+\subsubsection*{Basic Queries}
+
+Basic queries are singular operators that are fairly quick to execute, such as checking for equality.
+
+To write a simple query, to return all records that \char`\"{}type\char`\"{} is set to \char`\"{}temperature\char`\"{}, the query would look like\+:
+
+
+\begin{DoxyCode}
+1 Query q = \{
+2   WhereType.equals,
+3   (unsigned char *) "type",
+4   (unsigned char *) "temperature",
+5   ValueType.string,
+6   0,
+7   NULL
+8 \};
+\end{DoxyCode}
+
+
+In this case, the {\ttfamily Where\+Type} is set to {\ttfamily equals}, which will attempt to do typed comparisons against a {\ttfamily string} because {\ttfamily value\+\_\+type} is set to {\ttfamily string}. 

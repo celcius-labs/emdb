@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['read',['read',['../struct_storage.html#a6f8774ce9a6598367d47eaeafaf245d4',1,'Storage']]]
+  ['querying',['Querying',['../md__q_u_e_r_y.html',1,'']]],
+  ['queryresults',['QueryResults',['../struct_query_results.html',1,'']]]
 ];

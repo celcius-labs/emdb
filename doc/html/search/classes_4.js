@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['queryresults',['QueryResults',['../struct_query_results.html',1,'']]]
+  ['memoryctx',['MemoryCtx',['../struct_memory_ctx.html',1,'']]],
+  ['memorykey',['MemoryKey',['../struct_memory_key.html',1,'']]]
 ];
