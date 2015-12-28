@@ -12,6 +12,12 @@ extern "C" {
 
 #define EMDB_VERSION "0.1.1"
 
+// determines whether a storage engine has a specific capability
+#define STORAGE_HAS_CAPABILITY(a,b) ((a&b) == b)
+
+#define CAPABILITY_PERMANENT_STORE 1
+#define CAPABILITY_INDEXED         2
+
 /**
  * @brief A database entry
  *
@@ -63,6 +69,7 @@ typedef struct Storage {
   char *(*last_error)(void *); /**< last_error method */
   void *(*create_context)(void *); /**< create_context method */
   void (*destroy_context)(void *); /**< destroy_context method */
+  unsigned char capabilities; /**< storage engine capabilities */
 } Storage;
 
 /**

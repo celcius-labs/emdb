@@ -26,7 +26,8 @@ Storage MemoryStorage = {
   stats,
   last_error,
   create_context,
-  destroy_context
+  destroy_context,
+  0
 };
 
 // list of known errors
