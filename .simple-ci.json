@@ -1,0 +1,13 @@
+{
+  "setup": [
+    "git submodule init",
+    "git submodule update",
+    "cd jsmn && make",
+  ],
+  "build": [
+    "make"
+  ],
+  "test": [
+    "make test"
+  ]
+}
