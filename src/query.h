@@ -50,8 +50,8 @@ typedef struct QueryResults {
   unsigned char *keys[];
 } QueryResults;
 
-//QueryResults *emdb_query_db(EMDB *, Where *);
-//void emdb_free_results(QueryResults *);
+QueryResults *emdb_query_db(EMDB *, Where *);
+void emdb_free_results(QueryResults *);
 
 /**
  * @brief Compares two floats.

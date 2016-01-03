@@ -177,3 +177,20 @@ char **or_list (char **list1, char **list2, int len1, int len2) {
 
   return results;
 }
+
+QueryResults *emdb_query_db (EMDB *emdb, Where *where) {
+  int i;
+  QueryResults *results;
+
+  // iterate through the children, getting any results
+  if (where->type == and || where->type == or) {
+
+  } else {
+    // simple query
+  }
+}
+
+void emdb_free_results (QueryResults *results) {
+  free(results->keys);
+  free(results);
+}
