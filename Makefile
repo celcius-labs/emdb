@@ -10,7 +10,7 @@ OBJS=obj/emdb.o
 TEST=test/test.o
 
 
-all: test run_tests
+all: build
 
 ifdef LARGE
 CFLAGS += -DLARGE
@@ -85,15 +85,12 @@ test/test.o: test/test.c
 obj/emdb.o: src/emdb.c src/emdb.h
 	$(CC) -c $(CFLAGS) src/emdb.c -o obj/emdb.o
 
-
-test: $(OBJS) $(TEST)
-	echo $(OBJS)
-	echo $(TEST)
+build: $(OBJS) $(TEST)
 	$(CC) $(OBJS) $(TEST) $(LDFLAGS) -o test_runner
 
 .PHONY: clean clean_src
 
-run_tests:
+test: build
 	./test_runner --spec
 
 clean: clean_src clean_test
