@@ -37,7 +37,7 @@ int test_memory ( ) {
   check(stats->memory_usage == 116, "memory usage is correctly reported");
 #endif
 
-#ifdef __ARM_ARCH_6__
+#if defined __ARM_ARCH_6__ || defined __arm__
   check(stats->memory_usage == 76, "memory usage is correctly reported");
 #endif
 
@@ -63,7 +63,7 @@ int test_memory ( ) {
   check(stats->memory_usage == 116, "memory usage is correctly reported");
 #endif
 
-#ifdef __ARM_ARCH_6__
+#if defined __ARM_ARCH_6__ || defined __arm__
   check(stats->memory_usage == 76, "memory usage is correctly reported");
 #endif
 
@@ -101,7 +101,7 @@ int test_context_isolation ( ) {
   check(stats->memory_usage == 116, "memory usage is correctly reported");
 #endif
 
-#ifdef __ARM_ARCH_6__
+#if defined __ARM_ARCH_6__ || defined __arm__
   check(stats->memory_usage == 76, "memory usage is correctly reported");
 #endif
 
@@ -111,7 +111,7 @@ int test_context_isolation ( ) {
   check(stats->memory_usage == 32, "memory usage is correctly reported for context 2");
 #endif
 
-#ifdef __ARM_ARCH_6__
+#if defined __ARM_ARCH_6__ || defined __arm__
   check(stats->memory_usage == 20, "memory usage is correctly reported for context 2");
 #endif
 
@@ -145,7 +145,7 @@ int test_context_isolation ( ) {
   check(stats->memory_usage == 116, "memory usage is correctly reported");
 #endif
 
-#ifdef __ARM_ARCH_6__
+#if defined __ARM_ARCH_6__ || defined __arm__
   check(stats->memory_usage == 76, "memory usage is correctly reported");
 #endif
 
