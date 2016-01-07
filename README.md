@@ -9,7 +9,7 @@ A Micro Key/Value Store with Query Support.
 * Memory Storage
 * Disk Storage (coming soon)
 * Querying of Data (in progress)
-* Native JSON Support (in progress)
+* Native JSON Support (via jsmn)
 
 ## Platforms
 
