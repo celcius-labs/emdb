@@ -14,10 +14,11 @@ A Micro Key/Value Store with Query Support.
 ## Platforms
 
 The following platforms are being targeted:
-* Linux (X86_64, ARM, MIPS)
+* Linux (X86_64, ARMv6, ARMv7, MIPS)
 * OSX - development
 * Arduino
 * ESP8266
+* ARM Cortex
 
 ## Development Goals
 
