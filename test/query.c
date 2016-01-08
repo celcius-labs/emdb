@@ -8,7 +8,7 @@
 #include "test.h"
 
 
-int test_compare_string ( ) {
+uint8_t test_compare_string ( ) {
   // equals
   char *text1 = "hello";
   char *text2 = "foo";
@@ -35,7 +35,7 @@ int test_compare_string ( ) {
   done();
 }
 
-int test_compare_int ( ) {
+uint8_t test_compare_int ( ) {
   int i1 = 10;
   int i2 = 20;
 
@@ -69,7 +69,7 @@ int test_compare_int ( ) {
   done();
 }
 
-int test_compare_float ( ) {
+uint8_t test_compare_float ( ) {
   float f1 = 1.0;
   float f2 = 2.0;
 
@@ -103,7 +103,7 @@ int test_compare_float ( ) {
   done();
 }
 
-int test_and_list ( ) {
+uint8_t test_and_list ( ) {
   char *list1[6] = {
     "one",
     "two",
@@ -141,7 +141,7 @@ int test_and_list ( ) {
   done();
 }
 
-int test_or_list ( ) {
+uint8_t test_or_list ( ) {
   char *list1[6] = {
     "one",
     "two",

@@ -4,6 +4,8 @@
 #include "emdb_config.h"
 #include "jsmn.h"
 
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -11,18 +13,18 @@ extern "C" {
 typedef struct JsonContext {
   jsmn_parser json_parser;
   jsmntok_t tokens[JSON_MAX_TOKENS];
-  unsigned char error;
+  uint8_t error;
 } JsonContext;
 
-char **emdb_split_key (char *);
-void emdb_free_keys (char **);
+uint8_t **emdb_split_key (uint8_t *);
+void emdb_free_keys (uint8_t **);
 
 JsonContext *create_json_context ( );
 void destroy_json_context (JsonContext *);
 
-int int_from_json (JsonContext *, char *, char *);
-float float_from_json (JsonContext *, char *, char *);
-char *string_from_json (JsonContext *, char *, char *);
+uint16_t int_from_json (JsonContext *, uint8_t *, uint8_t *);
+float float_from_json (JsonContext *, uint8_t *, uint8_t *);
+uint8_t *string_from_json (JsonContext *, uint8_t *, uint8_t *);
 
 #ifdef __cplusplus
 }

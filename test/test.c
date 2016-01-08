@@ -10,14 +10,14 @@
 
 #include "test.h"
 
-int spec = 0;
-int test_passed = 0;
-int test_failed = 0;
+uint8_t spec = 0;
+uint16_t test_passed = 0;
+uint16_t test_failed = 0;
 
-int test_emdb ( ) {
+uint8_t test_emdb ( ) {
   EMDB *db;
   Entry *entry;
-  unsigned char ret;
+  uint8_t ret;
 
   db = emdb_create_db(&MemoryStorage, 1024, NULL);
 

@@ -3,13 +3,13 @@
 
 #include "emdb.h"
 
-static char *errors[] = {
+static uint8_t *errors[] = {
   NULL,
-  "Unable to allocate memory",
-  "Maximum memory used"
+  (uint8_t *)"Unable to allocate memory",
+  (uint8_t *)"Maximum memory used"
 };
 
-EMDB *emdb_create_db (Storage *store, unsigned int max_memory, void *cfg) {
+EMDB *emdb_create_db (Storage *store, uint32_t max_memory, void *cfg) {
   EMDB *db = (EMDB *) malloc(sizeof(EMDB));
 
   // error, unable to allocate memory
@@ -35,7 +35,7 @@ void emdb_destroy_db (EMDB *db) {
   free(db);
 }
 
-char *emdb_last_error (EMDB *db) {
+uint8_t *emdb_last_error (EMDB *db) {
   int last_error = db->error;
   if (last_error) {
     db->error = 0;
@@ -46,8 +46,8 @@ char *emdb_last_error (EMDB *db) {
   }
 }
 
-unsigned char emdb_write(EMDB *db, unsigned char *key, unsigned char *value, int size) {
-  unsigned char ret;
+uint8_t emdb_write(EMDB *db, uint8_t *key, uint8_t *value, uint16_t size) {
+  uint8_t ret;
   Stats *stats;
 
   // if we are out of memory, set the error and return
@@ -68,7 +68,7 @@ unsigned char emdb_write(EMDB *db, unsigned char *key, unsigned char *value, int
   return ret;
 }
 
-Entry *emdb_read(EMDB *db, unsigned char *key) {
+Entry *emdb_read(EMDB *db, uint8_t *key) {
   Entry *ret;
 
   ret = db->store->read(db->ctx, key);
@@ -76,8 +76,8 @@ Entry *emdb_read(EMDB *db, unsigned char *key) {
   return ret;
 }
 
-unsigned char emdb_delete(EMDB *db, unsigned char *key) {
-  unsigned char ret;
+uint8_t emdb_delete(EMDB *db, uint8_t *key) {
+  uint8_t ret;
   Stats *stats;
 
   ret = db->store->delete(db->ctx, key);
@@ -91,7 +91,7 @@ unsigned char emdb_delete(EMDB *db, unsigned char *key) {
   return ret;
 }
 
-void emdb_scan (EMDB *db, void *ctx, void entry_handler(void *, unsigned char *, Entry *), void end_handler(void *), void error_handler(void *, char *)) {
+void emdb_scan (EMDB *db, void *ctx, void entry_handler(void *, uint8_t *, Entry *), void end_handler(void *), void error_handler(void *, uint8_t *)) {
   db->store->scan(db->ctx, ctx, entry_handler, end_handler, error_handler);
 }
 
@@ -103,14 +103,14 @@ Entry *emdb_copy_entry (Entry *entry) {
   }
 
   dup->size = entry->size;
-  dup->ptr = (void *) malloc(sizeof (unsigned char) * entry->size);
+  dup->ptr = (void *) malloc(sizeof (uint8_t) * entry->size);
 
   if (dup->ptr == NULL) {
     free(dup);
     return NULL;
   }
 
-  memcpy(dup->ptr, entry->ptr, sizeof (unsigned char) * entry->size);
+  memcpy(dup->ptr, entry->ptr, sizeof (uint8_t) * entry->size);
 
   return dup;
 }

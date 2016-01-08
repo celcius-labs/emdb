@@ -3,7 +3,6 @@
 #include "storage/memory.h"
 #include "emdb.h"
 
-//void (*scan)(void *, void (*)(unsigned char *, unsigned char *), void (*)(), void (*)(char *));
 
 typedef struct {
   float current[24];
@@ -21,21 +20,21 @@ DailyTemperature day2 = {
 };
 
 void add_data (EMDB *db) {
-  emdb_write(db, (unsigned char *) "2015-06-29", (unsigned char *) &day1, sizeof(day1));
-  emdb_write(db, (unsigned char *) "2015-06-30", (unsigned char *) &day2, sizeof(day2));
+  emdb_write(db, (uint8_t *) "2015-06-29", (uint8_t *) &day1, sizeof(day1));
+  emdb_write(db, (uint8_t *) "2015-06-30", (uint8_t *) &day2, sizeof(day2));
 }
 
 struct temperatures {
   float min;
   float max;
   float total;
-  int count;
+  uint16_t count;
 };
 
-void entry_handler (void *ctx, unsigned char *key, Entry *value) {
+void entry_handler (void *ctx, uint8_t *key, Entry *value) {
   DailyTemperature *temp = (DailyTemperature *) value->ptr;
   float day_total = 0, day_max = -1000, day_min = 1000;
-  int i, day_count = 0;
+  uint16_t i, day_count = 0;
 
   struct temperatures *t = (struct temperatures *) ctx;
 
@@ -73,8 +72,8 @@ void end_handler (void *ctx) {
   printf("total => min: %f, max: %f, avg: %3.3f\n", t->min, t->max, (t->total / t->count));
 }
 
-void error_handler (void *ctx, char *error) {
-  printf("ERROR: %s\n", error);
+void error_handler (void *ctx, uint8_t *error) {
+  printf("ERROR: %s\n", (char *) error);
 }
 
 int main ( ) {
@@ -86,7 +85,7 @@ int main ( ) {
   t.max = -1000;
   t.count = 0;
   t.total = 0;
-  
+
   db = emdb_create_db(&MemoryStorage, 1024, NULL);
   add_data(db);
 

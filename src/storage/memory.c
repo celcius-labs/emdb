@@ -1,20 +1,21 @@
 #include <string.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #include "memory.h"
 
-static MemoryKey *find_key (void *, unsigned char *);
-static Entry *read (void *, unsigned char *);
-static unsigned char write (void *, unsigned char *, unsigned char *, int);
-static unsigned char delete (void *, unsigned char *);
+static MemoryKey *find_key (void *, uint8_t *);
+static Entry *read (void *, uint8_t *);
+static uint8_t write (void *, uint8_t *, uint8_t *, uint16_t);
+static uint8_t delete (void *, uint8_t *);
 static Stats *stats (void *);
-static char *last_error (void *);
-static void scan (void *, void *, void (*)(void *, unsigned char *, Entry *), void (*)(void *), void (*)(void *, char *));
+static uint8_t *last_error (void *);
+static void scan (void *, void *, void (*)(void *, uint8_t *, Entry *), void (*)(void *), void (*)(void *, uint8_t *));
 static void *create_context ( );
 static void destroy_context (void *);
 
 // custom malloc/free for statistics
-static void *_malloc(void *, unsigned int);
+static void *_malloc(void *, uint16_t);
 static void _free(void *, void *);
 
 // initialize the storage engine
@@ -31,21 +32,21 @@ Storage MemoryStorage = {
 };
 
 // list of known errors
-static char *errors[] = {
+static uint8_t *errors[] = {
   NULL,
-  "Unable to allocate memory",
-  "Unknown state"
+  (uint8_t *) "Unable to allocate memory",
+  (uint8_t *) "Unknown state"
 };
 
 // context to run within
 typedef struct MemoryCtx {
-  int error;
+  uint8_t error;
   MemoryKey *head;
   Stats *stats;
 } MemoryCtx;
 
 
-static Entry *read (void *ctx, unsigned char *key) {
+static Entry *read (void *ctx, uint8_t *key) {
   MemoryKey *current = find_key(ctx, key);
 
   if (current == NULL) {
@@ -55,11 +56,11 @@ static Entry *read (void *ctx, unsigned char *key) {
   }
 }
 
-static unsigned char write (void *ctx, unsigned char *key, unsigned char *value, int size) {
+static uint8_t write (void *ctx, uint8_t *key, uint8_t *value, uint16_t size) {
   MemoryKey *current = find_key(ctx, key);
   MemoryCtx *context = (MemoryCtx *) ctx;
 
-  int key_size = strlen((const char *) key) + 1;
+  uint16_t key_size = strlen((const char *) key) + 1;
 
   if (current == NULL) {
     // new entry, create it, and add it to the list as the head
@@ -81,7 +82,7 @@ static unsigned char write (void *ctx, unsigned char *key, unsigned char *value,
       return 0;
     }
 
-    current->key->key = (unsigned char *) _malloc(ctx, sizeof (unsigned char) * key_size);
+    current->key->key = (uint8_t *) _malloc(ctx, sizeof (uint8_t) * key_size);
 
     // falled to allocate memory
     if (current->key->key == NULL) {
@@ -92,7 +93,7 @@ static unsigned char write (void *ctx, unsigned char *key, unsigned char *value,
     }
 
     current->key->size = key_size;
-    memcpy(current->key->key, key, sizeof (unsigned char) * key_size);
+    memcpy(current->key->key, key, sizeof (uint8_t) * key_size);
 
     // allocate memory for the Entry
     current->entry = (Entry *) _malloc(ctx, sizeof (Entry));
@@ -107,7 +108,7 @@ static unsigned char write (void *ctx, unsigned char *key, unsigned char *value,
     }
 
     // allocate the memory for the data itself
-    current->entry->ptr = (void *) _malloc(ctx, sizeof (unsigned char) * size);
+    current->entry->ptr = (void *) _malloc(ctx, sizeof (uint8_t) * size);
 
     // unable to malloc, free up the container and return 0
     if (current->entry->ptr == NULL) {
@@ -119,7 +120,7 @@ static unsigned char write (void *ctx, unsigned char *key, unsigned char *value,
       return 0;
     }
 
-    memcpy(current->entry->ptr, value, sizeof(unsigned char) * size);
+    memcpy(current->entry->ptr, value, sizeof(uint8_t) * size);
     current->entry->size = size;
     current->next = context->head;
     context->head = current;
@@ -129,21 +130,21 @@ static unsigned char write (void *ctx, unsigned char *key, unsigned char *value,
       _free(ctx, current->entry->ptr);
     }
 
-    current->entry->ptr = (void *) _malloc(ctx, sizeof (unsigned char) * size);
+    current->entry->ptr = (void *) _malloc(ctx, sizeof (uint8_t) * size);
 
     if (current->entry->ptr == NULL) {
       context->error = 1;
       return 0;
     }
 
-    memcpy(current->entry->ptr, value, sizeof (unsigned char) * size);
+    memcpy(current->entry->ptr, value, sizeof (uint8_t) * size);
     current->entry->size = size;
   }
 
   return 1;
 }
 
-static unsigned char delete (void *ctx, unsigned char *key) {
+static uint8_t delete (void *ctx, uint8_t *key) {
   MemoryCtx *context = (MemoryCtx *) ctx;
   MemoryKey *current = find_key(ctx, key);
   MemoryKey *prev;
@@ -181,16 +182,16 @@ static unsigned char delete (void *ctx, unsigned char *key) {
   return 1;
 }
 
-static MemoryKey *find_key (void *ctx, unsigned char *key) {
+static MemoryKey *find_key (void *ctx, uint8_t *key) {
   MemoryCtx *context = (MemoryCtx *) ctx;
   MemoryKey *current;
-  int len = strlen((const char *) key) + 1;
+  uint16_t len = strlen((const char *) key) + 1;
 
   current = context->head;
 
   while (current != NULL) {
     if (current->key->size == len) {
-      if (memcmp(current->key->key, key, len * sizeof(unsigned char)) == 0) {
+      if (memcmp(current->key->key, key, len * sizeof(uint8_t)) == 0) {
         return current;
       }
     }
@@ -207,7 +208,7 @@ Stats *stats (void *ctx) {
   return context->stats;
 }
 
-static void scan (void *ctx, void *user_ctx, void (*dataHandler)(void *, unsigned char *, Entry *), void (*endHandler)(void *), void (*errorHandler)(void *, char *)) {
+static void scan (void *ctx, void *user_ctx, void (*dataHandler)(void *, uint8_t *, Entry *), void (*endHandler)(void *), void (*errorHandler)(void *, uint8_t *)) {
   MemoryCtx *context = (MemoryCtx *) ctx;
   MemoryKey *current;
 
@@ -221,9 +222,9 @@ static void scan (void *ctx, void *user_ctx, void (*dataHandler)(void *, unsigne
   endHandler(user_ctx);
 }
 
-static char *last_error (void *ctx) {
+static uint8_t *last_error (void *ctx) {
   MemoryCtx *context = (MemoryCtx *) ctx;
-  int cur = context->error;
+  uint8_t cur = context->error;
   if (cur) {
     context->error = 0;
     return errors[cur];
@@ -277,13 +278,13 @@ static void destroy_context (void *ctx) {
 }
 
 
-static void *_malloc (void *ctx, unsigned int size) {
+static void *_malloc (void *ctx, uint16_t size) {
   MemoryCtx *context = (MemoryCtx *) ctx;
   void *ptr;
   void *new_ptr;
-  unsigned int *sz;
+  uint16_t *sz;
 
-  size += sizeof(unsigned int);
+  size += sizeof(uint16_t);
 
   ptr = malloc(size);
   context->stats->memory_usage += size;
@@ -291,17 +292,17 @@ static void *_malloc (void *ctx, unsigned int size) {
   sz = ptr;
   *sz = size;
 
-  new_ptr = ptr + sizeof(unsigned int);
+  new_ptr = ptr + sizeof(uint16_t);
 
   return new_ptr;
 }
 
 static void _free (void *ctx, void *ptr) {
   MemoryCtx *context = (MemoryCtx *) ctx;
-  unsigned int *sz;
+  uint16_t *sz;
   void *true_ptr;
 
-  true_ptr = ptr - sizeof(unsigned int);
+  true_ptr = ptr - sizeof(uint16_t);
 
   sz = true_ptr;
 

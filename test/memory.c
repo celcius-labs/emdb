@@ -8,7 +8,7 @@
 #include "test.h"
 
 
-int test_memory ( ) {
+uint8_t test_memory ( ) {
   Entry *entry;
   unsigned char ret;
   Stats *stats;
@@ -32,9 +32,8 @@ int test_memory ( ) {
   emdb_free_entry(entry);
 
   stats = MemoryStorage.stats(ctx);
-
 #if defined __x86_64 || defined i386
-  check(stats->memory_usage == 116, "memory usage is correctly reported");
+  check(stats->memory_usage == 106, "memory usage is correctly reported");
 #endif
 
 #if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
@@ -60,7 +59,7 @@ int test_memory ( ) {
   stats = MemoryStorage.stats(ctx);
 
 #if defined __x86_64 || defined i386
-  check(stats->memory_usage == 116, "memory usage is correctly reported");
+  check(stats->memory_usage == 106, "memory usage is correctly reported");
 #endif
 
 #if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
@@ -72,7 +71,7 @@ int test_memory ( ) {
   done();
 }
 
-int test_context_isolation ( ) {
+uint8_t test_context_isolation ( ) {
   Entry *entry;
   unsigned char ret;
   Stats *stats;
@@ -98,7 +97,7 @@ int test_context_isolation ( ) {
   stats = MemoryStorage.stats(ctx1);
 
 #if defined __x86_64 || defined i386
-  check(stats->memory_usage == 116, "memory usage is correctly reported");
+  check(stats->memory_usage == 106, "memory usage is correctly reported");
 #endif
 
 #if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
@@ -142,7 +141,7 @@ int test_context_isolation ( ) {
   stats = MemoryStorage.stats(ctx1);
 
 #if defined __x86_64 || defined i386
-  check(stats->memory_usage == 116, "memory usage is correctly reported");
+  check(stats->memory_usage == 106, "memory usage is correctly reported");
 #endif
 
 #if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__

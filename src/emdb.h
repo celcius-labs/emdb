@@ -6,6 +6,8 @@
  * @brief Header for EMDB
  */
 
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -28,7 +30,7 @@ extern "C" {
  * @see emdb_free_entry(Entry *)
  */
 typedef struct Entry {
-  int size; /**< Size of the value stored */
+  uint16_t size; /**< Size of the value stored */
   void *ptr; /**< Pointer to the data that has been stored */
 } Entry;
 
@@ -39,8 +41,8 @@ typedef struct Entry {
  * use in Storage Engines.
  */
 typedef struct Key {
-  int size; /**< Size of the key stored */
-  unsigned char *key; /**< Pointer to the key */
+  uint16_t size; /**< Size of the key stored */
+  uint8_t *key; /**< Pointer to the key */
 } Key;
 
 /**
@@ -50,8 +52,8 @@ typedef struct Key {
  * statistics that are tracked internally.
  */
 typedef struct Stats {
-  unsigned int memory_usage; /**< current memory usage in sizeof(byte) */
-  unsigned int entries; /**< current number of entries being tracked */
+  uint32_t memory_usage; /**< current memory usage in sizeof(byte) */
+  uint16_t entries; /**< current number of entries being tracked */
 } Stats;
 
 /**
@@ -61,15 +63,15 @@ typedef struct Stats {
  * Engine must implement all methods.
  */
 typedef struct Storage {
-  unsigned char (*write)(void *, unsigned char *, unsigned char *, int); /**< write method */
-  Entry *(*read)(void *, unsigned char *); /**< read method */
-  unsigned char (*delete)(void *, unsigned char *); /**< delete method */
-  void (*scan)(void *, void *, void (*)(void *, unsigned char *, Entry *), void (*)(void *), void (*)(void *, char *)); /**< scan method */
+  uint8_t (*write)(void *, uint8_t *, uint8_t *, uint16_t); /**< write method */
+  Entry *(*read)(void *, uint8_t *); /**< read method */
+  uint8_t (*delete)(void *, uint8_t *); /**< delete method */
+  void (*scan)(void *, void *, void (*)(void *, uint8_t *, Entry *), void (*)(void *), void (*)(void *, uint8_t *)); /**< scan method */
   Stats *(*stats)(void *); /**< stats method */
-  char *(*last_error)(void *); /**< last_error method */
+  uint8_t *(*last_error)(void *); /**< last_error method */
   void *(*create_context)(void *); /**< create_context method */
   void (*destroy_context)(void *); /**< destroy_context method */
-  unsigned char capabilities; /**< storage engine capabilities */
+  uint8_t capabilities; /**< storage engine capabilities */
 } Storage;
 
 /**
@@ -78,10 +80,10 @@ typedef struct Storage {
  * Contains configuration and state.
  */
 typedef struct EMDB {
-  unsigned short count; /**< count of entries in the database */
-  unsigned int memory; /**< total amount of memory in use by the storage engine */
-  unsigned int max_memory; /**< an optimistic maximum amount of memory to use */
-  int error; /**< last error encountered */
+  uint16_t count; /**< count of entries in the database */
+  uint32_t memory; /**< total amount of memory in use by the storage engine */
+  uint32_t max_memory; /**< an optimistic maximum amount of memory to use */
+  uint8_t error; /**< last error encountered */
   Storage *store; /**< storage engine in use */
   void *ctx; /**< context for the storage engine */
 } EMDB;
@@ -97,7 +99,7 @@ typedef struct EMDB {
  * @param max_memory - maximum amount of memory to optimistically stay under
  * @param cfg - configuration for the Storage Engine, cast as a void *
  */
-EMDB *emdb_create_db(Storage *, unsigned int, void *);
+EMDB *emdb_create_db(Storage *, uint32_t, void *);
 
 /**
  * @brief Closes a database and releases any memory associated
@@ -121,7 +123,7 @@ void emdb_destroy_db(EMDB *);
  * @param length - number of bytes _sizeof(byte)_ to write
  * @returns 1 on success, 0 on error
  */
-unsigned char emdb_write(EMDB *, unsigned char *, unsigned char *, int);
+uint8_t emdb_write(EMDB *, uint8_t *, uint8_t *, uint16_t);
 
 /**
  * @brief Reads data from the Storage Engine
@@ -132,7 +134,7 @@ unsigned char emdb_write(EMDB *, unsigned char *, unsigned char *, int);
  * @param key - key to read, cast as (unsigned char *)
  * @returns Entry *, which must be freed after use using emdb_free_entry(Entry *), or NULL on error or nothing found
  */
-Entry *emdb_read(EMDB *, unsigned char *);
+Entry *emdb_read(EMDB *, uint8_t *);
 
 /**
  * @brief Deletes data from the Storage Engine
@@ -142,7 +144,7 @@ Entry *emdb_read(EMDB *, unsigned char *);
  * @param key - key to delete, cast as (unsigned char *)
  * @returns 1 on success, 0 on error
  */
-unsigned char emdb_delete(EMDB *, unsigned char *);
+uint8_t emdb_delete(EMDB *, uint8_t *);
 
 /**
  * @brief Returns the last error thrown by either the database or the Storage
@@ -153,7 +155,7 @@ unsigned char emdb_delete(EMDB *, unsigned char *);
  * @param db - database
  * @returns String containing the last known error message, or NULL if none
  */
-char *emdb_last_error(EMDB *);
+uint8_t *emdb_last_error(EMDB *);
 
 /**
  * @brief Scans all entries in the database, and calls back with key/value
@@ -167,7 +169,7 @@ char *emdb_last_error(EMDB *);
  * @param end_handler - pointer to a function to call at the end of the scan accepting a context
  * @param error_handler - pointer to a function accepting a context, and an error message
  */
-void emdb_scan(EMDB *, void *, void (*)(void *, unsigned char *, Entry *), void (*)(void *), void (*)(void *, char *));
+void emdb_scan(EMDB *, void *, void (*)(void *, uint8_t *, Entry *), void (*)(void *), void (*)(void *, uint8_t *));
 
 /**
  * @brief Frees memory allocated for an Entry.

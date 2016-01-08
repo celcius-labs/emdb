@@ -9,36 +9,36 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static char *errors[] = {
+static uint8_t *errors[] = {
   NULL,
-  "Unable to parse JSON",
-  "Expected Object",
-  "Value not found",
-  "Unable to allocate memory"
+  (uint8_t *) "Unable to parse JSON",
+  (uint8_t *) "Expected Object",
+  (uint8_t *) "Value not found",
+  (uint8_t *) "Unable to allocate memory"
 };
 
-char **emdb_split_key (char *str) {
-  char **keys;
-  int i;
-  int j = 0;
-  int len = strlen(str);
-  char *buffer;
+uint8_t **emdb_split_key (uint8_t *str) {
+  uint8_t **keys;
+  uint16_t i;
+  uint16_t j = 0;
+  uint16_t len = strlen((char *) str);
+  uint8_t *buffer;
 
-  keys = (char **) malloc(sizeof(char *) * MAX_KEY_DEPTH);
+  keys = (uint8_t **) malloc(sizeof(uint8_t *) * MAX_KEY_DEPTH);
 
   if (keys == NULL) {
     return NULL;
   }
 
   // make a copy of the string that we can modify
-  buffer = (char *) malloc(len + 1);
+  buffer = (uint8_t *) malloc(len + 1);
 
   if (buffer == NULL) {
     free(keys);
     return NULL;
   }
 
-  strcpy(buffer, str);
+  strcpy((char *) buffer, (char *) str);
 
   // set the first key to the address of the string copy
   keys[j] = buffer;
@@ -61,7 +61,7 @@ char **emdb_split_key (char *str) {
   return keys;
 }
 
-void emdb_free_keys (char **key) {
+void emdb_free_keys (uint8_t **key) {
   free(*key);
   free(key);
 }
@@ -85,24 +85,24 @@ void destroy_json_context (JsonContext *ctx) {
   free(ctx);
 }
 
-char *get_type (int type) {
+uint8_t *get_type (uint8_t type) {
   switch (type) {
     case JSMN_OBJECT:
-      return "Object";
+      return (uint8_t *) "Object";
     case JSMN_ARRAY:
-      return "Array";
+      return (uint8_t *) "Array";
     case JSMN_STRING:
-      return "String";
+      return (uint8_t *) "String";
     case JSMN_PRIMITIVE:
-      return "Primitive";
+      return (uint8_t *) "Primitive";
   }
 
-  return "Unknown";
+  return (uint8_t *) "Unknown";
 }
 
-static int token_from_json (char *json, jsmntok_t *tokens, int ntokens, int *curtoken, char *parts[], int *curpart, int nparts) {
-  int len, i, start, end;
-  char buf[128];
+static int16_t token_from_json (uint8_t *json, jsmntok_t *tokens, uint16_t ntokens, uint16_t *curtoken, uint8_t *parts[], uint16_t *curpart, uint16_t nparts) {
+  uint16_t len, i, start, end;
+  uint8_t buf[128] = {0};
 
 #ifdef DEBUG
   printf("token_from_json: curtoken is %d, ntokens is %d\n", *curtoken, ntokens);
@@ -138,14 +138,14 @@ static int token_from_json (char *json, jsmntok_t *tokens, int ntokens, int *cur
 #endif
     start = tokens[*curtoken + i].start;
     end = tokens[*curtoken + i].end;
-
-    strncpy(buf, &json[start], end - start);
+printf("%s %s %d %d\n", buf, &json[start], end, start);
+    strncpy((char *) buf, (char *) &json[start], end - start);
     buf[end - start] = '\0';
 #ifdef DEBUG
     printf("checking token %d against part %d (%s => %s)\n", *curtoken + i, *curpart, parts[*curpart], buf);
 #endif
 
-    if (strcmp(parts[*curpart], buf) == 0) {
+    if (strcmp((char *) parts[*curpart], (char *) buf) == 0) {
 #ifdef DEBUG
       printf("found %s\n", parts[*curpart]);
 #endif
@@ -186,8 +186,8 @@ static int token_from_json (char *json, jsmntok_t *tokens, int ntokens, int *cur
   return -1;
 }
 
-static int key_depth (char **parts) {
-  int i, nkeys = 0;
+static uint16_t key_depth (uint8_t **parts) {
+  uint16_t i, nkeys = 0;
 
   for (i = 0; i < MAX_KEY_DEPTH; i++) {
     if (parts[i] == NULL) {
@@ -199,12 +199,13 @@ static int key_depth (char **parts) {
   return nkeys;
 }
 
-static int _ctx_token_from_json (JsonContext *ctx, char *json, char *key) {
-  char **parts = emdb_split_key(key);
-  int nkeys = key_depth(parts);
-  int curtoken = 0, curpart = 0, ret, ntokens;
+static int16_t _ctx_token_from_json (JsonContext *ctx, uint8_t *json, uint8_t *key) {
+  uint8_t **parts = emdb_split_key(key);
+  uint16_t nkeys = key_depth(parts);
+  uint16_t curtoken = 0, curpart = 0, ntokens;
+  int16_t ret;
 
-  ntokens = jsmn_parse(&ctx->json_parser, json, strlen(json), ctx->tokens, JSON_MAX_TOKENS);
+  ntokens = jsmn_parse(&ctx->json_parser, (char *) json, strlen((char *) json), ctx->tokens, JSON_MAX_TOKENS);
 
   if (ntokens < 0) {
     ctx->error = 1;
@@ -233,31 +234,11 @@ static int _ctx_token_from_json (JsonContext *ctx, char *json, char *key) {
   return ret;
 }
 
-int int_from_json (JsonContext *ctx, char *json, char *key) {
-  int start, end;
-  char buf[16];
+uint16_t int_from_json (JsonContext *ctx, uint8_t *json, uint8_t *key) {
+  uint16_t start, end;
+  uint8_t buf[16];
 
-  int ret = _ctx_token_from_json(ctx, json, key);
-
-  if (ret == -1) {
-    return 0;
-  }
-
-  // make a copy of the value to convert into an integer for return
-  start = ctx->tokens[ret].start;
-  end = ctx->tokens[ret].end;
-
-  strncpy(buf, &json[start], (end - start) < 16 ? (end - start) : 15);
-  buf[(end - start) < 16 ? (end - start) : 15] = '\0';
-
-  return atoi(buf);
-}
-
-float float_from_json (JsonContext *ctx, char *json, char *key) {
-  int start, end;
-  char buf[16];
-
-  int ret = _ctx_token_from_json(ctx, json, key);
+  int16_t ret = _ctx_token_from_json(ctx, json, key);
 
   if (ret == -1) {
     return 0;
@@ -267,17 +248,37 @@ float float_from_json (JsonContext *ctx, char *json, char *key) {
   start = ctx->tokens[ret].start;
   end = ctx->tokens[ret].end;
 
-  strncpy(buf, &json[start], (end - start) < 16 ? (end - start) : 15);
+  strncpy((char *) buf, (char *) &json[start], (end - start) < 16 ? (end - start) : 15);
   buf[(end - start) < 16 ? (end - start) : 15] = '\0';
 
-  return atof(buf);
+  return atoi((char *) buf);
 }
 
-char *string_from_json (JsonContext *ctx, char *json, char *key) {
-  int start, end;
-  char *buf;
+float float_from_json (JsonContext *ctx, uint8_t *json, uint8_t *key) {
+  uint16_t start, end;
+  uint8_t buf[16];
 
-  int ret = _ctx_token_from_json(ctx, json, key);
+  int16_t ret = _ctx_token_from_json(ctx, json, key);
+
+  if (ret == -1) {
+    return 0;
+  }
+
+  // make a copy of the value to convert into an integer for return
+  start = ctx->tokens[ret].start;
+  end = ctx->tokens[ret].end;
+
+  strncpy((char *) buf, (char *) &json[start], (end - start) < 16 ? (end - start) : 15);
+  buf[(end - start) < 16 ? (end - start) : 15] = '\0';
+
+  return atof((char *) buf);
+}
+
+uint8_t *string_from_json (JsonContext *ctx, uint8_t *json, uint8_t *key) {
+  uint16_t start, end;
+  uint8_t *buf;
+
+  int16_t ret = _ctx_token_from_json(ctx, json, key);
 
   if (ret == -1) {
     return NULL;
@@ -287,7 +288,7 @@ char *string_from_json (JsonContext *ctx, char *json, char *key) {
   start = ctx->tokens[ret].start;
   end = ctx->tokens[ret].end;
 
-  buf = (char *) malloc((end - start) + 1);
+  buf = (uint8_t *) malloc((end - start) + 1);
 
   if (buf == NULL) {
     ctx->error = 4;
@@ -295,14 +296,14 @@ char *string_from_json (JsonContext *ctx, char *json, char *key) {
     return NULL;
   }
 
-  strncpy(buf, &json[start], (end - start) + 1);
+  strncpy((char *) buf, (char *) &json[start], (end - start) + 1);
   buf[(end - start) < 16 ? (end - start) : 15] = '\0';
 
   return buf;
 }
 
-char *json_last_error (JsonContext *ctx) {
-  int last_error = ctx->error;
+uint8_t *json_last_error (JsonContext *ctx) {
+  uint8_t last_error = ctx->error;
   if (last_error) {
     ctx->error = 0;
     return errors[last_error];

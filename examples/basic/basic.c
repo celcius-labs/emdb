@@ -10,7 +10,7 @@ int main ( ) {
 
   db = emdb_create_db(&MemoryStorage, 1024, NULL);
 
-  emdb_write(db, (unsigned char *)"key", (unsigned char *)"value", 6);
+  emdb_write(db, (uint8_t *)"key", (uint8_t *)"value", 6);
   entry = emdb_read(db, (unsigned char *)"key");
 
   printf("found entry: %s\n", (char *)entry->ptr);
