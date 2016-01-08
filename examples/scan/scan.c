@@ -25,33 +25,39 @@ void add_data (EMDB *db) {
   emdb_write(db, (unsigned char *) "2015-06-30", (unsigned char *) &day2, sizeof(day2));
 }
 
-float min = 1000, max = -1000, avg, total = 0;
-int count = 0;
+struct temperatures {
+  float min;
+  float max;
+  float total;
+  int count;
+};
 
-void entry_handler (unsigned char *key, Entry *value) {
+void entry_handler (void *ctx, unsigned char *key, Entry *value) {
   DailyTemperature *temp = (DailyTemperature *) value->ptr;
   float day_total = 0, day_max = -1000, day_min = 1000;
   int i, day_count = 0;
 
+  struct temperatures *t = (struct temperatures *) ctx;
+
   for (i = 0; i < temp->max_hour; i++) {
-    if (temp->current[i] > max) {
-      max = temp->current[i];
+    if (temp->current[i] > t->max) {
+      t->max = temp->current[i];
     }
 
     if (temp->current[i] > day_max) {
       day_max = temp->current[i];
     }
 
-    if (temp->current[i] < min) {
-      min = temp->current[i];
+    if (temp->current[i] < t->min) {
+      t->min = temp->current[i];
     }
 
     if (temp->current[i] < day_min) {
       day_min = temp->current[i];
     }
 
-    total += temp->current[i];
-    count++;
+    t->total += temp->current[i];
+    t->count++;
 
     day_total += temp->current[i];
     day_count++;
@@ -62,20 +68,28 @@ void entry_handler (unsigned char *key, Entry *value) {
   printf("%s => min: %f, max: %f, avg: %3.3f\n", (char *) key, day_min, day_max, (day_total / day_count));
 }
 
-void end_handler ( ) {
-  printf("total => min: %f, max: %f, avg: %3.3f\n", min, max, (total / count));
+void end_handler (void *ctx) {
+  struct temperatures *t = (struct temperatures *) ctx;
+  printf("total => min: %f, max: %f, avg: %3.3f\n", t->min, t->max, (t->total / t->count));
 }
 
-void error_handler (char *error) {
+void error_handler (void *ctx, char *error) {
   printf("ERROR: %s\n", error);
 }
 
 int main ( ) {
   EMDB *db;
+  struct temperatures t;
 
+  // set up some crazy defaults
+  t.min = 1000;
+  t.max = -1000;
+  t.count = 0;
+  t.total = 0;
+  
   db = emdb_create_db(&MemoryStorage, 1024, NULL);
   add_data(db);
 
-  emdb_scan(db, entry_handler, end_handler, error_handler);
+  emdb_scan(db, (void *) &t, entry_handler, end_handler, error_handler);
   return 1;
 }

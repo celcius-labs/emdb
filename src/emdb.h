@@ -64,7 +64,7 @@ typedef struct Storage {
   unsigned char (*write)(void *, unsigned char *, unsigned char *, int); /**< write method */
   Entry *(*read)(void *, unsigned char *); /**< read method */
   unsigned char (*delete)(void *, unsigned char *); /**< delete method */
-  void (*scan)(void *, void (*)(unsigned char *, Entry *), void (*)(), void (*)(char *)); /**< scan method */
+  void (*scan)(void *, void *, void (*)(void *, unsigned char *, Entry *), void (*)(void *), void (*)(void *, char *)); /**< scan method */
   Stats *(*stats)(void *); /**< stats method */
   char *(*last_error)(void *); /**< last_error method */
   void *(*create_context)(void *); /**< create_context method */
@@ -162,11 +162,12 @@ char *emdb_last_error(EMDB *);
  * Executes a scan of all entries currently in the Storage Engine, calling
  * functions for key/value pairs, on end of the scan, and on error.
  * @param db - database
- * @param event_handler - pointer to a function accepting a key, and an Entry
- * @param end_handler - pointer to a function to call at the end of the scan
- * @param error_handler - pointer to a function accepting an error message
+ * @param context - pointer to a context used for the scan
+ * @param event_handler - pointer to a function accepting a context, key, and an Entry
+ * @param end_handler - pointer to a function to call at the end of the scan accepting a context
+ * @param error_handler - pointer to a function accepting a context, and an error message
  */
-void emdb_scan(EMDB *, void (*)(unsigned char *, Entry *), void (*)(), void (*)(char *));
+void emdb_scan(EMDB *, void *, void (*)(void *, unsigned char *, Entry *), void (*)(void *), void (*)(void *, char *));
 
 /**
  * @brief Frees memory allocated for an Entry.

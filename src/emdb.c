@@ -91,8 +91,8 @@ unsigned char emdb_delete(EMDB *db, unsigned char *key) {
   return ret;
 }
 
-void emdb_scan (EMDB *db, void entry_handler(unsigned char *, Entry *), void end_handler(), void error_handler(char *)) {
-  db->store->scan(db->ctx, entry_handler, end_handler, error_handler);
+void emdb_scan (EMDB *db, void *ctx, void entry_handler(void *, unsigned char *, Entry *), void end_handler(void *), void error_handler(void *, char *)) {
+  db->store->scan(db->ctx, ctx, entry_handler, end_handler, error_handler);
 }
 
 Entry *emdb_copy_entry (Entry *entry) {
