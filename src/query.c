@@ -182,12 +182,25 @@ QueryResults *emdb_query_db (EMDB *emdb, Where *where) {
   int i;
   QueryResults *results;
 
+  results = (QueryResults *) malloc(sizeof(QueryResults));
+
+  if (results == NULL) {
+    // unable to allocate memory
+    emdb->error = 1;
+    return NULL;
+  }
+
   // iterate through the children, getting any results
   if (where->type == and || where->type == or) {
-
+    for (i = 0; i < where->child_count; i++) {
+      
+    }
   } else {
     // simple query
+
   }
+
+  return results;
 }
 
 void emdb_free_results (QueryResults *results) {
