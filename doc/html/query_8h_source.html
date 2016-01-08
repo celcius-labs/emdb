@@ -130,8 +130,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *keys[];</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <a class="code" href="struct_query_results.html">QueryResults</a>;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">//QueryResults *emdb_query_db(EMDB *, Where *);</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">//void emdb_free_results(QueryResults *);</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<a class="code" href="struct_query_results.html">QueryResults</a> *emdb_query_db(<a class="code" href="struct_e_m_d_b.html">EMDB</a> *, <a class="code" href="struct_where.html">Where</a> *);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> emdb_free_results(<a class="code" href="struct_query_results.html">QueryResults</a> *);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="query_8h.html#a06273d6546387269b21fd12ac4ed064e">compare_float</a> (<span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <a class="code" href="query_8h.html#a5f007a3fe5613ea1d283e0f5b9b1fdf6">WhereType</a>);</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
@@ -164,6 +164,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="query_8h_html_a0eff07510d50ce12b4fa0fe9614bcdd1"><div class="ttname"><a href="query_8h.html#a0eff07510d50ce12b4fa0fe9614bcdd1">compare_string</a></div><div class="ttdeci">unsigned char compare_string(char *, char *, WhereType)</div><div class="ttdoc">Compares two strings. </div><div class="ttdef"><b>Definition:</b> query.c:68</div></div>
 <div class="ttc" id="struct_query_results_html"><div class="ttname"><a href="struct_query_results.html">QueryResults</a></div><div class="ttdef"><b>Definition:</b> query.h:48</div></div>
 <div class="ttc" id="query_8h_html_a2b4c0009a577fa59b355aa69129d5f4b"><div class="ttname"><a href="query_8h.html#a2b4c0009a577fa59b355aa69129d5f4b">compare_int</a></div><div class="ttdeci">unsigned char compare_int(int, int, WhereType)</div><div class="ttdoc">Compares two integers. </div><div class="ttdef"><b>Definition:</b> query.c:38</div></div>
+<div class="ttc" id="struct_e_m_d_b_html"><div class="ttname"><a href="struct_e_m_d_b.html">EMDB</a></div><div class="ttdoc">EMDB Object. </div><div class="ttdef"><b>Definition:</b> emdb.h:80</div></div>
 <div class="ttc" id="struct_where_html"><div class="ttname"><a href="struct_where.html">Where</a></div><div class="ttdef"><b>Definition:</b> query.h:38</div></div>
 <div class="ttc" id="query_8h_html_a9c726867b7678a9e45d63d42acab5f3f"><div class="ttname"><a href="query_8h.html#a9c726867b7678a9e45d63d42acab5f3f">or_list</a></div><div class="ttdeci">char ** or_list(char **, char **, int, int)</div><div class="ttdoc">Compares two lists and returns all entries of the combined lists. </div><div class="ttdef"><b>Definition:</b> query.c:144</div></div>
 </div><!-- fragment --></div><!-- contents -->

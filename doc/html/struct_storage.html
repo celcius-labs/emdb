@@ -102,8 +102,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a6f8774ce9a6598367d47eaeafaf245d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae33c4c6b8e7dda3a854c3754ecbd22d9"><td class="memItemLeft" align="right" valign="top">unsigned char(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#ae33c4c6b8e7dda3a854c3754ecbd22d9">delete</a> )(void *, unsigned char *)</td></tr>
 <tr class="separator:ae33c4c6b8e7dda3a854c3754ecbd22d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d0db132a4fefd7d3da72d2b27c2e98a"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a2d0db132a4fefd7d3da72d2b27c2e98a">scan</a> )(void *, void(*)(unsigned char *, <a class="el" href="struct_entry.html">Entry</a> *), void(*)(), void(*)(char *))</td></tr>
-<tr class="separator:a2d0db132a4fefd7d3da72d2b27c2e98a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2c0ea6705b1e1b3518f97b60581a9e3"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#ae2c0ea6705b1e1b3518f97b60581a9e3">scan</a> )(void *, void *, void(*)(void *, unsigned char *, <a class="el" href="struct_entry.html">Entry</a> *), void(*)(void *), void(*)(void *, char *))</td></tr>
+<tr class="separator:ae2c0ea6705b1e1b3518f97b60581a9e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6642751e068c1e64f8b65703a8bc51a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_stats.html">Stats</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a6642751e068c1e64f8b65703a8bc51a0">stats</a> )(void *)</td></tr>
 <tr class="separator:a6642751e068c1e64f8b65703a8bc51a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32909539bbc234d20b4bb0a51c575c9c"><td class="memItemLeft" align="right" valign="top">char *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a32909539bbc234d20b4bb0a51c575c9c">last_error</a> )(void *)</td></tr>
@@ -112,11 +112,26 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a96d6e9b9bfd5b4943eb9660ca2293447"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af425b1971a9fcfed315e6aec547df8da"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#af425b1971a9fcfed315e6aec547df8da">destroy_context</a> )(void *)</td></tr>
 <tr class="separator:af425b1971a9fcfed315e6aec547df8da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0317c04d73bd91a5a71311d429d2c463"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a0317c04d73bd91a5a71311d429d2c463">capabilities</a></td></tr>
+<tr class="separator:a0317c04d73bd91a5a71311d429d2c463"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Configuration of a <a class="el" href="struct_storage.html" title="Configuration of a Storage Engine. ">Storage</a> Engine. </p>
 <p>Contains pointers to methods implemented by a <a class="el" href="struct_storage.html" title="Configuration of a Storage Engine. ">Storage</a> Engine. A <a class="el" href="struct_storage.html" title="Configuration of a Storage Engine. ">Storage</a> Engine must implement all methods. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a0317c04d73bd91a5a71311d429d2c463"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char Storage::capabilities</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>storage engine capabilities </p>
+
+</div>
+</div>
 <a class="anchor" id="a96d6e9b9bfd5b4943eb9660ca2293447"></a>
 <div class="memitem">
 <div class="memproto">
@@ -182,12 +197,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2d0db132a4fefd7d3da72d2b27c2e98a"></a>
+<a class="anchor" id="ae2c0ea6705b1e1b3518f97b60581a9e3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* Storage::scan) (void *, void(*)(unsigned char *, <a class="el" href="struct_entry.html">Entry</a> *), void(*)(), void(*)(char *))</td>
+          <td class="memname">void(* Storage::scan) (void *, void *, void(*)(void *, unsigned char *, <a class="el" href="struct_entry.html">Entry</a> *), void(*)(void *), void(*)(void *, char *))</td>
         </tr>
       </table>
 </div><div class="memdoc">

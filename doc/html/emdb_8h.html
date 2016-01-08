@@ -122,6 +122,15 @@ Macros</h2></td></tr>
 <tr class="memitem:aae608eb21e81a24080fabc7fa269f79b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae608eb21e81a24080fabc7fa269f79b"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>EMDB_VERSION</b>&#160;&#160;&#160;&quot;0.1.1&quot;</td></tr>
 <tr class="separator:aae608eb21e81a24080fabc7fa269f79b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcce6c912ff0aacf2c875060f5423781"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afcce6c912ff0aacf2c875060f5423781"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>STORAGE_HAS_CAPABILITY</b>(a,  b)&#160;&#160;&#160;((a&amp;b) == b)</td></tr>
+<tr class="separator:afcce6c912ff0aacf2c875060f5423781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a611196a3710131e58dd8dee1fdd11085"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a611196a3710131e58dd8dee1fdd11085"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAPABILITY_PERMANENT_STORE</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a611196a3710131e58dd8dee1fdd11085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9218104c46ac20fc41729a60be8f58b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9218104c46ac20fc41729a60be8f58b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAPABILITY_INDEXED</b>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:ad9218104c46ac20fc41729a60be8f58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -161,9 +170,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a1b220438f7af65ca90c860b495a3cd78"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emdb_8h.html#a1b220438f7af65ca90c860b495a3cd78">emdb_last_error</a> (<a class="el" href="struct_e_m_d_b.html">EMDB</a> *)</td></tr>
 <tr class="memdesc:a1b220438f7af65ca90c860b495a3cd78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the last error thrown by either the database or the <a class="el" href="struct_storage.html" title="Configuration of a Storage Engine. ">Storage</a> Engine.  <a href="#a1b220438f7af65ca90c860b495a3cd78">More...</a><br /></td></tr>
 <tr class="separator:a1b220438f7af65ca90c860b495a3cd78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18c9251ef6a4bd05bfc4be51a656c5d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emdb_8h.html#a18c9251ef6a4bd05bfc4be51a656c5d7">emdb_scan</a> (<a class="el" href="struct_e_m_d_b.html">EMDB</a> *, void(*)(unsigned char *, <a class="el" href="struct_entry.html">Entry</a> *), void(*)(), void(*)(char *))</td></tr>
-<tr class="memdesc:a18c9251ef6a4bd05bfc4be51a656c5d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scans all entries in the database, and calls back with key/value pairs, errors, and on end.  <a href="#a18c9251ef6a4bd05bfc4be51a656c5d7">More...</a><br /></td></tr>
-<tr class="separator:a18c9251ef6a4bd05bfc4be51a656c5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbf6079856996f619646712e7a698573"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emdb_8h.html#afbf6079856996f619646712e7a698573">emdb_scan</a> (<a class="el" href="struct_e_m_d_b.html">EMDB</a> *, void *, void(*)(void *, unsigned char *, <a class="el" href="struct_entry.html">Entry</a> *), void(*)(void *), void(*)(void *, char *))</td></tr>
+<tr class="memdesc:afbf6079856996f619646712e7a698573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scans all entries in the database, and calls back with key/value pairs, errors, and on end.  <a href="#afbf6079856996f619646712e7a698573">More...</a><br /></td></tr>
+<tr class="separator:afbf6079856996f619646712e7a698573"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fd691da056962b197364ac167e0d421"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emdb_8h.html#a8fd691da056962b197364ac167e0d421">emdb_free_entry</a> (<a class="el" href="struct_entry.html">Entry</a> *)</td></tr>
 <tr class="memdesc:a8fd691da056962b197364ac167e0d421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees memory allocated for an <a class="el" href="struct_entry.html" title="A database entry. ">Entry</a>.  <a href="#a8fd691da056962b197364ac167e0d421">More...</a><br /></td></tr>
 <tr class="separator:a8fd691da056962b197364ac167e0d421"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -463,7 +472,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a18c9251ef6a4bd05bfc4be51a656c5d7"></a>
+<a class="anchor" id="afbf6079856996f619646712e7a698573"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -476,19 +485,25 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)(unsigned char *, <a class="el" href="struct_entry.html">Entry</a> *)&#160;</td>
+          <td class="paramtype">void *&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)()&#160;</td>
+          <td class="paramtype">void(*)(void *, unsigned char *, <a class="el" href="struct_entry.html">Entry</a> *)&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)(char *)&#160;</td>
+          <td class="paramtype">void(*)(void *)&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(void *, char *)&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -503,9 +518,10 @@ Functions</h2></td></tr>
 <p>Executes a scan of all entries currently in the <a class="el" href="struct_storage.html" title="Configuration of a Storage Engine. ">Storage</a> Engine, calling functions for key/value pairs, on end of the scan, and on error. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">db</td><td>- database </td></tr>
-    <tr><td class="paramname">event_handler</td><td>- pointer to a function accepting a key, and an <a class="el" href="struct_entry.html" title="A database entry. ">Entry</a> </td></tr>
-    <tr><td class="paramname">end_handler</td><td>- pointer to a function to call at the end of the scan </td></tr>
-    <tr><td class="paramname">error_handler</td><td>- pointer to a function accepting an error message </td></tr>
+    <tr><td class="paramname">context</td><td>- pointer to a context used for the scan </td></tr>
+    <tr><td class="paramname">event_handler</td><td>- pointer to a function accepting a context, key, and an <a class="el" href="struct_entry.html" title="A database entry. ">Entry</a> </td></tr>
+    <tr><td class="paramname">end_handler</td><td>- pointer to a function to call at the end of the scan accepting a context </td></tr>
+    <tr><td class="paramname">error_handler</td><td>- pointer to a function accepting a context, and an error message </td></tr>
   </table>
   </dd>
 </dl>

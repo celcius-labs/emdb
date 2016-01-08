@@ -18,7 +18,7 @@ unsigned char($\ast$ \hyperlink{struct_storage_a277c5f5a2ec42f4b66e83a95fb2b679c
 \item 
 unsigned char($\ast$ \hyperlink{struct_storage_ae33c4c6b8e7dda3a854c3754ecbd22d9}{delete} )(void $\ast$, unsigned char $\ast$)
 \item 
-void($\ast$ \hyperlink{struct_storage_a2d0db132a4fefd7d3da72d2b27c2e98a}{scan} )(void $\ast$, void($\ast$)(unsigned char $\ast$, \hyperlink{struct_entry}{Entry} $\ast$), void($\ast$)(), void($\ast$)(char $\ast$))
+void($\ast$ \hyperlink{struct_storage_ae2c0ea6705b1e1b3518f97b60581a9e3}{scan} )(void $\ast$, void $\ast$, void($\ast$)(void $\ast$, unsigned char $\ast$, \hyperlink{struct_entry}{Entry} $\ast$), void($\ast$)(void $\ast$), void($\ast$)(void $\ast$, char $\ast$))
 \item 
 \hyperlink{struct_stats}{Stats} $\ast$($\ast$ \hyperlink{struct_storage_a6642751e068c1e64f8b65703a8bc51a0}{stats} )(void $\ast$)
 \item 
@@ -27,6 +27,8 @@ char $\ast$($\ast$ \hyperlink{struct_storage_a32909539bbc234d20b4bb0a51c575c9c}{
 void $\ast$($\ast$ \hyperlink{struct_storage_a96d6e9b9bfd5b4943eb9660ca2293447}{create\+\_\+context} )(void $\ast$)
 \item 
 void($\ast$ \hyperlink{struct_storage_af425b1971a9fcfed315e6aec547df8da}{destroy\+\_\+context} )(void $\ast$)
+\item 
+unsigned char \hyperlink{struct_storage_a0317c04d73bd91a5a71311d429d2c463}{capabilities}
 \end{DoxyCompactItemize}
 
 
@@ -36,7 +38,10 @@ Configuration of a \hyperlink{struct_storage}{Storage} Engine.
 Contains pointers to methods implemented by a \hyperlink{struct_storage}{Storage} Engine. A \hyperlink{struct_storage}{Storage} Engine must implement all methods. 
 
 \subsection{Member Data Documentation}
-\hypertarget{struct_storage_a96d6e9b9bfd5b4943eb9660ca2293447}{}\index{Storage@{Storage}!create\+\_\+context@{create\+\_\+context}}
+\hypertarget{struct_storage_a0317c04d73bd91a5a71311d429d2c463}{}\index{Storage@{Storage}!capabilities@{capabilities}}
+\index{capabilities@{capabilities}!Storage@{Storage}}
+\subsubsection[{capabilities}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char Storage\+::capabilities}\label{struct_storage_a0317c04d73bd91a5a71311d429d2c463}
+storage engine capabilities \hypertarget{struct_storage_a96d6e9b9bfd5b4943eb9660ca2293447}{}\index{Storage@{Storage}!create\+\_\+context@{create\+\_\+context}}
 \index{create\+\_\+context@{create\+\_\+context}!Storage@{Storage}}
 \subsubsection[{create\+\_\+context}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$($\ast$ Storage\+::create\+\_\+context) (void $\ast$)}\label{struct_storage_a96d6e9b9bfd5b4943eb9660ca2293447}
 create\+\_\+context method \hypertarget{struct_storage_ae33c4c6b8e7dda3a854c3754ecbd22d9}{}\index{Storage@{Storage}!delete@{delete}}
@@ -51,9 +56,9 @@ destroy\+\_\+context method \hypertarget{struct_storage_a32909539bbc234d20b4bb0a
 last\+\_\+error method \hypertarget{struct_storage_a6f8774ce9a6598367d47eaeafaf245d4}{}\index{Storage@{Storage}!read@{read}}
 \index{read@{read}!Storage@{Storage}}
 \subsubsection[{read}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Entry}$\ast$($\ast$ Storage\+::read) (void $\ast$, unsigned char $\ast$)}\label{struct_storage_a6f8774ce9a6598367d47eaeafaf245d4}
-read method \hypertarget{struct_storage_a2d0db132a4fefd7d3da72d2b27c2e98a}{}\index{Storage@{Storage}!scan@{scan}}
+read method \hypertarget{struct_storage_ae2c0ea6705b1e1b3518f97b60581a9e3}{}\index{Storage@{Storage}!scan@{scan}}
 \index{scan@{scan}!Storage@{Storage}}
-\subsubsection[{scan}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ Storage\+::scan) (void $\ast$, void($\ast$)(unsigned char $\ast$, {\bf Entry} $\ast$), void($\ast$)(), void($\ast$)(char $\ast$))}\label{struct_storage_a2d0db132a4fefd7d3da72d2b27c2e98a}
+\subsubsection[{scan}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ Storage\+::scan) (void $\ast$, void $\ast$, void($\ast$)(void $\ast$, unsigned char $\ast$, {\bf Entry} $\ast$), void($\ast$)(void $\ast$), void($\ast$)(void $\ast$, char $\ast$))}\label{struct_storage_ae2c0ea6705b1e1b3518f97b60581a9e3}
 scan method \hypertarget{struct_storage_a6642751e068c1e64f8b65703a8bc51a0}{}\index{Storage@{Storage}!stats@{stats}}
 \index{stats@{stats}!Storage@{Storage}}
 \subsubsection[{stats}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Stats}$\ast$($\ast$ Storage\+::stats) (void $\ast$)}\label{struct_storage_a6642751e068c1e64f8b65703a8bc51a0}

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['capabilities',['capabilities',['../struct_storage.html#a0317c04d73bd91a5a71311d429d2c463',1,'Storage']]],
   ['compare_5ffloat',['compare_float',['../query_8h.html#a06273d6546387269b21fd12ac4ed064e',1,'query.c']]],
   ['compare_5ffloat_5fbetween',['compare_float_between',['../query_8h.html#a4435a4d31a21fac155edf425aa6f25ca',1,'query.c']]],
   ['compare_5fint',['compare_int',['../query_8h.html#a2b4c0009a577fa59b355aa69129d5f4b',1,'query.c']]],
