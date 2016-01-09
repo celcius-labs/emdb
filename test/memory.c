@@ -32,13 +32,8 @@ uint8_t test_memory ( ) {
   emdb_free_entry(entry);
 
   stats = MemoryStorage.stats(ctx);
-#if defined __x86_64 || defined i386
-  check(stats->memory_usage == 106, "memory usage is correctly reported");
-#endif
 
-#if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 76, "memory usage is correctly reported");
-#endif
+  check(stats->memory_usage == 106, "memory usage is correctly reported");
 
   ret = MemoryStorage.write(ctx, (unsigned char *) "bar", (unsigned char *) "baz", 4);
 
@@ -58,13 +53,7 @@ uint8_t test_memory ( ) {
 
   stats = MemoryStorage.stats(ctx);
 
-#if defined __x86_64 || defined i386
   check(stats->memory_usage == 106, "memory usage is correctly reported");
-#endif
-
-#if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 76, "memory usage is correctly reported");
-#endif
 
   MemoryStorage.destroy_context(ctx);
 
@@ -96,23 +85,11 @@ uint8_t test_context_isolation ( ) {
 
   stats = MemoryStorage.stats(ctx1);
 
-#if defined __x86_64 || defined i386
   check(stats->memory_usage == 106, "memory usage is correctly reported");
-#endif
-
-#if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 76, "memory usage is correctly reported");
-#endif
 
   stats = MemoryStorage.stats(ctx2);
 
-#if defined __x86_64 || defined i386
   check(stats->memory_usage == 32, "memory usage is correctly reported for context 2");
-#endif
-
-#if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 20, "memory usage is correctly reported for context 2");
-#endif
 
   entry = MemoryStorage.read(ctx2, (unsigned char *) "foo");
 
@@ -140,13 +117,7 @@ uint8_t test_context_isolation ( ) {
 
   stats = MemoryStorage.stats(ctx1);
 
-#if defined __x86_64 || defined i386
   check(stats->memory_usage == 106, "memory usage is correctly reported");
-#endif
-
-#if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 76, "memory usage is correctly reported");
-#endif
 
   MemoryStorage.destroy_context(ctx1);
   MemoryStorage.destroy_context(ctx2);
