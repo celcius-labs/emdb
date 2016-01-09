@@ -37,7 +37,7 @@ uint8_t test_memory ( ) {
 #endif
 
 #if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 76, "memory usage is correctly reported");
+  check(stats->memory_usage == 66, "memory usage is correctly reported");
 #endif
 
   ret = MemoryStorage.write(ctx, (unsigned char *) "bar", (unsigned char *) "baz", 4);
@@ -63,7 +63,7 @@ uint8_t test_memory ( ) {
 #endif
 
 #if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 76, "memory usage is correctly reported");
+  check(stats->memory_usage == 66, "memory usage is correctly reported");
 #endif
 
   MemoryStorage.destroy_context(ctx);
@@ -101,7 +101,7 @@ uint8_t test_context_isolation ( ) {
 #endif
 
 #if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 76, "memory usage is correctly reported");
+  check(stats->memory_usage == 66, "memory usage is correctly reported");
 #endif
 
   stats = MemoryStorage.stats(ctx2);
