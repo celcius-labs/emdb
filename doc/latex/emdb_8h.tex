@@ -5,6 +5,7 @@
 Header for \hyperlink{struct_e_m_d_b}{E\+M\+D\+B}.  
 
 
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -49,19 +50,19 @@ typedef struct \hyperlink{struct_e_m_d_b}{E\+M\+D\+B} \hyperlink{emdb_8h_a30af4e
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$ \hyperlink{emdb_8h_ac1037445305c87293222d8f1ffc09a35}{emdb\+\_\+create\+\_\+db} (\hyperlink{struct_storage}{Storage} $\ast$, unsigned int, void $\ast$)
+\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$ \hyperlink{emdb_8h_a93b32b74aa2b84d756374f96b51cf3f4}{emdb\+\_\+create\+\_\+db} (\hyperlink{struct_storage}{Storage} $\ast$, uint32\+\_\+t, void $\ast$)
 \begin{DoxyCompactList}\small\item\em Creates a database, along with the context for it to be run in. \end{DoxyCompactList}\item 
 void \hyperlink{emdb_8h_a0de03f227038828bdacbab4c93a07ddb}{emdb\+\_\+destroy\+\_\+db} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$)
 \begin{DoxyCompactList}\small\item\em Closes a database and releases any memory associated. \end{DoxyCompactList}\item 
-unsigned char \hyperlink{emdb_8h_a06ad05c842c7e71fdd3d9fcda104468c}{emdb\+\_\+write} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$, unsigned char $\ast$, unsigned char $\ast$, int)
+uint8\+\_\+t \hyperlink{emdb_8h_a982e52ed5879f02aeaca63f0e11c3548}{emdb\+\_\+write} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$, uint8\+\_\+t $\ast$, uint8\+\_\+t $\ast$, uint16\+\_\+t)
 \begin{DoxyCompactList}\small\item\em Writes data to \hyperlink{struct_storage}{Storage} Engine. \end{DoxyCompactList}\item 
-\hyperlink{struct_entry}{Entry} $\ast$ \hyperlink{emdb_8h_ad7c955b5b8b45d49ffd591b18e285304}{emdb\+\_\+read} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$, unsigned char $\ast$)
+\hyperlink{struct_entry}{Entry} $\ast$ \hyperlink{emdb_8h_aaf27816763ceca4d15c4143b7dcb21b9}{emdb\+\_\+read} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$, uint8\+\_\+t $\ast$)
 \begin{DoxyCompactList}\small\item\em Reads data from the \hyperlink{struct_storage}{Storage} Engine. \end{DoxyCompactList}\item 
-unsigned char \hyperlink{emdb_8h_ad3579dc6616286a680dfff12e591979e}{emdb\+\_\+delete} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$, unsigned char $\ast$)
+uint8\+\_\+t \hyperlink{emdb_8h_a863a87ab956141f355a650762266f42d}{emdb\+\_\+delete} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$, uint8\+\_\+t $\ast$)
 \begin{DoxyCompactList}\small\item\em Deletes data from the \hyperlink{struct_storage}{Storage} Engine. \end{DoxyCompactList}\item 
-char $\ast$ \hyperlink{emdb_8h_a1b220438f7af65ca90c860b495a3cd78}{emdb\+\_\+last\+\_\+error} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$)
+uint8\+\_\+t $\ast$ \hyperlink{emdb_8h_ae9476b8d089798052f9e6f59673d5a3b}{emdb\+\_\+last\+\_\+error} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$)
 \begin{DoxyCompactList}\small\item\em Returns the last error thrown by either the database or the \hyperlink{struct_storage}{Storage} Engine. \end{DoxyCompactList}\item 
-void \hyperlink{emdb_8h_afbf6079856996f619646712e7a698573}{emdb\+\_\+scan} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$, void $\ast$, void($\ast$)(void $\ast$, unsigned char $\ast$, \hyperlink{struct_entry}{Entry} $\ast$), void($\ast$)(void $\ast$), void($\ast$)(void $\ast$, char $\ast$))
+void \hyperlink{emdb_8h_aa18e81f99e3f82b058b97b07e9f4245f}{emdb\+\_\+scan} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$, void $\ast$, void($\ast$)(void $\ast$, uint8\+\_\+t $\ast$, \hyperlink{struct_entry}{Entry} $\ast$), void($\ast$)(void $\ast$), void($\ast$)(void $\ast$, uint8\+\_\+t $\ast$))
 \begin{DoxyCompactList}\small\item\em Scans all entries in the database, and calls back with key/value pairs, errors, and on end. \end{DoxyCompactList}\item 
 void \hyperlink{emdb_8h_a8fd691da056962b197364ac167e0d421}{emdb\+\_\+free\+\_\+entry} (\hyperlink{struct_entry}{Entry} $\ast$)
 \begin{DoxyCompactList}\small\item\em Frees memory allocated for an \hyperlink{struct_entry}{Entry}. \end{DoxyCompactList}\item 
@@ -135,15 +136,15 @@ Copies an \hyperlink{struct_entry}{Entry} and allocates any memory needed. The r
 \begin{DoxyReturn}{Returns}
 \hyperlink{struct_entry}{Entry} containing the new copy 
 \end{DoxyReturn}
-\hypertarget{emdb_8h_ac1037445305c87293222d8f1ffc09a35}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+create\+\_\+db@{emdb\+\_\+create\+\_\+db}}
+\hypertarget{emdb_8h_a93b32b74aa2b84d756374f96b51cf3f4}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+create\+\_\+db@{emdb\+\_\+create\+\_\+db}}
 \index{emdb\+\_\+create\+\_\+db@{emdb\+\_\+create\+\_\+db}!emdb.\+h@{emdb.\+h}}
-\subsubsection[{emdb\+\_\+create\+\_\+db(\+Storage $\ast$, unsigned int, void $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+M\+D\+B}$\ast$ emdb\+\_\+create\+\_\+db (
+\subsubsection[{emdb\+\_\+create\+\_\+db(\+Storage $\ast$, uint32\+\_\+t, void $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+M\+D\+B}$\ast$ emdb\+\_\+create\+\_\+db (
 \begin{DoxyParamCaption}
 \item[{{\bf Storage} $\ast$}]{, }
-\item[{unsigned}]{int, }
+\item[{uint32\+\_\+t}]{, }
 \item[{void $\ast$}]{}
 \end{DoxyParamCaption}
-)}\label{emdb_8h_ac1037445305c87293222d8f1ffc09a35}
+)}\label{emdb_8h_a93b32b74aa2b84d756374f96b51cf3f4}
 
 
 Creates a database, along with the context for it to be run in. 
@@ -160,14 +161,14 @@ Creates a database, along with the context required for the \hyperlink{struct_st
 {\em cfg} & -\/ configuration for the \hyperlink{struct_storage}{Storage} Engine, cast as a void $\ast$ \\
 \hline
 \end{DoxyParams}
-\hypertarget{emdb_8h_ad3579dc6616286a680dfff12e591979e}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+delete@{emdb\+\_\+delete}}
+\hypertarget{emdb_8h_a863a87ab956141f355a650762266f42d}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+delete@{emdb\+\_\+delete}}
 \index{emdb\+\_\+delete@{emdb\+\_\+delete}!emdb.\+h@{emdb.\+h}}
-\subsubsection[{emdb\+\_\+delete(\+E\+M\+D\+B $\ast$, unsigned char $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char emdb\+\_\+delete (
+\subsubsection[{emdb\+\_\+delete(\+E\+M\+D\+B $\ast$, uint8\+\_\+t $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t emdb\+\_\+delete (
 \begin{DoxyParamCaption}
 \item[{{\bf E\+M\+D\+B} $\ast$}]{, }
-\item[{unsigned char $\ast$}]{}
+\item[{uint8\+\_\+t $\ast$}]{}
 \end{DoxyParamCaption}
-)}\label{emdb_8h_ad3579dc6616286a680dfff12e591979e}
+)}\label{emdb_8h_a863a87ab956141f355a650762266f42d}
 
 
 Deletes data from the \hyperlink{struct_storage}{Storage} Engine. 
@@ -195,7 +196,7 @@ Closes a database and releases any memory associated.
 
 Closes a database, releasing any memory or other resources that have been allocated. 
 \begin{DoxyParams}{Parameters}
-{\em db} & -\/ database created via \hyperlink{emdb_8h_ac1037445305c87293222d8f1ffc09a35}{emdb\+\_\+create\+\_\+db(\+Storage $\ast$, unsigned int, void $\ast$)} \\
+{\em db} & -\/ database created via emdb\+\_\+create\+\_\+db(\+Storage $\ast$, unsigned int, void $\ast$) \\
 \hline
 \end{DoxyParams}
 \hypertarget{emdb_8h_a8fd691da056962b197364ac167e0d421}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+free\+\_\+entry@{emdb\+\_\+free\+\_\+entry}}
@@ -214,13 +215,13 @@ Frees up all memory that has been allocated for an \hyperlink{struct_entry}{Entr
 {\em entry} & -\/ \hyperlink{struct_entry}{Entry} to free \\
 \hline
 \end{DoxyParams}
-\hypertarget{emdb_8h_a1b220438f7af65ca90c860b495a3cd78}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+last\+\_\+error@{emdb\+\_\+last\+\_\+error}}
+\hypertarget{emdb_8h_ae9476b8d089798052f9e6f59673d5a3b}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+last\+\_\+error@{emdb\+\_\+last\+\_\+error}}
 \index{emdb\+\_\+last\+\_\+error@{emdb\+\_\+last\+\_\+error}!emdb.\+h@{emdb.\+h}}
-\subsubsection[{emdb\+\_\+last\+\_\+error(\+E\+M\+D\+B $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ emdb\+\_\+last\+\_\+error (
+\subsubsection[{emdb\+\_\+last\+\_\+error(\+E\+M\+D\+B $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t$\ast$ emdb\+\_\+last\+\_\+error (
 \begin{DoxyParamCaption}
 \item[{{\bf E\+M\+D\+B} $\ast$}]{}
 \end{DoxyParamCaption}
-)}\label{emdb_8h_a1b220438f7af65ca90c860b495a3cd78}
+)}\label{emdb_8h_ae9476b8d089798052f9e6f59673d5a3b}
 
 
 Returns the last error thrown by either the database or the \hyperlink{struct_storage}{Storage} Engine. 
@@ -233,14 +234,14 @@ If an error exists, returns the String representation of the last error that is 
 \begin{DoxyReturn}{Returns}
 String containing the last known error message, or N\+U\+L\+L if none 
 \end{DoxyReturn}
-\hypertarget{emdb_8h_ad7c955b5b8b45d49ffd591b18e285304}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+read@{emdb\+\_\+read}}
+\hypertarget{emdb_8h_aaf27816763ceca4d15c4143b7dcb21b9}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+read@{emdb\+\_\+read}}
 \index{emdb\+\_\+read@{emdb\+\_\+read}!emdb.\+h@{emdb.\+h}}
-\subsubsection[{emdb\+\_\+read(\+E\+M\+D\+B $\ast$, unsigned char $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Entry}$\ast$ emdb\+\_\+read (
+\subsubsection[{emdb\+\_\+read(\+E\+M\+D\+B $\ast$, uint8\+\_\+t $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Entry}$\ast$ emdb\+\_\+read (
 \begin{DoxyParamCaption}
 \item[{{\bf E\+M\+D\+B} $\ast$}]{, }
-\item[{unsigned char $\ast$}]{}
+\item[{uint8\+\_\+t $\ast$}]{}
 \end{DoxyParamCaption}
-)}\label{emdb_8h_ad7c955b5b8b45d49ffd591b18e285304}
+)}\label{emdb_8h_aaf27816763ceca4d15c4143b7dcb21b9}
 
 
 Reads data from the \hyperlink{struct_storage}{Storage} Engine. 
@@ -255,17 +256,17 @@ Reads a value from the \hyperlink{struct_storage}{Storage} Engine referenced by 
 \begin{DoxyReturn}{Returns}
 \hyperlink{struct_entry}{Entry} $\ast$, which must be freed after use using \hyperlink{emdb_8h_a8fd691da056962b197364ac167e0d421}{emdb\+\_\+free\+\_\+entry(\+Entry $\ast$)}, or N\+U\+L\+L on error or nothing found 
 \end{DoxyReturn}
-\hypertarget{emdb_8h_afbf6079856996f619646712e7a698573}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+scan@{emdb\+\_\+scan}}
+\hypertarget{emdb_8h_aa18e81f99e3f82b058b97b07e9f4245f}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+scan@{emdb\+\_\+scan}}
 \index{emdb\+\_\+scan@{emdb\+\_\+scan}!emdb.\+h@{emdb.\+h}}
-\subsubsection[{emdb\+\_\+scan(\+E\+M\+D\+B $\ast$, void $\ast$, void($\ast$)(void $\ast$, unsigned char $\ast$, Entry $\ast$), void($\ast$)(void $\ast$), void($\ast$)(void $\ast$, char $\ast$))}]{\setlength{\rightskip}{0pt plus 5cm}void emdb\+\_\+scan (
+\subsubsection[{emdb\+\_\+scan(\+E\+M\+D\+B $\ast$, void $\ast$, void($\ast$)(void $\ast$, uint8\+\_\+t $\ast$, Entry $\ast$), void($\ast$)(void $\ast$), void($\ast$)(void $\ast$, uint8\+\_\+t $\ast$))}]{\setlength{\rightskip}{0pt plus 5cm}void emdb\+\_\+scan (
 \begin{DoxyParamCaption}
 \item[{{\bf E\+M\+D\+B} $\ast$}]{, }
 \item[{void $\ast$}]{, }
-\item[{void($\ast$)(void $\ast$, unsigned char $\ast$, {\bf Entry} $\ast$)}]{, }
+\item[{void($\ast$)(void $\ast$, uint8\+\_\+t $\ast$, {\bf Entry} $\ast$)}]{, }
 \item[{void($\ast$)(void $\ast$)}]{, }
-\item[{void($\ast$)(void $\ast$, char $\ast$)}]{}
+\item[{void($\ast$)(void $\ast$, uint8\+\_\+t $\ast$)}]{}
 \end{DoxyParamCaption}
-)}\label{emdb_8h_afbf6079856996f619646712e7a698573}
+)}\label{emdb_8h_aa18e81f99e3f82b058b97b07e9f4245f}
 
 
 Scans all entries in the database, and calls back with key/value pairs, errors, and on end. 
@@ -283,16 +284,16 @@ Executes a scan of all entries currently in the \hyperlink{struct_storage}{Stora
 {\em error\+\_\+handler} & -\/ pointer to a function accepting a context, and an error message \\
 \hline
 \end{DoxyParams}
-\hypertarget{emdb_8h_a06ad05c842c7e71fdd3d9fcda104468c}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+write@{emdb\+\_\+write}}
+\hypertarget{emdb_8h_a982e52ed5879f02aeaca63f0e11c3548}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+write@{emdb\+\_\+write}}
 \index{emdb\+\_\+write@{emdb\+\_\+write}!emdb.\+h@{emdb.\+h}}
-\subsubsection[{emdb\+\_\+write(\+E\+M\+D\+B $\ast$, unsigned char $\ast$, unsigned char $\ast$, int)}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char emdb\+\_\+write (
+\subsubsection[{emdb\+\_\+write(\+E\+M\+D\+B $\ast$, uint8\+\_\+t $\ast$, uint8\+\_\+t $\ast$, uint16\+\_\+t)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t emdb\+\_\+write (
 \begin{DoxyParamCaption}
 \item[{{\bf E\+M\+D\+B} $\ast$}]{, }
-\item[{unsigned char $\ast$}]{, }
-\item[{unsigned char $\ast$}]{, }
-\item[{int}]{}
+\item[{uint8\+\_\+t $\ast$}]{, }
+\item[{uint8\+\_\+t $\ast$}]{, }
+\item[{uint16\+\_\+t}]{}
 \end{DoxyParamCaption}
-)}\label{emdb_8h_a06ad05c842c7e71fdd3d9fcda104468c}
+)}\label{emdb_8h_a982e52ed5879f02aeaca63f0e11c3548}
 
 
 Writes data to \hyperlink{struct_storage}{Storage} Engine. 

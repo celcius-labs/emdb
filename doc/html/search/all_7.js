@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['max_5fmemory',['max_memory',['../struct_e_m_d_b.html#ade62d88e06b82b474ce9a05a819c5924',1,'EMDB']]],
-  ['memory',['memory',['../struct_e_m_d_b.html#a660445dd107e08aebc47cf7690565d14',1,'EMDB']]],
-  ['memory_5fusage',['memory_usage',['../struct_stats.html#a35d46af7c6a28991267b36eb00b6f068',1,'Stats']]],
+  ['max_5fmemory',['max_memory',['../struct_e_m_d_b.html#a6fe1b09bdf8d8e0095f63c7a5a8e857c',1,'EMDB']]],
+  ['memory',['memory',['../struct_e_m_d_b.html#a0f1134b0c45750d0db8b9fd7efd10069',1,'EMDB']]],
+  ['memory_5fusage',['memory_usage',['../struct_stats.html#a23b10e5eb4ab27ee645b8a75425893d1',1,'Stats']]],
   ['memoryctx',['MemoryCtx',['../struct_memory_ctx.html',1,'']]],
   ['memorykey',['MemoryKey',['../struct_memory_key.html',1,'']]]
 ];

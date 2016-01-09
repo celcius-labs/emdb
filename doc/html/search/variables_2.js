@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['entries',['entries',['../struct_stats.html#ac67252d2eb80da338aea13868b19e863',1,'Stats']]],
-  ['error',['error',['../struct_e_m_d_b.html#a32e49b3af8a306edeb638245a6afffc0',1,'EMDB']]]
+  ['entries',['entries',['../struct_stats.html#a0287a74f4140d399d2aa1db694c5c5db',1,'Stats']]],
+  ['error',['error',['../struct_e_m_d_b.html#ae32927fa60a17d82bf46e33433054272',1,'EMDB']]]
 ];

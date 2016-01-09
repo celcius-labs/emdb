@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['write',['write',['../struct_storage.html#a277c5f5a2ec42f4b66e83a95fb2b679c',1,'Storage']]]
+  ['write',['write',['../struct_storage.html#a1024d08a7a0b30fb2d9a492a672d9f05',1,'Storage']]]
 ];

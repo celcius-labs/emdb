@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['last_5ferror',['last_error',['../struct_storage.html#a32909539bbc234d20b4bb0a51c575c9c',1,'Storage']]]
+  ['last_5ferror',['last_error',['../struct_storage.html#a8d06a225bc4d31d734cab75608fa3cf3',1,'Storage']]]
 ];
