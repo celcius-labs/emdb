@@ -1,8 +1,8 @@
 # You can put your build options here
 -include config.mk
 
-CFLAGS=-I./src -Wall -g
-LDFLAGS=-g
+CFLAGS=-I./src -Wall -g -march=native
+LDFLAGS=-g -flto
 
 SRCS=src/emdb.c
 
