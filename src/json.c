@@ -132,13 +132,13 @@ static int16_t token_from_json (uint8_t *json, jsmntok_t *tokens, uint16_t ntoke
   printf("curtoken is now %d, length is %d\n", *curtoken, len);
 #endif
 
-  for (i = 0; i <= len; i++) {
+  for (i = 0; i < len; i++) {
 #ifdef DEBUG
     printf("in loop, i = %d, len = %d, curtoken = %d\n", i, len, (*curtoken + i));
 #endif
     start = tokens[*curtoken + i].start;
     end = tokens[*curtoken + i].end;
-printf("%s %s %d %d\n", buf, &json[start], end, start);
+
     strncpy((char *) buf, (char *) &json[start], end - start);
     buf[end - start] = '\0';
 #ifdef DEBUG
@@ -217,6 +217,9 @@ static int16_t _ctx_token_from_json (JsonContext *ctx, uint8_t *json, uint8_t *k
     return -1;
   }
 
+#ifdef DEBUG
+  printf("ntokens %d, curtoken %d, curpart: %d, nkeys %d\n", ntokens, curtoken, curpart, nkeys);
+#endif
   ret = token_from_json (json, ctx->tokens, ntokens, &curtoken, parts, &curpart, nkeys);
 
   // free up the key parts at this point, they are no longer needed
