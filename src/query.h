@@ -37,20 +37,20 @@ typedef enum ValueType {
 
 typedef struct Where {
   WhereType type;
-  unsigned char *key;
-  unsigned char *value;
-  unsigned char not;
+  uint8_t *key;
+  uint8_t *value;
+  uint8_t not;
   ValueType value_type;
-  unsigned char child_count;
+  uint8_t child_count;
   void **children;
 } Where;
 
 typedef struct QueryResults {
-  int count;
-  unsigned char *keys[];
+  uint16_t count;
+  uint8_t *keys[];
 } QueryResults;
 
-QueryResults *emdb_query_db(EMDB *, Where *);
+void emdb_query_db(EMDB *, Where *, void (*)(QueryResults *));
 void emdb_free_results(QueryResults *);
 
 /**
@@ -64,7 +64,7 @@ void emdb_free_results(QueryResults *);
  * @param type - type of match to do
  * @see WhereType
  */
-unsigned char compare_float (float, float, WhereType);
+uint8_t compare_float (float, float, WhereType);
 
 /**
  * @brief Compares two integers.

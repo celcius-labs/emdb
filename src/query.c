@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "query.h"
+#include "json.h"
 
 #define MAX(a,b) (a > b ? a : b)
 
@@ -178,7 +179,7 @@ char **or_list (char **list1, char **list2, int len1, int len2) {
   return results;
 }
 
-QueryResults *emdb_query_db (EMDB *emdb, Where *where) {
+void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) {
   int i;
   QueryResults *results;
 
@@ -187,20 +188,19 @@ QueryResults *emdb_query_db (EMDB *emdb, Where *where) {
   if (results == NULL) {
     // unable to allocate memory
     emdb->error = 1;
-    return NULL;
+    return;
   }
 
   // iterate through the children, getting any results
   if (where->type == and || where->type == or) {
     for (i = 0; i < where->child_count; i++) {
-      
+
     }
   } else {
     // simple query
 
   }
 
-  return results;
 }
 
 void emdb_free_results (QueryResults *results) {
