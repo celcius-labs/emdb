@@ -1,5 +1,4 @@
-#ifndef __EMDB_H__
-#define __EMDB_H__
+#pragma once
 
 /**
  * @file emdb.h
@@ -192,5 +191,3 @@ Entry *emdb_copy_entry(Entry *);
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* __EMDB_H__ */

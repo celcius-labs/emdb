@@ -1,6 +1,4 @@
-#ifndef __QUERY_H__
-#define __QUERY_H__
-
+#pragma once
 #include "emdb.h"
 
 /**
@@ -161,5 +159,3 @@ char **or_list (char **, char **, int, int);
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* __QUERY_H__ */

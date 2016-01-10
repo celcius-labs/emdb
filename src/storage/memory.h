@@ -1,6 +1,4 @@
-#ifndef __MEMORY_H__
-#define __MEMORY_H__
-
+#pragma once
 #include "../emdb.h"
 
 #ifdef __cplusplus
@@ -20,6 +18,3 @@ typedef struct MemoryKey {
 #ifdef __cplusplus
 }
 #endif
-
-
-#endif /* __MEMORY_H__ */

@@ -1,5 +1,4 @@
-#ifndef __JSON_H__
-#define __JSON_H__
+#pragma once
 
 #include "emdb_config.h"
 #include "jsmn.h"
@@ -29,5 +28,3 @@ uint8_t *string_from_json (JsonContext *, uint8_t *, uint8_t *);
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* __JSON_H__ */
