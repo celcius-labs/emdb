@@ -48,6 +48,13 @@ typedef struct QueryResults {
   uint8_t *keys[];
 } QueryResults;
 
+typedef struct QueryContext {
+  QueryResults **results;
+  uint8_t num_results;
+  EMDB *emdb;
+  void *ctx;
+} QueryContext;
+
 void emdb_query_db(EMDB *, Where *, void (*)(QueryResults *));
 void emdb_free_results(QueryResults *);
 
