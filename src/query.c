@@ -179,6 +179,10 @@ char **or_list (char **list1, char **list2, int len1, int len2) {
   return results;
 }
 
+static void simple_query_entry_handler (void *ctx, uint8_t *key, Entry *value) {
+  SimpleQueryContext *context = (SimpleQueryContext *) ctx;
+}
+
 void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) {
   int i;
   QueryResults *results;
