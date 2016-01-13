@@ -181,17 +181,70 @@ char **or_list (char **list1, char **list2, int len1, int len2) {
 
 static void simple_query_entry_handler (void *ctx, uint8_t *key, Entry *value) {
   SimpleQueryContext *context = (SimpleQueryContext *) ctx;
+
+  if (context->where->value_type == floatingpoint) {
+    float float_res = float_from_json(context->json_ctx, value->ptr, context->where->key);
+    uint8_t res = compare_float(float_res, context->where->value.as_float, context->where->type);
+    if (context->where->not) {
+      if (!res) {
+        context->results->keys[context->results->count] = key;
+        context->results->count++;
+      }
+    } else {
+      if (res) {
+        context->results->keys[context->results->count] = key;
+        context->results->count++;
+      }
+    }
+  }
 }
 
 void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) {
   int i;
-  QueryResults *results;
+  SimpleQueryContext *query_ctx = (SimpleQueryContext *) malloc(sizeof(SimpleQueryContext));
 
-  results = (QueryResults *) malloc(sizeof(QueryResults));
-
-  if (results == NULL) {
+  if (query_ctx == NULL) {
     // unable to allocate memory
     emdb->error = 1;
+    callback(NULL);
+
+    return;
+  }
+
+
+  // setup
+  query_ctx->emdb = emdb;
+  query_ctx->json_ctx = create_json_context();
+
+  if (query_ctx->json_ctx == NULL) {
+    // unable to allocate memory
+    emdb->error = 1;
+    free(query_ctx);
+
+    callback(NULL);
+    return;
+  }
+
+  query_ctx->results = (QueryResults *) malloc(sizeof(QueryResults));
+
+  if (query_ctx->results == NULL) {
+    emdb->error = 1;
+    destroy_json_context(query_ctx->json_ctx);
+    free(query_ctx);
+
+    callback(NULL);
+    return;
+  }
+
+  query_ctx->results->keys = (uint8_t **) malloc(sizeof(uint8_t *) * emdb->count);
+
+  if (query_ctx->results->keys == NULL) {
+    emdb->error = 1;
+    free(query_ctx->results);
+    destroy_json_context(query_ctx->json_ctx);
+    free(query_ctx);
+
+    callback(NULL);
     return;
   }
 

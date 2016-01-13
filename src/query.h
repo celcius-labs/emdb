@@ -1,5 +1,7 @@
 #pragma once
+
 #include "emdb.h"
+#include "json.h"
 
 /**
  * @file query.h
@@ -36,7 +38,11 @@ typedef enum ValueType {
 typedef struct Where {
   WhereType type;
   uint8_t *key;
-  uint8_t *value;
+  union {
+    uint8_t *as_char;
+    int16_t as_int;
+    float as_float;
+  } value;
   uint8_t not;
   ValueType value_type;
   uint8_t child_count;
@@ -45,15 +51,14 @@ typedef struct Where {
 
 typedef struct QueryResults {
   uint16_t count;
-  uint8_t *keys[];
+  uint8_t **keys;
 } QueryResults;
 
 typedef struct SimpleQueryContext {
   QueryResults *results;
-  uint16_t current;
-  uint16_t total;
   EMDB *emdb;
   Where *where;
+  JsonContext *json_ctx;
 } SimpleQueryContext;
 
 void emdb_query_db(EMDB *, Where *, void (*)(QueryResults *));
