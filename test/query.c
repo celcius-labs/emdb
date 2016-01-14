@@ -36,8 +36,8 @@ uint8_t test_compare_string ( ) {
 }
 
 uint8_t test_compare_int ( ) {
-  int i1 = 10;
-  int i2 = 20;
+  uint16_t i1 = 10;
+  uint16_t i2 = 20;
 
   check(compare_int(i1, i1, equals) == 1, "same integer is considered equal");
   check(compare_int(i1, i2, equals) == 0, "different integer is not considered equal");
@@ -104,23 +104,23 @@ uint8_t test_compare_float ( ) {
 }
 
 uint8_t test_and_list ( ) {
-  char *list1[6] = {
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-    "six"
+  uint8_t *list1[6] = {
+    (uint8_t *) "one",
+    (uint8_t *) "two",
+    (uint8_t *) "three",
+    (uint8_t *) "four",
+    (uint8_t *) "five",
+    (uint8_t *) "six"
   };
 
-  char *list2[4] = {
-    "one",
-    "two",
-    "three"
+  uint8_t *list2[4] = {
+    (uint8_t *) "one",
+    (uint8_t *) "two",
+    (uint8_t *) "three"
   };
 
-  int len = 0, i;
-  char **results;
+  uint16_t len = 0, i;
+  uint8_t **results;
 
   results = and_list(list1, list2, 6, 3);
 
@@ -132,9 +132,9 @@ uint8_t test_and_list ( ) {
   }
 
   check(len == 3, "and results have a length of 3");
-  check((strcmp(results[0], "one") == 0), "first result is correct");
-  check((strcmp(results[1], "two") == 0), "second result is correct");
-  check((strcmp(results[2], "three") == 0), "third result is correct");
+  check((strcmp((char *) results[0], "one") == 0), "first result is correct");
+  check((strcmp((char *) results[1], "two") == 0), "second result is correct");
+  check((strcmp((char *) results[2], "three") == 0), "third result is correct");
 
   free(results);
 
@@ -142,29 +142,29 @@ uint8_t test_and_list ( ) {
 }
 
 uint8_t test_or_list ( ) {
-  char *list1[6] = {
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-    "six"
+  uint8_t *list1[6] = {
+    (uint8_t *) "one",
+    (uint8_t *) "two",
+    (uint8_t *) "three",
+    (uint8_t *) "four",
+    (uint8_t *) "five",
+    (uint8_t *) "six"
   };
 
-  char *list2[4] = {
-    "one",
-    "two",
-    "three"
+  uint8_t *list2[4] = {
+    (uint8_t *) "one",
+    (uint8_t *) "two",
+    (uint8_t *) "three"
   };
 
-  char *list3[4] = {
-    "seven",
-    "eight",
-    "nine"
+  uint8_t *list3[4] = {
+    (uint8_t *) "seven",
+    (uint8_t *) "eight",
+    (uint8_t *) "nine"
   };
 
-  int len = 0, i;
-  char **results;
+  uint16_t len = 0, i;
+  uint8_t **results;
 
   results = or_list(list1, list2, 6, 3);
 
@@ -176,12 +176,12 @@ uint8_t test_or_list ( ) {
   }
 
   check(len == 6, "and results have a length of 6");
-  check((strcmp(results[0], "one") == 0), "first result is correct");
-  check((strcmp(results[1], "two") == 0), "second result is correct");
-  check((strcmp(results[2], "three") == 0), "third result is correct");
-  check((strcmp(results[3], "four") == 0), "fourth result is correct");
-  check((strcmp(results[4], "five") == 0), "fifth result is correct");
-  check((strcmp(results[5], "six") == 0), "sixth result is correct");
+  check((strcmp((char *) results[0], "one") == 0), "first result is correct");
+  check((strcmp((char *) results[1], "two") == 0), "second result is correct");
+  check((strcmp((char *) results[2], "three") == 0), "third result is correct");
+  check((strcmp((char *) results[3], "four") == 0), "fourth result is correct");
+  check((strcmp((char *) results[4], "five") == 0), "fifth result is correct");
+  check((strcmp((char *) results[5], "six") == 0), "sixth result is correct");
 
   free(results);
 
@@ -195,15 +195,15 @@ uint8_t test_or_list ( ) {
   }
 
   check(len == 9, "and results have a length of 9");
-  check((strcmp(results[0], "one") == 0), "first result is correct");
-  check((strcmp(results[1], "two") == 0), "second result is correct");
-  check((strcmp(results[2], "three") == 0), "third result is correct");
-  check((strcmp(results[3], "four") == 0), "fourth result is correct");
-  check((strcmp(results[4], "five") == 0), "fifth result is correct");
-  check((strcmp(results[5], "six") == 0), "sixth result is correct");
-  check((strcmp(results[6], "seven") == 0), "seventh result is correct");
-  check((strcmp(results[7], "eight") == 0), "eighth result is correct");
-  check((strcmp(results[8], "nine") == 0), "nineth result is correct");
+  check((strcmp((char *) results[0], "one") == 0), "first result is correct");
+  check((strcmp((char *) results[1], "two") == 0), "second result is correct");
+  check((strcmp((char *) results[2], "three") == 0), "third result is correct");
+  check((strcmp((char *) results[3], "four") == 0), "fourth result is correct");
+  check((strcmp((char *) results[4], "five") == 0), "fifth result is correct");
+  check((strcmp((char *) results[5], "six") == 0), "sixth result is correct");
+  check((strcmp((char *) results[6], "seven") == 0), "seventh result is correct");
+  check((strcmp((char *) results[7], "eight") == 0), "eighth result is correct");
+  check((strcmp((char *) results[8], "nine") == 0), "nineth result is correct");
 
   free(results);
 

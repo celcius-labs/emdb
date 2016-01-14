@@ -83,12 +83,12 @@ uint8_t compare_float (float, float, WhereType);
  * Compares the value of two integers for equality, less than, greater than,
  * less than or equal, or greater than or equal.
  * @returns true or false
- * @param int1 - int
- * @param int2 - int
+ * @param int1 - uint16_t
+ * @param int2 - uint16_t
  * @param type - type of match to do
  * @see WhereType
  */
-unsigned char compare_int (int, int, WhereType);
+uint8_t compare_int (uint16_t, uint16_t, WhereType);
 
 /**
  * @brief Compares two strings.
@@ -96,12 +96,12 @@ unsigned char compare_int (int, int, WhereType);
  * Compares the value of two strings for equality, less than, greater than,
  * less than or equal, or greater than or equal.
  * @returns true or false
- * @param string1 - char *
- * @param string2 - char *
+ * @param string1 - uint8_t *
+ * @param string2 - uint8_t *
  * @param type - type of match to do
  * @see WhereType
  */
-unsigned char compare_string (uint8_t *, uint8_t *, WhereType);
+uint8_t compare_string (uint8_t *, uint8_t *, WhereType);
 
 /**
  * @brief Checks to see if a float is between two other floats, inclusively.
@@ -113,7 +113,7 @@ unsigned char compare_string (uint8_t *, uint8_t *, WhereType);
  * @param minimum - float marking the minimum
  * @param maximum - float marking the maximum
  */
-unsigned char compare_float_between (float, float, float);
+uint8_t compare_float_between (float, float, float);
 
 /**
  * @brief Checks to see if an integer is between two other integers, inclusively.
@@ -121,11 +121,11 @@ unsigned char compare_float_between (float, float, float);
  * Compares the value of an integer to two other integers, to see if it is between
  * them, or equals them
  * @returns true or false
- * @param integer - integer to check
- * @param minimum - integer marking the minimum
- * @param maximum - integer marking the maximum
+ * @param integer - uint16_t to check
+ * @param minimum - uint16_t marking the minimum
+ * @param maximum - uint16_t marking the maximum
  */
-unsigned char compare_int_between (int, int, int);
+uint8_t compare_int_between (uint16_t, uint16_t, uint16_t);
 
 /**
  * @brief Checks to see if a string is between two other strings, inclusively.
@@ -145,14 +145,14 @@ uint8_t compare_string_between (uint8_t *, uint8_t *, uint8_t *);
  * Iterates through two lists, and returns every entry that is in both lists,
  * NULL terminated.  The results must be cleaned up by calling free(), as this
  * will allocate memory.
- * @returns char ** - allocated array of strings that points to the list of the
+ * @returns uint8_t ** - allocated array of strings that points to the list of the
  * combined lists.
- * @param list1 - char ** first list
- * @param list2 - char ** second list
+ * @param list1 - uint8_t ** first list
+ * @param list2 - uint8_t ** second list
  * @param len1 - length of list 1
  * @param len2 - length of list 2
  */
-char **and_list (char **, char **, int, int);
+uint8_t **and_list (uint8_t **, uint8_t **, uint16_t, uint16_t);
 
 /**
  * @brief Compares two lists and returns all entries of the combined lists.
@@ -160,14 +160,14 @@ char **and_list (char **, char **, int, int);
  * Iterates through two lists, and returns every entry in each list,
  * NULL terminated.  The results must be cleaned up by calling free(), as this
  * will allocate memory.
- * @returns char ** - allocated array of strings that points to the list of the
+ * @returns uint8_t ** - allocated array of strings that points to the list of the
  * combined lists.
- * @param list1 - char ** first list
- * @param list2 - char ** second list
+ * @param list1 - uint8_t ** first list
+ * @param list2 - uint8_t ** second list
  * @param len1 - length of list 1
  * @param len2 - length of list 2
  */
-char **or_list (char **, char **, int, int);
+uint8_t **or_list (uint8_t **, uint8_t **, uint16_t, uint16_t);
 
 #ifdef __cplusplus
 }

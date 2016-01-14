@@ -6,7 +6,7 @@
 
 #define MAX(a,b) (a > b ? a : b)
 
-unsigned char compare_float (float value1, float value2, WhereType operand) {
+uint8_t compare_float (float value1, float value2, WhereType operand) {
   switch (operand) {
     case equals:
     return (value1 == value2);
@@ -28,7 +28,7 @@ unsigned char compare_float (float value1, float value2, WhereType operand) {
   }
 }
 
-unsigned char compare_float_between (float value, float value1, float value2) {
+uint8_t compare_float_between (float value, float value1, float value2) {
   if (value1 > value2) {
     return (value >= value2 && value <= value1);
   } else {
@@ -36,7 +36,7 @@ unsigned char compare_float_between (float value, float value1, float value2) {
   }
 }
 
-unsigned char compare_int (int value1, int value2, WhereType operand) {
+uint8_t compare_int (uint16_t value1, uint16_t value2, WhereType operand) {
   switch (operand) {
     case equals:
     return (value1 == value2);
@@ -58,7 +58,7 @@ unsigned char compare_int (int value1, int value2, WhereType operand) {
   }
 }
 
-unsigned char compare_int_between (int value, int value1, int value2) {
+uint8_t compare_int_between (uint16_t value, uint16_t value1, uint16_t value2) {
   if (value1 > value2) {
     return (value >= value2 && value <= value1);
   } else {
@@ -106,10 +106,10 @@ uint8_t compare_string_between (uint8_t *value, uint8_t *value1, uint8_t *value2
   }
 }
 
-char **and_list (char **list1, char **list2, int len1, int len2) {
-  int i, j, k;
-  int max = MAX(len1, len2);
-  char **results = (char **) malloc(sizeof(char *) * (max + 1));
+uint8_t **and_list (uint8_t **list1, uint8_t **list2, uint16_t len1, uint16_t len2) {
+  uint16_t i, j, k;
+  uint16_t max = MAX(len1, len2);
+  uint8_t **results = (uint8_t **) malloc(sizeof(uint8_t *) * (max + 1));
 
   if (results == NULL) {
     return NULL;
@@ -120,7 +120,7 @@ char **and_list (char **list1, char **list2, int len1, int len2) {
   for (i = 0; i < max; i++) {
     if (len1 == max) {
       for (j = 0; i < len2; j++) {
-        if (strcmp(list1[i], list2[j]) == 0) {
+        if (strcmp((char *) list1[i], (char *) list2[j]) == 0) {
           results[k] = list1[i];
           k++;
           break;
@@ -128,7 +128,7 @@ char **and_list (char **list1, char **list2, int len1, int len2) {
       }
     } else {
       for (j = 0; j < len1; j++) {
-        if (strcmp(list1[j], list2[i]) == 0) {
+        if (strcmp((char *) list1[j], (char *) list2[i]) == 0) {
           results[k] = list2[i];
           k++;
           break;
@@ -142,10 +142,10 @@ char **and_list (char **list1, char **list2, int len1, int len2) {
   return results;
 }
 
-char **or_list (char **list1, char **list2, int len1, int len2) {
-  int i, j, k;
-  unsigned char found = 0;
-  char **results = (char **) malloc(sizeof(char *) * (len1 + len2 + 1));
+uint8_t **or_list (uint8_t **list1, uint8_t **list2, uint16_t len1, uint16_t len2) {
+  uint16_t i, j, k;
+  uint8_t found = 0;
+  uint8_t **results = (uint8_t **) malloc(sizeof(uint8_t *) * (len1 + len2 + 1));
 
   if (results == NULL) {
     return NULL;
@@ -160,7 +160,7 @@ char **or_list (char **list1, char **list2, int len1, int len2) {
 
   for (i = 0; i < len2; i++) {
     for (j = 0; j < len1; j++) {
-      if (strcmp(list1[j], list2[i]) == 0) {
+      if (strcmp((char *) list1[j], (char *) list2[i]) == 0) {
         found = 1;
         break;
       }
