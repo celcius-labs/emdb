@@ -66,10 +66,10 @@ unsigned char compare_int_between (int value, int value1, int value2) {
   }
 }
 
-unsigned char compare_string (char *value1, char * value2, WhereType operand) {
-  int len1 = strlen(value1);
-  int len2 = strlen(value2);
-  int len = MAX(len1, len2);
+uint8_t compare_string (uint8_t *value1, uint8_t *value2, WhereType operand) {
+  uint16_t len1 = strlen((char *) value1);
+  uint16_t len2 = strlen((char *) value2);
+  uint16_t len = MAX(len1, len2);
 
   switch (operand) {
     case equals:
@@ -95,9 +95,9 @@ unsigned char compare_string (char *value1, char * value2, WhereType operand) {
   }
 }
 
-unsigned char compare_string_between (char *value, char *value1, char *value2) {
-  int left = strcmp(value, value1);
-  int right = strcmp(value, value2);
+uint8_t compare_string_between (uint8_t *value, uint8_t *value1, uint8_t *value2) {
+  uint16_t left = strcmp((char *) value, (char *) value1);
+  uint16_t right = strcmp((char *) value, (char *) value2);
 
   if (left >= 0 && right <= 0) {
     return 1;
@@ -196,7 +196,36 @@ static void simple_query_entry_handler (void *ctx, uint8_t *key, Entry *value) {
         context->results->count++;
       }
     }
+  } else if (context->where->value_type == integer) {
+    uint16_t int_res = int_from_json(context->json_ctx, value->ptr, context->where->key);
+    uint8_t res = compare_int(int_res, context->where->value.as_int, context->where->type);
+    if (context->where->not) {
+      if (!res) {
+        context->results->keys[context->results->count] = key;
+        context->results->count++;
+      }
+    } else {
+      if (res) {
+        context->results->keys[context->results->count] = key;
+        context->results->count++;
+      }
+    }
+  } else if (context->where->value_type == string) {
+    uint8_t *string_res = string_from_json(context->json_ctx, value->ptr, context->where->key);
+    uint8_t res = compare_string(string_res, context->where->value.as_char, context->where->type);
+    if (context->where->not) {
+      if (!res) {
+        context->results->keys[context->results->count] = key;
+        context->results->count++;
+      }
+    } else {
+      if (res) {
+        context->results->keys[context->results->count] = key;
+        context->results->count++;
+      }
+    }
   }
+
 }
 
 void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) {

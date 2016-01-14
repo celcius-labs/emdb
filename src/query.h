@@ -101,7 +101,7 @@ unsigned char compare_int (int, int, WhereType);
  * @param type - type of match to do
  * @see WhereType
  */
-unsigned char compare_string (char *, char *, WhereType);
+unsigned char compare_string (uint8_t *, uint8_t *, WhereType);
 
 /**
  * @brief Checks to see if a float is between two other floats, inclusively.
@@ -137,7 +137,7 @@ unsigned char compare_int_between (int, int, int);
  * @param minimum - string marking the minimum
  * @param maximum - string marking the maximum
  */
-unsigned char compare_string_between (char *, char *, char *);
+uint8_t compare_string_between (uint8_t *, uint8_t *, uint8_t *);
 
 /**
  * @brief Compares two lists and returns all entries that are in both lists.

@@ -10,8 +10,8 @@
 
 uint8_t test_compare_string ( ) {
   // equals
-  char *text1 = "hello";
-  char *text2 = "foo";
+  uint8_t *text1 = (uint8_t *) "hello";
+  uint8_t *text2 = (uint8_t *) "foo";
 
   check(compare_string(text1, text1, equals) == 1, "same text is considered equal");
   check(compare_string(text1, text2, equals) == 0, "different text is not considered equal");
@@ -26,11 +26,11 @@ uint8_t test_compare_string ( ) {
   check(compare_string(text1, text1, lte) == 1, "same text is considered lte");
   check(compare_string(text2, text1, lte) == 1, "lt text is considered lte");
 
-  check(compare_string_between("goo", text2, text1) == 1, "between returns true when between");
+  check(compare_string_between((uint8_t *) "goo", text2, text1) == 1, "between returns true when between");
   check(compare_string_between(text2, text2, text1) == 1, "between returns true when gte");
   check(compare_string_between(text1, text2, text1) == 1, "between returns true when lte");
-  check(compare_string_between("ho", text2, text1) == 0, "between returns false when gt");
-  check(compare_string_between("fa", text2, text1) == 0, "between returns false when lt");
+  check(compare_string_between((uint8_t *) "ho", text2, text1) == 0, "between returns false when gt");
+  check(compare_string_between((uint8_t *) "fa", text2, text1) == 0, "between returns false when lt");
 
   done();
 }
