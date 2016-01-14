@@ -96,8 +96,8 @@ uint8_t compare_string (uint8_t *value1, uint8_t *value2, WhereType operand) {
 }
 
 uint8_t compare_string_between (uint8_t *value, uint8_t *value1, uint8_t *value2) {
-  uint16_t left = strcmp((char *) value, (char *) value1);
-  uint16_t right = strcmp((char *) value, (char *) value2);
+  int8_t left = strcmp((char *) value, (char *) value1);
+  int8_t right = strcmp((char *) value, (char *) value2);
 
   if (left >= 0 && right <= 0) {
     return 1;
