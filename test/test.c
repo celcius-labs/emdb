@@ -69,6 +69,7 @@ int main (int argc, char **argv) {
   test(test_int_from_json, "int_from_json");
   test(test_float_from_json, "float_from_json");
   test(test_string_from_json, "string_from_json");
+  test(test_simple_query, "simple query");
 
 #endif
 

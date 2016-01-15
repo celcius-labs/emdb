@@ -6,7 +6,8 @@
 static uint8_t *errors[] = {
   NULL,
   (uint8_t *)"Unable to allocate memory",
-  (uint8_t *)"Maximum memory used"
+  (uint8_t *)"Maximum memory used",
+  (uint8_t *)"Query error"
 };
 
 EMDB *emdb_create_db (Storage *store, uint32_t max_memory, void *cfg) {

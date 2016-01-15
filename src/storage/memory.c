@@ -124,6 +124,7 @@ static uint8_t write (void *ctx, uint8_t *key, uint8_t *value, uint16_t size) {
     current->entry->size = size;
     current->next = context->head;
     context->head = current;
+    context->stats->entries++;
   } else {
     // replace the existing data with the new data
     if (current->entry->ptr) {
@@ -172,6 +173,8 @@ static uint8_t delete (void *ctx, uint8_t *key) {
 
     prev->next = current->next;
   }
+
+  context->stats->entries--;
 
   _free(ctx, current->key->key);
   _free(ctx, current->key);

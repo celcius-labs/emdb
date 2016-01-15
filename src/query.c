@@ -212,6 +212,12 @@ static void simple_query_entry_handler (void *ctx, uint8_t *key, Entry *value) {
     }
   } else if (context->where->value_type == string) {
     uint8_t *string_res = string_from_json(context->json_ctx, value->ptr, context->where->key);
+    if (string_res == NULL) {
+      emdb_free_entry(value);
+
+      return;
+    }
+
     uint8_t res = compare_string(string_res, context->where->value.as_char, context->where->type);
     if (context->where->not) {
       if (!res) {
@@ -224,8 +230,32 @@ static void simple_query_entry_handler (void *ctx, uint8_t *key, Entry *value) {
         context->results->count++;
       }
     }
+
+    free(string_res);
   }
 
+  emdb_free_entry(value);
+}
+
+static void simple_end_handler (void *ctx) {
+  SimpleQueryContext *context = (SimpleQueryContext *) ctx;
+  void (*callback)(QueryResults *) = context->callback;
+  QueryResults *results = context->results;
+
+  destroy_simple_query_context(ctx);
+
+  callback(results);
+}
+
+static void simple_error_handler (void *ctx, uint8_t *error) {
+  SimpleQueryContext *context = (SimpleQueryContext *) ctx;
+  EMDB *emdb = context->emdb;
+  void (*callback)(QueryResults *) = context->callback;
+
+  emdb->error = 3;
+
+
+  callback(NULL);
 }
 
 void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) {
@@ -243,6 +273,8 @@ void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) 
 
   // setup
   query_ctx->emdb = emdb;
+  query_ctx->where = where;
+  query_ctx->callback = callback;
   query_ctx->json_ctx = create_json_context();
 
   if (query_ctx->json_ctx == NULL) {
@@ -265,7 +297,8 @@ void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) 
     return;
   }
 
-  query_ctx->results->keys = (uint8_t **) malloc(sizeof(uint8_t *) * emdb->count);
+  query_ctx->results->count = 0;
+  query_ctx->results->keys = (uint8_t **) malloc(sizeof(uint8_t **) * emdb->count);
 
   if (query_ctx->results->keys == NULL) {
     emdb->error = 1;
@@ -284,7 +317,7 @@ void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) 
     }
   } else {
     // simple query
-
+    emdb_scan(emdb, (void *) query_ctx, simple_query_entry_handler, simple_end_handler, simple_error_handler);
   }
 
 }
@@ -292,4 +325,12 @@ void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) 
 void emdb_free_results (QueryResults *results) {
   free(results->keys);
   free(results);
+}
+
+void destroy_simple_query_context (SimpleQueryContext *ctx) {
+  destroy_json_context(ctx->json_ctx);
+
+  // does not free there Where clause
+  // nor the query results
+  free(ctx);
 }

@@ -39,6 +39,7 @@ uint8_t test_json_utils ( );
 uint8_t test_int_from_json ( );
 uint8_t test_float_from_json ( );
 uint8_t test_string_from_json ( );
+uint8_t test_simple_query ( );
 
 #endif
 

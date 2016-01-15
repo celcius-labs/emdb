@@ -59,6 +59,7 @@ typedef struct SimpleQueryContext {
   EMDB *emdb;
   Where *where;
   JsonContext *json_ctx;
+  void (*callback)(QueryResults *);
 } SimpleQueryContext;
 
 void emdb_query_db(EMDB *, Where *, void (*)(QueryResults *));
@@ -168,6 +169,8 @@ uint8_t **and_list (uint8_t **, uint8_t **, uint16_t, uint16_t);
  * @param len2 - length of list 2
  */
 uint8_t **or_list (uint8_t **, uint8_t **, uint16_t, uint16_t);
+
+void destroy_simple_query_context (SimpleQueryContext *);
 
 #ifdef __cplusplus
 }

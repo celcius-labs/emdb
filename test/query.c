@@ -3,6 +3,8 @@
 #include <stdlib.h>
 
 #include "query.h"
+#include "emdb.h"
+#include "storage/memory.h"
 
 
 #include "test.h"
@@ -206,6 +208,50 @@ uint8_t test_or_list ( ) {
   check((strcmp((char *) results[8], "nine") == 0), "nineth result is correct");
 
   free(results);
+
+  done();
+}
+
+// holds the results of a query in an accessible place in the local context
+static QueryResults *query_results = NULL;
+
+// simply set the query results to whatever was returned
+static void query_callback (QueryResults *res) {
+  query_results = res;
+}
+
+uint8_t test_simple_query ( ) {
+  Where *where = (Where *) malloc(sizeof(Where));
+  EMDB *db;
+  uint8_t ret;
+
+  uint8_t *row1 = (uint8_t *) "{\"foo\":\"bar\"}";
+  uint8_t *row2 = (uint8_t *) "{\"bar\":\"baz\"}";
+
+  db = emdb_create_db(&MemoryStorage, 1024, NULL);
+
+  check(db != NULL, "database is created");
+
+  ret = emdb_write(db, (uint8_t *) "foo", row1, strlen((char *) row1) + 1);
+  check(ret == 1, "write is successful");
+  ret = emdb_write(db, (uint8_t *) "bar", row2, strlen((char *) row2) + 1);
+  check(ret == 1, "write is successful");
+
+  // where clause - foo == bar
+  where->type = equals;
+  where->key = (uint8_t *) "foo";
+  where->value.as_char = (uint8_t *) "bar";
+  where->value_type = string;
+  where->not = 0;
+
+  emdb_query_db(db, where, query_callback);
+
+  check((query_results != NULL), "query results are not null");
+  check((query_results->count == 1), "return count is 1");
+
+  free(where);
+  emdb_free_results(query_results);
+  emdb_destroy_db(db);
 
   done();
 }
