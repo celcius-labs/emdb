@@ -1,8 +1,8 @@
 # You can put your build options here
 -include config.mk
 
-CFLAGS=-I./src -Wall -g -march=native
-LDFLAGS=-g -flto
+CFLAGS=-I./src -Wall -g -march=native -fsanitize=address -fno-omit-frame-pointer
+LDFLAGS=-g -flto -fsanitize=address
 
 SRCS=src/emdb.c
 

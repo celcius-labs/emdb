@@ -5,6 +5,7 @@
 #include "json.h"
 
 #define MAX(a,b) (a > b ? a : b)
+#define MIN(a,b) (a < b ? a : b)
 
 uint8_t compare_float (float value1, float value2, WhereType operand) {
   switch (operand) {
@@ -69,7 +70,7 @@ uint8_t compare_int_between (uint16_t value, uint16_t value1, uint16_t value2) {
 uint8_t compare_string (uint8_t *value1, uint8_t *value2, WhereType operand) {
   uint16_t len1 = strlen((char *) value1);
   uint16_t len2 = strlen((char *) value2);
-  uint16_t len = MAX(len1, len2);
+  uint16_t len = MIN(len1, len2);
 
   switch (operand) {
     case equals:
