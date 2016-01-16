@@ -2,7 +2,7 @@
 -include config.mk
 
 CFLAGS=-I./src -Wall -g -march=native
-LDFLAGS=-g -flto
+LDFLAGS=-g -flto -L. -lemdb
 
 SRCS=src/emdb.c
 
@@ -86,7 +86,8 @@ obj/emdb.o: src/emdb.c src/emdb.h
 	$(CC) -c $(CFLAGS) src/emdb.c -o obj/emdb.o
 
 build: $(OBJS) $(TEST)
-	$(CC) $(OBJS) $(TEST) $(LDFLAGS) -o test_runner
+	$(AR) -cvq libemdb.a $(OBJS)
+	$(CC) $(TEST) $(LDFLAGS) -o test_runner
 
 .PHONY: clean clean_src
 
