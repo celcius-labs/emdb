@@ -5,3 +5,4 @@ test/*.o
 examples/*/*.o
 examples/basic/basic
 examples/scan/scan
+libemdb.a

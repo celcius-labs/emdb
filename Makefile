@@ -58,9 +58,8 @@ endif
 
 ifdef EMDB_JSON
 CFLAGS += -DEMDB_JSON -I./jsmn
-LDFLAGS += -L./jsmn -ljsmn
 
-OBJS += obj/json.o
+OBJS += obj/json.o jsmn/jsmn.o
 TEST += test/json.o
 
 obj/json.o: src/json.h
@@ -68,6 +67,9 @@ obj/json.o: src/json.h
 
 test/json.o: test/json.c
 	$(CC) -c $(CFLAGS) test/json.c -o test/json.o
+
+jsmn/jsmn.o: jsmn/jsmn.c
+	$(CC) -c $(CFLAGS) jsmn/jsmn.c -o jsmn/jsmn.o
 
 endif
 
@@ -94,7 +96,7 @@ build: $(OBJS) $(TEST)
 test: build
 	./test_runner --spec
 
-clean: clean_src clean_test
+clean: clean_src clean_test clean_lib
 
 clean_src:
 	@rm -f obj/*.o
@@ -104,3 +106,6 @@ clean_test:
 	@rm -f test/*.o
 	@rm -f test/test
 	@rm -f ./test_runner
+
+clean_lib:
+	@rm -f libemdb.a
