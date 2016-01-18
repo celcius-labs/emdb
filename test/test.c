@@ -75,5 +75,5 @@ int main (int argc, char **argv) {
 
   printf("\nPASSED: %d\nFAILED: %d\n", test_passed, test_failed);
 
-  return (test_failed > 0);
+  return (test_failed > 0 ? 1 : 0);
 }
