@@ -2,6 +2,8 @@
 
 A Micro Key/Value Store with Query Support.
 
+[![Build Status](http://ci.celci.us/repo/celcius-labs/emdb/badge.png)](http://ci.celci.us/repo/celcius-labs/emdb)
+
 ## Features
 
 * Small
