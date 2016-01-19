@@ -1,5 +1,10 @@
 {
   "name": "emdb",
+  "author": {
+    "name": "Jerry Sievert",
+    "email": "code@legitimatesounding.com",
+    "url": "http://legitimatesounding.com"
+  },
   "description": "A Tiny Embedded Database with Query Capability",
   "keywords": "database, query",
   "repository": {
