@@ -9,7 +9,7 @@
   "dependencies": [
     {
       "name": "jsmn",
-      "frameworks": "jsmn"
+      "frameworks": "*"
     }
   ],
   "frameworks": "*",

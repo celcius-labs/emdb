@@ -6,6 +6,7 @@
 * Reworked configuration completely
 * Added Querying
 * Added JSON data
+* Changed internal method signature or CRUD operations
 
 ## December 6, 2015 - 0.1.0
 
