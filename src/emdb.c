@@ -58,7 +58,7 @@ uint8_t emdb_write(EMDB *db, uint8_t *key, uint8_t *value, uint16_t size) {
     return 0;
   }
 
-  ret = db->store->write(db->ctx, key, value, size);
+  ret = db->store->store_write(db->ctx, key, value, size);
 
   // update the statistics
   stats = db->store->stats(db->ctx);
@@ -72,7 +72,7 @@ uint8_t emdb_write(EMDB *db, uint8_t *key, uint8_t *value, uint16_t size) {
 Entry *emdb_read(EMDB *db, uint8_t *key) {
   Entry *ret;
 
-  ret = db->store->read(db->ctx, key);
+  ret = db->store->store_read(db->ctx, key);
 
   return ret;
 }
@@ -81,7 +81,7 @@ uint8_t emdb_delete(EMDB *db, uint8_t *key) {
   uint8_t ret;
   Stats *stats;
 
-  ret = db->store->delete(db->ctx, key);
+  ret = db->store->store_delete(db->ctx, key);
 
   // update the statistics
   stats = db->store->stats(db->ctx);

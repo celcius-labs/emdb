@@ -5,9 +5,9 @@
 #include "memory.h"
 
 static MemoryKey *find_key (void *, uint8_t *);
-static Entry *read (void *, uint8_t *);
-static uint8_t write (void *, uint8_t *, uint8_t *, uint16_t);
-static uint8_t delete (void *, uint8_t *);
+static Entry *store_read (void *, uint8_t *);
+static uint8_t store_write (void *, uint8_t *, uint8_t *, uint16_t);
+static uint8_t store_delete (void *, uint8_t *);
 static Stats *stats (void *);
 static uint8_t *last_error (void *);
 static void scan (void *, void *, void (*)(void *, uint8_t *, Entry *), void (*)(void *), void (*)(void *, uint8_t *));
@@ -20,9 +20,9 @@ static void _free(void *, void *);
 
 // initialize the storage engine
 Storage MemoryStorage = {
-  write,
-  read,
-  delete,
+  store_write,
+  store_read,
+  store_delete,
   scan,
   stats,
   last_error,
@@ -46,7 +46,7 @@ typedef struct MemoryCtx {
 } MemoryCtx;
 
 
-static Entry *read (void *ctx, uint8_t *key) {
+static Entry *store_read (void *ctx, uint8_t *key) {
   MemoryKey *current = find_key(ctx, key);
 
   if (current == NULL) {
@@ -56,7 +56,7 @@ static Entry *read (void *ctx, uint8_t *key) {
   }
 }
 
-static uint8_t write (void *ctx, uint8_t *key, uint8_t *value, uint16_t size) {
+static uint8_t store_write (void *ctx, uint8_t *key, uint8_t *value, uint16_t size) {
   MemoryKey *current = find_key(ctx, key);
   MemoryCtx *context = (MemoryCtx *) ctx;
 
@@ -145,7 +145,7 @@ static uint8_t write (void *ctx, uint8_t *key, uint8_t *value, uint16_t size) {
   return 1;
 }
 
-static uint8_t delete (void *ctx, uint8_t *key) {
+static uint8_t store_delete (void *ctx, uint8_t *key) {
   MemoryCtx *context = (MemoryCtx *) ctx;
   MemoryKey *current = find_key(ctx, key);
   MemoryKey *prev;

@@ -1,0 +1,17 @@
+{
+  "name": "emdb",
+  "description": "A Tiny Embedded Database with Query Capability",
+  "keywords": "database, query",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/celcius-labs/emdb.git"
+  },
+  "dependencies": [
+    {
+      "name": "jsmn",
+      "frameworks": "jsmn"
+    }
+  ],
+  "frameworks": "*",
+  "platforms": "*"
+}

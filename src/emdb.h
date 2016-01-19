@@ -18,6 +18,7 @@ extern "C" {
 
 #define CAPABILITY_PERMANENT_STORE 1
 #define CAPABILITY_INDEXED         2
+#define CAPABILITY_OID             4
 
 /**
  * @brief A database entry
@@ -62,9 +63,9 @@ typedef struct Stats {
  * Engine must implement all methods.
  */
 typedef struct Storage {
-  uint8_t (*write)(void *, uint8_t *, uint8_t *, uint16_t); /**< write method */
-  Entry *(*read)(void *, uint8_t *); /**< read method */
-  uint8_t (*delete)(void *, uint8_t *); /**< delete method */
+  uint8_t (*store_write)(void *, uint8_t *, uint8_t *, uint16_t); /**< write method */
+  Entry *(*store_read)(void *, uint8_t *); /**< read method */
+  uint8_t (*store_delete)(void *, uint8_t *); /**< delete method */
   void (*scan)(void *, void *, void (*)(void *, uint8_t *, Entry *), void (*)(void *), void (*)(void *, uint8_t *)); /**< scan method */
   Stats *(*stats)(void *); /**< stats method */
   uint8_t *(*last_error)(void *); /**< last_error method */

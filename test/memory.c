@@ -16,15 +16,15 @@ uint8_t test_memory ( ) {
 
   ctx = MemoryStorage.create_context(NULL);
 
-  entry = MemoryStorage.read(ctx, (unsigned char *) "foo");
+  entry = MemoryStorage.store_read(ctx, (unsigned char *) "foo");
 
   check(entry == NULL, "entry is null after read");
 
-  ret = MemoryStorage.write(ctx, (unsigned char *) "foo", (unsigned char *) "bar", 4);
+  ret = MemoryStorage.store_write(ctx, (unsigned char *) "foo", (unsigned char *) "bar", 4);
 
   check(ret == 1, "write succeeded");
 
-  entry = MemoryStorage.read(ctx, (unsigned char *) "foo");
+  entry = MemoryStorage.store_read(ctx, (unsigned char *) "foo");
 
   check(entry->size == 4, "entry size is 4");
   check(strcmp(entry->ptr, "bar") == 0, "entry is correct");
@@ -40,19 +40,19 @@ uint8_t test_memory ( ) {
   check(stats->memory_usage == 66, "memory usage is correctly reported");
 #endif
 
-  ret = MemoryStorage.write(ctx, (unsigned char *) "bar", (unsigned char *) "baz", 4);
+  ret = MemoryStorage.store_write(ctx, (unsigned char *) "bar", (unsigned char *) "baz", 4);
 
   check(ret == 1, "second write succeeded");
 
-  entry = MemoryStorage.read(ctx, (unsigned char *) "bar");
+  entry = MemoryStorage.store_read(ctx, (unsigned char *) "bar");
 
   check(entry->size == 4, "entry size is 4");
   check(strcmp(entry->ptr, "baz") == 0, "entry is correct");
 
   emdb_free_entry(entry);
 
-  MemoryStorage.delete(ctx, (unsigned char *) "foo");
-  entry = MemoryStorage.read(ctx, (unsigned char *) "foo");
+  MemoryStorage.store_delete(ctx, (unsigned char *) "foo");
+  entry = MemoryStorage.store_read(ctx, (unsigned char *) "foo");
 
   check(entry == NULL, "entry is null after delete called");
 
@@ -82,11 +82,11 @@ uint8_t test_context_isolation ( ) {
   ctx2 = MemoryStorage.create_context(NULL);
 
 
-  ret = MemoryStorage.write(ctx1, (unsigned char *) "foo", (unsigned char *) "bar", 4);
+  ret = MemoryStorage.store_write(ctx1, (unsigned char *) "foo", (unsigned char *) "bar", 4);
 
   check(ret == 1, "write to context 1 succeeded");
 
-  entry = MemoryStorage.read(ctx1, (unsigned char *) "foo");
+  entry = MemoryStorage.store_read(ctx1, (unsigned char *) "foo");
 
   check(entry->size == 4, "entry size is 4");
   check(strcmp(entry->ptr, "bar") == 0, "entry is correct");
@@ -114,27 +114,27 @@ uint8_t test_context_isolation ( ) {
   check(stats->memory_usage == 20, "memory usage is correctly reported for context 2");
 #endif
 
-  entry = MemoryStorage.read(ctx2, (unsigned char *) "foo");
+  entry = MemoryStorage.store_read(ctx2, (unsigned char *) "foo");
 
   check(entry == NULL, "entry is null after read on context 2");
 
-  ret = MemoryStorage.write(ctx1, (unsigned char *) "bar", (unsigned char *) "baz", 4);
+  ret = MemoryStorage.store_write(ctx1, (unsigned char *) "bar", (unsigned char *) "baz", 4);
 
   check(ret == 1, "second write to context 1 succeeded");
 
-  entry = MemoryStorage.read(ctx1, (unsigned char *) "bar");
+  entry = MemoryStorage.store_read(ctx1, (unsigned char *) "bar");
 
   check(entry->size == 4, "entry size is 4");
   check(strcmp(entry->ptr, "baz") == 0, "entry is correct");
 
   emdb_free_entry(entry);
 
-  entry = MemoryStorage.read(ctx2, (unsigned char *) "bar");
+  entry = MemoryStorage.store_read(ctx2, (unsigned char *) "bar");
 
   check(entry == NULL, "entry is null after read on context 2");
 
-  MemoryStorage.delete(ctx1, (unsigned char *) "foo");
-  entry = MemoryStorage.read(ctx1, (unsigned char *) "foo");
+  MemoryStorage.store_delete(ctx1, (unsigned char *) "foo");
+  entry = MemoryStorage.store_read(ctx1, (unsigned char *) "foo");
 
   check(entry == NULL, "entry is null after delete called");
 
