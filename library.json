@@ -13,9 +13,15 @@
   },
   "dependencies": [
     {
-      "name": "jsmn",
-      "frameworks": "*"
+      "name": "jsmn"
     }
+  ],
+  "exclude": [
+    "jsmn",
+    "obj",
+    "test",
+    "doc",
+    "Doxyfile"
   ],
   "frameworks": "*",
   "platforms": "*"
