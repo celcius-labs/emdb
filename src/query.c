@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #include "query.h"
 #include "json.h"
@@ -313,6 +314,8 @@ void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) 
 
   // iterate through the children, getting any results
   if (where->type == and || where->type == or) {
+    // complex queries not yet supported
+    assert(0);
     for (i = 0; i < where->child_count; i++) {
 
     }
