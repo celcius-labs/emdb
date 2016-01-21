@@ -70,7 +70,7 @@ test/json.o: test/json.cc
 	$(CC) -c $(CFLAGS) test/json.cc -o test/json.o
 
 jsmn/jsmn.o: jsmn/jsmn.c
-	$(CC) -c $(CFLAGS) jsmn/jsmn.cc -o jsmn/jsmn.o
+	$(CC) -c $(CFLAGS) jsmn/jsmn.c -o jsmn/jsmn.o
 
 endif
 
