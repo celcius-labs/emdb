@@ -7,8 +7,10 @@
 int main ( ) {
   EMDB *db;
   Entry *entry;
+  Storage *store = getMemoryStorage();
 
-  db = emdb_create_db(&MemoryStorage, 1024, NULL);
+
+  db = emdb_create_db(store, 1024, NULL);
 
   emdb_write(db, (uint8_t *)"key", (uint8_t *)"value", 6);
   entry = emdb_read(db, (unsigned char *)"key");

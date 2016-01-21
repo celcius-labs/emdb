@@ -79,6 +79,7 @@ void error_handler (void *ctx, uint8_t *error) {
 int main ( ) {
   EMDB *db;
   struct temperatures t;
+  Storage *store = getMemoryStorage();
 
   // set up some crazy defaults
   t.min = 1000;
@@ -86,7 +87,7 @@ int main ( ) {
   t.count = 0;
   t.total = 0;
 
-  db = emdb_create_db(&MemoryStorage, 1024, NULL);
+  db = emdb_create_db(store, 1024, NULL);
   add_data(db);
 
   emdb_scan(db, (void *) &t, entry_handler, end_handler, error_handler);
