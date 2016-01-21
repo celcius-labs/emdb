@@ -10,19 +10,19 @@
 
 uint8_t compare_float (float value1, float value2, WhereType operand) {
   switch (operand) {
-    case equals:
+    case query_equals:
     return (value1 == value2);
 
-    case gt:
+    case query_gt:
     return (value1 > value2);
 
-    case lt:
+    case query_lt:
     return (value1 < value2);
 
-    case gte:
+    case query_gte:
     return (value1 >= value2);
 
-    case lte:
+    case query_lte:
     return (value1 <= value2);
 
     default:
@@ -40,19 +40,19 @@ uint8_t compare_float_between (float value, float value1, float value2) {
 
 uint8_t compare_int (uint16_t value1, uint16_t value2, WhereType operand) {
   switch (operand) {
-    case equals:
+    case query_equals:
     return (value1 == value2);
 
-    case gt:
+    case query_gt:
     return (value1 > value2);
 
-    case lt:
+    case query_lt:
     return (value1 < value2);
 
-    case gte:
+    case query_gte:
     return (value1 >= value2);
 
-    case lte:
+    case query_lte:
     return (value1 <= value2);
 
     default:
@@ -74,22 +74,22 @@ uint8_t compare_string (uint8_t *value1, uint8_t *value2, WhereType operand) {
   uint16_t len = MIN(len1, len2);
 
   switch (operand) {
-    case equals:
+    case query_equals:
     if (len1 != len2) {
       return 0;
     }
     return (memcmp(value1, value2, len) == 0);
 
-    case gt:
+    case query_gt:
     return (memcmp(value1, value2, len) > 0);
 
-    case lt:
+    case query_lt:
     return (memcmp(value1, value2, len) < 0);
 
-    case gte:
+    case query_gte:
     return (memcmp(value1, value2, len) >= 0);
 
-    case lte:
+    case query_lte:
     return (memcmp(value1, value2, len) <= 0);
 
     default:
@@ -185,9 +185,9 @@ static void simple_query_entry_handler (void *ctx, uint8_t *key, Entry *value) {
   SimpleQueryContext *context = (SimpleQueryContext *) ctx;
 
   if (context->where->value_type == floatingpoint) {
-    float float_res = float_from_json(context->json_ctx, value->ptr, context->where->key);
+    float float_res = float_from_json(context->json_ctx, (uint8_t *) value->ptr, context->where->key);
     uint8_t res = compare_float(float_res, context->where->value.as_float, context->where->type);
-    if (context->where->not) {
+    if (context->where->query_not) {
       if (!res) {
         context->results->keys[context->results->count] = key;
         context->results->count++;
@@ -199,9 +199,9 @@ static void simple_query_entry_handler (void *ctx, uint8_t *key, Entry *value) {
       }
     }
   } else if (context->where->value_type == integer) {
-    uint16_t int_res = int_from_json(context->json_ctx, value->ptr, context->where->key);
+    uint16_t int_res = int_from_json(context->json_ctx, (uint8_t *) value->ptr, context->where->key);
     uint8_t res = compare_int(int_res, context->where->value.as_int, context->where->type);
-    if (context->where->not) {
+    if (context->where->query_not) {
       if (!res) {
         context->results->keys[context->results->count] = key;
         context->results->count++;
@@ -213,7 +213,7 @@ static void simple_query_entry_handler (void *ctx, uint8_t *key, Entry *value) {
       }
     }
   } else if (context->where->value_type == string) {
-    uint8_t *string_res = string_from_json(context->json_ctx, value->ptr, context->where->key);
+    uint8_t *string_res = string_from_json(context->json_ctx, (uint8_t *) value->ptr, context->where->key);
     if (string_res == NULL) {
       emdb_free_entry(value);
 
@@ -221,7 +221,7 @@ static void simple_query_entry_handler (void *ctx, uint8_t *key, Entry *value) {
     }
 
     uint8_t res = compare_string(string_res, context->where->value.as_char, context->where->type);
-    if (context->where->not) {
+    if (context->where->query_not) {
       if (!res) {
         context->results->keys[context->results->count] = key;
         context->results->count++;
@@ -244,7 +244,7 @@ static void simple_end_handler (void *ctx) {
   void (*callback)(QueryResults *) = context->callback;
   QueryResults *results = context->results;
 
-  destroy_simple_query_context(ctx);
+  destroy_simple_query_context(context);
 
   callback(results);
 }
@@ -313,7 +313,7 @@ void emdb_query_db (EMDB *emdb, Where *where, void (*callback)(QueryResults *)) 
   }
 
   // iterate through the children, getting any results
-  if (where->type == and || where->type == or) {
+  if (where->type == query_and || where->type == query_or) {
     // complex queries not yet supported
     assert(0);
     for (i = 0; i < where->child_count; i++) {

@@ -18,15 +18,15 @@ extern "C" {
  * Type of equality to check in comparisons.
  */
 typedef enum WhereType {
-  and     = 0,
-  or      = 1,
-  equals  = 2,
-  gt      = 3,
-  lt      = 4,
-  gte     = 5,
-  lte     = 6,
-  between = 7,
-  in      = 8
+  query_and     = 0,
+  query_or      = 1,
+  query_equals  = 2,
+  query_gt      = 3,
+  query_lt      = 4,
+  query_gte     = 5,
+  query_lte     = 6,
+  query_between = 7,
+  query_in      = 8
 } WhereType;
 
 typedef enum ValueType {
@@ -43,7 +43,7 @@ typedef struct Where {
     int16_t as_int;
     float as_float;
   } value;
-  uint8_t not;
+  uint8_t query_not;
   ValueType value_type;
   uint8_t child_count;
   void **children;

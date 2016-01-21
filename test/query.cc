@@ -15,18 +15,18 @@ uint8_t test_compare_string ( ) {
   uint8_t *text1 = (uint8_t *) "hello";
   uint8_t *text2 = (uint8_t *) "foo";
 
-  check(compare_string(text1, text1, equals) == 1, "same text is considered equal");
-  check(compare_string(text1, text2, equals) == 0, "different text is not considered equal");
-  check(compare_string(text1, text1, gt) == 0, "equal text is not considered gt");
-  check(compare_string(text1, text2, gt) == 1, "gt text is considered gt");
-  check(compare_string(text2, text1, gt) == 0, "lt text is not considered gt");
-  check(compare_string(text1, text1, lt) == 0, "equal text is not considered lt");
-  check(compare_string(text2, text1, lt) == 1, "lt text is considered lt");
-  check(compare_string(text1, text2, lt) == 0, "gt text is not considered lt");
-  check(compare_string(text1, text1, gte) == 1, "same text is considered gte");
-  check(compare_string(text1, text2, gte) == 1, "gt text is considered gte");
-  check(compare_string(text1, text1, lte) == 1, "same text is considered lte");
-  check(compare_string(text2, text1, lte) == 1, "lt text is considered lte");
+  check(compare_string(text1, text1, query_equals) == 1, "same text is considered equal");
+  check(compare_string(text1, text2, query_equals) == 0, "different text is not considered equal");
+  check(compare_string(text1, text1, query_gt) == 0, "equal text is not considered gt");
+  check(compare_string(text1, text2, query_gt) == 1, "gt text is considered gt");
+  check(compare_string(text2, text1, query_gt) == 0, "lt text is not considered gt");
+  check(compare_string(text1, text1, query_lt) == 0, "equal text is not considered lt");
+  check(compare_string(text2, text1, query_lt) == 1, "lt text is considered lt");
+  check(compare_string(text1, text2, query_lt) == 0, "gt text is not considered lt");
+  check(compare_string(text1, text1, query_gte) == 1, "same text is considered gte");
+  check(compare_string(text1, text2, query_gte) == 1, "gt text is considered gte");
+  check(compare_string(text1, text1, query_lte) == 1, "same text is considered lte");
+  check(compare_string(text2, text1, query_lte) == 1, "lt text is considered lte");
 
   check(compare_string_between((uint8_t *) "goo", text2, text1) == 1, "between returns true when between");
   check(compare_string_between(text2, text2, text1) == 1, "between returns true when gte");
@@ -41,20 +41,20 @@ uint8_t test_compare_int ( ) {
   uint16_t i1 = 10;
   uint16_t i2 = 20;
 
-  check(compare_int(i1, i1, equals) == 1, "same integer is considered equal");
-  check(compare_int(i1, i2, equals) == 0, "different integer is not considered equal");
-  check(compare_int(i1, i1, gt) == 0, "equal integer is not considered gt");
-  check(compare_int(i2, i1, gt) == 1, "gt integer is considered gt");
-  check(compare_int(i1, i2, gt) == 0, "lt integer is not considered gt");
-  check(compare_int(i1, i1, lt) == 0, "equal integer is not considered lt");
-  check(compare_int(i1, i2, lt) == 1, "lt integer is considered lt");
-  check(compare_int(i2, i1, lt) == 0, "gt integer is not considered lt");
-  check(compare_int(i2, i1, gte) == 1, "gt integer is considered gte");
-  check(compare_int(i1, i2, gte) == 0, "lt integer is not considered gte");
-  check(compare_int(i1, i1, gte) == 1, "equal integer is considered gte");
-  check(compare_int(i1, i1, lte) == 1, "equal integer is considered lte");
-  check(compare_int(i1, i2, lte) == 1, "lt integer is considered lte");
-  check(compare_int(i2, i1, lte) == 0, "gt integer is not considered lte");
+  check(compare_int(i1, i1, query_equals) == 1, "same integer is considered equal");
+  check(compare_int(i1, i2, query_equals) == 0, "different integer is not considered equal");
+  check(compare_int(i1, i1, query_gt) == 0, "equal integer is not considered gt");
+  check(compare_int(i2, i1, query_gt) == 1, "gt integer is considered gt");
+  check(compare_int(i1, i2, query_gt) == 0, "lt integer is not considered gt");
+  check(compare_int(i1, i1, query_lt) == 0, "equal integer is not considered lt");
+  check(compare_int(i1, i2, query_lt) == 1, "lt integer is considered lt");
+  check(compare_int(i2, i1, query_lt) == 0, "gt integer is not considered lt");
+  check(compare_int(i2, i1, query_gte) == 1, "gt integer is considered gte");
+  check(compare_int(i1, i2, query_gte) == 0, "lt integer is not considered gte");
+  check(compare_int(i1, i1, query_gte) == 1, "equal integer is considered gte");
+  check(compare_int(i1, i1, query_lte) == 1, "equal integer is considered lte");
+  check(compare_int(i1, i2, query_lte) == 1, "lt integer is considered lte");
+  check(compare_int(i2, i1, query_lte) == 0, "gt integer is not considered lte");
 
   check(compare_int_between(15, i2, i1) == 1, "between returns true when between");
   check(compare_int_between(20, i2, i1) == 1, "between returns true when gte");
@@ -75,20 +75,20 @@ uint8_t test_compare_float ( ) {
   float f1 = 1.0;
   float f2 = 2.0;
 
-  check(compare_float(f1, f1, equals) == 1, "same float is considered equal");
-  check(compare_float(f1, f2, equals) == 0, "different float is not considered equal");
-  check(compare_float(f1, f1, gt) == 0, "equal float is not considered gt");
-  check(compare_float(f2, f1, gt) == 1, "gt float is considered gt");
-  check(compare_float(f1, f2, gt) == 0, "lt float is not considered gt");
-  check(compare_float(f1, f1, lt) == 0, "equal float is not considered lt");
-  check(compare_float(f1, f2, lt) == 1, "lt float is considered lt");
-  check(compare_float(f2, f1, lt) == 0, "gt float is not considered lt");
-  check(compare_float(f2, f1, gte) == 1, "gt float is considered gte");
-  check(compare_float(f1, f2, gte) == 0, "lt float is not considered gte");
-  check(compare_float(f1, f1, gte) == 1, "equal float is considered gte");
-  check(compare_float(f1, f1, lte) == 1, "equal float is considered lte");
-  check(compare_float(f1, f2, lte) == 1, "lt float is considered lte");
-  check(compare_float(f2, f1, lte) == 0, "gt float is not considered lte");
+  check(compare_float(f1, f1, query_equals) == 1, "same float is considered equal");
+  check(compare_float(f1, f2, query_equals) == 0, "different float is not considered equal");
+  check(compare_float(f1, f1, query_gt) == 0, "equal float is not considered gt");
+  check(compare_float(f2, f1, query_gt) == 1, "gt float is considered gt");
+  check(compare_float(f1, f2, query_gt) == 0, "lt float is not considered gt");
+  check(compare_float(f1, f1, query_lt) == 0, "equal float is not considered lt");
+  check(compare_float(f1, f2, query_lt) == 1, "lt float is considered lt");
+  check(compare_float(f2, f1, query_lt) == 0, "gt float is not considered lt");
+  check(compare_float(f2, f1, query_gte) == 1, "gt float is considered gte");
+  check(compare_float(f1, f2, query_gte) == 0, "lt float is not considered gte");
+  check(compare_float(f1, f1, query_gte) == 1, "equal float is considered gte");
+  check(compare_float(f1, f1, query_lte) == 1, "equal float is considered lte");
+  check(compare_float(f1, f2, query_lte) == 1, "lt float is considered lte");
+  check(compare_float(f2, f1, query_lte) == 0, "gt float is not considered lte");
 
   check(compare_float_between(1.5, f2, f1) == 1, "between returns true when between");
   check(compare_float_between(2.0, f2, f1) == 1, "between returns true when gte");
@@ -224,11 +224,12 @@ uint8_t test_simple_query ( ) {
   Where *where = (Where *) malloc(sizeof(Where));
   EMDB *db;
   uint8_t ret;
+  Storage *store = getMemoryStorage();
 
   uint8_t *row1 = (uint8_t *) "{\"foo\":\"bar\"}";
   uint8_t *row2 = (uint8_t *) "{\"bar\":\"baz\"}";
 
-  db = emdb_create_db(&MemoryStorage, 1024, NULL);
+  db = emdb_create_db(store, 1024, NULL);
 
   check(db != NULL, "database is created");
 
@@ -238,11 +239,11 @@ uint8_t test_simple_query ( ) {
   check(ret == 1, "write is successful");
 
   // where clause - foo == bar
-  where->type = equals;
+  where->type = query_equals;
   where->key = (uint8_t *) "foo";
   where->value.as_char = (uint8_t *) "bar";
   where->value_type = string;
-  where->not = 0;
+  where->query_not = 0;
 
   emdb_query_db(db, where, query_callback);
 

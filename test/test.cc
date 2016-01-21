@@ -19,7 +19,7 @@ uint8_t test_emdb ( ) {
   Entry *entry;
   uint8_t ret;
 
-  db = emdb_create_db(&MemoryStorage, 1024, NULL);
+  db = emdb_create_db(getMemoryStorage(), 1024, NULL);
 
   check(db != NULL, "database is created");
 
@@ -33,7 +33,7 @@ uint8_t test_emdb ( ) {
   entry = emdb_read(db, (unsigned char *) "foo");
 
   check(entry->size == 4, "entry size is 4");
-  check(strcmp(entry->ptr, "bar") == 0, "entry is correct");
+  check(strcmp((char *) entry->ptr, "bar") == 0, "entry is correct");
 
   emdb_free_entry(entry);
 

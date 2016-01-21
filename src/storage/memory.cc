@@ -11,7 +11,7 @@ static uint8_t store_delete (void *, uint8_t *);
 static Stats *stats (void *);
 static uint8_t *last_error (void *);
 static void scan (void *, void *, void (*)(void *, uint8_t *, Entry *), void (*)(void *), void (*)(void *, uint8_t *));
-static void *create_context ( );
+static void *create_context (void *);
 static void destroy_context (void *);
 
 // custom malloc/free for statistics
@@ -45,6 +45,9 @@ typedef struct MemoryCtx {
   Stats *stats;
 } MemoryCtx;
 
+Storage *getMemoryStorage ( ) {
+  return &MemoryStorage;
+}
 
 static Entry *store_read (void *ctx, uint8_t *key) {
   MemoryKey *current = find_key(ctx, key);
@@ -292,10 +295,10 @@ static void *_malloc (void *ctx, uint16_t size) {
   ptr = malloc(size);
   context->stats->memory_usage += size;
 
-  sz = ptr;
+  sz = (uint16_t *) ptr;
   *sz = size;
 
-  new_ptr = ptr + sizeof(uint16_t);
+  new_ptr = (void *)((uint16_t *) ptr + sizeof(uint16_t));
 
   return new_ptr;
 }
@@ -305,9 +308,9 @@ static void _free (void *ctx, void *ptr) {
   uint16_t *sz;
   void *true_ptr;
 
-  true_ptr = ptr - sizeof(uint16_t);
+  true_ptr = (void *) ((uint16_t *) ptr - sizeof(uint16_t));
 
-  sz = true_ptr;
+  sz = (uint16_t *) true_ptr;
 
   context->stats->memory_usage -= *sz;
 
