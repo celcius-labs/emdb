@@ -7,7 +7,7 @@ LDFLAGS=-g -flto -L. -lemdb
 
 SRCS=src/emdb.cpp
 
-OBJS=obj/emdb.o
+OBJS=obj/emdb.o obj/debug.o
 TEST=test/test.o
 
 
@@ -87,6 +87,9 @@ test/test.o: test/test.cpp
 
 obj/emdb.o: src/emdb.cpp src/emdb.h
 	$(CC) -c $(CFLAGS) src/emdb.cpp -o obj/emdb.o
+
+obj/debug.o: src/debug.cpp src/debug.h
+	$(CC) -c $(CFLAGS) src/debug.cpp -o obj/debug.o
 
 build: $(OBJS) $(TEST)
 	$(AR) -cvq libemdb.a $(OBJS)
