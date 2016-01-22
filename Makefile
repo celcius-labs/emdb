@@ -5,7 +5,7 @@ CC=g++
 CFLAGS=-I./src -Wall -g -march=native
 LDFLAGS=-g -flto -L. -lemdb
 
-SRCS=src/emdb.cc
+SRCS=src/emdb.cpp
 
 OBJS=obj/emdb.o
 TEST=test/test.o
@@ -32,11 +32,11 @@ endif
 ifdef EMDB_MEMORY_STORAGE
 CFLAGS += -DEMDB_MEMORY_STORAGE
 
-obj/storage/memory.o: src/storage/memory.cc src/storage/memory.h src/emdb.h
-	$(CC) -c $(CFLAGS) src/storage/memory.cc -o obj/storage/memory.o
+obj/storage/memory.o: src/storage/memory.cpp src/storage/memory.h src/emdb.h
+	$(CC) -c $(CFLAGS) src/storage/memory.cpp -o obj/storage/memory.o
 
-test/memory.o: test/memory.cc src/storage/memory.cc src/storage/memory.h
-	$(CC) -c $(CFLAGS) test/memory.cc -o test/memory.o
+test/memory.o: test/memory.cpp src/storage/memory.cpp src/storage/memory.h
+	$(CC) -c $(CFLAGS) test/memory.cpp -o test/memory.o
 
 OBJS += obj/storage/memory.o
 TEST += test/memory.o
@@ -50,10 +50,10 @@ OBJS += obj/query.o
 TEST += test/query.o
 
 obj/query.o: src/query.h
-	$(CC) -c $(CFLAGS) src/query.cc -o obj/query.o
+	$(CC) -c $(CFLAGS) src/query.cpp -o obj/query.o
 
-test/query.o: test/query.cc
-	$(CC) -c $(CFLAGS) test/query.cc -o test/query.o
+test/query.o: test/query.cpp
+	$(CC) -c $(CFLAGS) test/query.cpp -o test/query.o
 
 endif
 
@@ -64,10 +64,10 @@ OBJS += obj/json.o jsmn/jsmn.o
 TEST += test/json.o
 
 obj/json.o: src/json.h
-	$(CC) -c $(CFLAGS) src/json.cc -o obj/json.o
+	$(CC) -c $(CFLAGS) src/json.cpp -o obj/json.o
 
-test/json.o: test/json.cc
-	$(CC) -c $(CFLAGS) test/json.cc -o test/json.o
+test/json.o: test/json.cpp
+	$(CC) -c $(CFLAGS) test/json.cpp -o test/json.o
 
 jsmn/jsmn.o: jsmn/jsmn.c
 	$(CC) -c $(CFLAGS) jsmn/jsmn.c -o jsmn/jsmn.o
@@ -80,13 +80,13 @@ doc:
 
 
 
-test/test.o: test/test.cc
-	$(CC) -c $(CFLAGS) test/test.cc -o test/test.o
+test/test.o: test/test.cpp
+	$(CC) -c $(CFLAGS) test/test.cpp -o test/test.o
 
 
 
-obj/emdb.o: src/emdb.cc src/emdb.h
-	$(CC) -c $(CFLAGS) src/emdb.cc -o obj/emdb.o
+obj/emdb.o: src/emdb.cpp src/emdb.h
+	$(CC) -c $(CFLAGS) src/emdb.cpp -o obj/emdb.o
 
 build: $(OBJS) $(TEST)
 	$(AR) -cvq libemdb.a $(OBJS)
