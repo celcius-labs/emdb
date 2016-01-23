@@ -19,11 +19,15 @@ void _test_fail (const char *, const char *, uint16_t);
 void _test_pass (const char *);
 void _test_start (const char *);
 
+#ifndef ARDUINO
+#define delay(n) { /* noop */ }
+#endif
+
 /* Successfull end of the test case */
 #define done() return 0
 
 /* Check single condition */
-#define check(cond,message) do { if (!(cond)) { _test_fail(message, __FILE__, __LINE__); test_failed++; } else { _test_pass(message); test_passed++; } } while (0)
+#define check(cond,message) do { if (!(cond)) { _test_fail(message, __FILE__, __LINE__); test_failed++; } else { _test_pass(message); test_passed++; } delay(25); } while (0)
 
 /* Test runner */
 #define test(func, name) do { _test_start(name); func(); } while(0)

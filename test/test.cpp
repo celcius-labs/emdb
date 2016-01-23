@@ -62,40 +62,27 @@ void _test_start (const char *name) {
   }
 }
 
-uint8_t test_emdb ( ) {
-  EMDB *db;
-  Entry *entry;
-  uint8_t ret;
-
-  db = emdb_create_db(getMemoryStorage(), 1024, NULL);
-
-  check(db != NULL, "database is created");
-
-  entry = emdb_read(db, (unsigned char *) "foo");
-
-  check(entry == NULL, "entry is null after read");
-
-  ret = emdb_write(db, (unsigned char *) "foo", (unsigned char *) "bar", 4);
-  check(ret == 1, "write is successful");
-
-  entry = emdb_read(db, (unsigned char *) "foo");
-
-  check(entry->size == 4, "entry size is 4");
-  check(strcmp((char *) entry->ptr, "bar") == 0, "entry is correct");
-
-  emdb_free_entry(entry);
-
-  emdb_destroy_db(db);
-
-  done();
+#ifdef ARDUINO
+void setup ( ) {
+  Serial.begin(115200);
+  Serial.println("BEGIN TESTS");
+  delay(25);
 }
+#endif
 
+#ifdef ARDUINO
+void loop ( ) {
+  spec = 1;
+
+#else
 int main (int argc, char **argv) {
   if (argc > 1) {
     if ((strcmp(argv[1], "--spec") == 0) || (strcmp(argv[1], "-s") == 0)) {
       spec = 1;
     }
   }
+
+#endif
 
   test(test_emdb, "test emdb");
 
@@ -121,7 +108,17 @@ int main (int argc, char **argv) {
 
 #endif
 
+#ifdef ARDUINO
+  Serial.println();
+  Serial.print("PASSED: ");
+  Serial.println(test_passed);
+  Serial.print("FAILED: ");
+  Serial.println(test_failed);
+
+  delay(30000);
+#else
   printf("\nPASSED: %d\nFAILED: %d\n", test_passed, test_failed);
 
   return (test_failed > 0 ? 1 : 0);
+#endif
 }
