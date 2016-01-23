@@ -14,6 +14,54 @@ uint8_t spec = 0;
 uint16_t test_passed = 0;
 uint16_t test_failed = 0;
 
+void _test_pass (const char *message) {
+#ifdef ARDUINO
+  if (spec) {
+    Serial.print("  ✓ ");
+    Serial.println(message);
+  } else {
+    Serial.print(".");
+  }
+#else
+  if (spec) {
+    printf("  ✓ %s\n", message);
+  } else {
+    printf(".");
+  }
+#endif
+}
+
+void _test_fail (const char *message, const char *file, uint16_t line) {
+#ifdef ARDUINO
+  if (spec) {
+    Serial.print("  𝙭 (");
+    Serial.print(message);
+    Serial.print(":");
+    Serial.print(line);
+    Serial.println(")");
+  } else {
+    Serial.print("𝙭");
+  }
+#else
+  if (spec) {
+    printf("  𝙭 %s (%s:%d)\n", message, file, line);
+  } else {
+    printf("𝙭");
+  }
+#endif
+}
+
+void _test_start (const char *name) {
+  if (spec) {
+#ifdef ARDUINO
+    Serial.println();
+    Serial.println(name);
+#else
+    printf("\n%s\n", name);
+#endif
+  }
+}
+
 uint8_t test_emdb ( ) {
   EMDB *db;
   Entry *entry;

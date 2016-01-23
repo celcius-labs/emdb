@@ -3,21 +3,30 @@
 
 #include <stdint.h>
 
+#ifdef ARDUINO
+#ifdef ARDUINO_ARCH_ESP8266
+#include <ESP8266WiFi.h>
+#endif
+#else
+#include <stdio.h>
+#endif
+
 extern uint8_t spec;
 extern uint16_t test_passed;
 extern uint16_t test_failed;
 
-/* Terminate current test with error */
-#define fail(message)	{ if (spec) { printf("  𝙭 %s (%s:%d)\n", message, __FILE__, __LINE__); } else { printf("𝙭"); } }
+void _test_fail (const char *, const char *, uint16_t);
+void _test_pass (const char *);
+void _test_start (const char *);
 
 /* Successfull end of the test case */
 #define done() return 0
 
 /* Check single condition */
-#define check(cond,message) do { if (!(cond)) { fail(message); test_failed++; } else { if (spec) { printf("  ✓ %s\n", message); } else { printf("."); } test_passed++; } } while (0)
+#define check(cond,message) do { if (!(cond)) { _test_fail(message, __FILE__, __LINE__); test_failed++; } else { _test_pass(message); test_passed++; } } while (0)
 
 /* Test runner */
-#define test(func, name) do { if (spec) { printf("\n%s\n", name); } func(); } while(0)
+#define test(func, name) do { _test_start(name); func(); } while(0)
 
 uint8_t test_memory ( );
 uint8_t test_emdb ( );

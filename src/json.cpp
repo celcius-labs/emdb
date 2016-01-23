@@ -104,62 +104,32 @@ static int16_t token_from_json (uint8_t *json, jsmntok_t *tokens, uint16_t ntoke
   uint16_t len, i, start, end;
   uint8_t buf[128] = {0};
 
-#ifdef DEBUG
-  printf("token_from_json: curtoken is %d, ntokens is %d\n", *curtoken, ntokens);
-#endif
-
   // if we reach the end, return -1 and allow to unwind
   if (*curtoken == ntokens || *curpart == nparts) {
     return -1;
   }
 
-#ifdef DEBUG
-  printf("currently looking for %s\n", parts[*curpart]);
-#endif
-
   // if the current token is an object, increment by 1
   // (it should always be an object)
   if (tokens[*curtoken].type != JSMN_OBJECT) {
-#ifdef DEBUG
-    printf("token %d expected to be an object, instead was of type %s (%d)\n", *curtoken, get_type(tokens[*curtoken].type), tokens[*curtoken].type);
-#endif
     return -1;
   }
 
   len = tokens[*curtoken].size;
   (*curtoken)++;
-#ifdef DEBUG
-  printf("curtoken is now %d, length is %d\n", *curtoken, len);
-#endif
 
   for (i = 0; i < len; i++) {
-#ifdef DEBUG
-    printf("in loop, i = %d, len = %d, curtoken = %d\n", i, len, (*curtoken + i));
-#endif
     start = tokens[*curtoken + i].start;
     end = tokens[*curtoken + i].end;
 
     strncpy((char *) buf, (char *) &json[start], end - start);
     buf[end - start] = '\0';
-#ifdef DEBUG
-    printf("checking token %d against part %d (%s => %s)\n", *curtoken + i, *curpart, parts[*curpart], buf);
-#endif
 
     if (strcmp((char *) parts[*curpart], (char *) buf) == 0) {
-#ifdef DEBUG
-      printf("found %s\n", parts[*curpart]);
-#endif
-
       // at the end of the parts
       if (*curpart == nparts - 1) {
-#ifdef DEBUG
-        printf("at the end of the parts, returning %d\n", *curtoken + i + 1);
-#endif
         return *curtoken + i + 1;
       } else {
-#ifdef DEBUG
-        printf("calling recursively\n");
-#endif
         *curtoken = *curtoken + i + 1;
         (*curpart)++;
 
@@ -168,14 +138,8 @@ static int16_t token_from_json (uint8_t *json, jsmntok_t *tokens, uint16_t ntoke
     } else {
       // if the second half is an object or array, increment curtoken by that length
       if (tokens[*curtoken + i + 1].type == JSMN_OBJECT) {
-#ifdef DEBUG
-        printf("next token (%d) is of type object, skipping %d\n", *curtoken + i + 1, (tokens[*curtoken + i + 1]. size * 2));
-#endif
         *curtoken = *curtoken + (tokens[*curtoken + i + 1].size * 2);
       } else if (tokens[*curtoken + i + 1].type == JSMN_ARRAY) {
-#ifdef DEBUG
-        printf("next token (%d) is of type array, skipping %d\n", *curtoken + i + 1, (tokens[*curtoken + i + 1]. size));
-#endif
         *curtoken = *curtoken + (tokens[*curtoken + i + 1].size);
       }
 
@@ -217,9 +181,6 @@ static int16_t _ctx_token_from_json (JsonContext *ctx, uint8_t *json, uint8_t *k
     return -1;
   }
 
-#ifdef DEBUG
-  printf("ntokens %d, curtoken %d, curpart: %d, nkeys %d\n", ntokens, curtoken, curpart, nkeys);
-#endif
   ret = token_from_json (json, ctx->tokens, ntokens, &curtoken, parts, &curpart, nkeys);
 
   // free up the key parts at this point, they are no longer needed
