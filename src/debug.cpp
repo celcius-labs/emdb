@@ -1,6 +1,5 @@
 #if defined ESP8266 || defined ARDUINO_ARCH_ESP8266
 #include <ESP8266WiFi.h>
-#define ARDUINO
 #else
 #include <iostream>
 #endif

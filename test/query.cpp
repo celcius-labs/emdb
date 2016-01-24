@@ -229,7 +229,7 @@ uint8_t test_simple_query ( ) {
   uint8_t *row1 = (uint8_t *) "{\"foo\":\"bar\"}";
   uint8_t *row2 = (uint8_t *) "{\"bar\":\"baz\"}";
 
-  db = emdb_create_db(store, 1024, NULL);
+  db = emdb_create_db(store, NULL);
 
   check(db != NULL, "database is created");
 

@@ -11,7 +11,6 @@
 uint8_t test_memory ( ) {
   Entry *entry;
   unsigned char ret;
-  Stats *stats;
   void *ctx;
   Storage *store = getMemoryStorage();
 
@@ -32,15 +31,6 @@ uint8_t test_memory ( ) {
 
   emdb_free_entry(entry);
 
-  stats = store->stats(ctx);
-#if defined __x86_64 || defined i386
-  check(stats->memory_usage == 106, "memory usage is correctly reported");
-#endif
-
-#if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 66, "memory usage is correctly reported");
-#endif
-
   ret = store->store_write(ctx, (unsigned char *) "bar", (unsigned char *) "baz", 4);
 
   check(ret == 1, "second write succeeded");
@@ -57,16 +47,6 @@ uint8_t test_memory ( ) {
 
   check(entry == NULL, "entry is null after delete called");
 
-  stats = store->stats(ctx);
-
-#if defined __x86_64 || defined i386
-  check(stats->memory_usage == 106, "memory usage is correctly reported");
-#endif
-
-#if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 66, "memory usage is correctly reported");
-#endif
-
   store->destroy_context(ctx);
 
   done();
@@ -75,7 +55,6 @@ uint8_t test_memory ( ) {
 uint8_t test_context_isolation ( ) {
   Entry *entry;
   unsigned char ret;
-  Stats *stats;
   void *ctx1;
   void *ctx2;
   Storage *store = getMemoryStorage();
@@ -94,27 +73,6 @@ uint8_t test_context_isolation ( ) {
   check(strcmp((char *) entry->ptr, "bar") == 0, "entry is correct");
 
   emdb_free_entry(entry);
-
-
-  stats = store->stats(ctx1);
-
-#if defined __x86_64 || defined i386
-  check(stats->memory_usage == 106, "memory usage is correctly reported");
-#endif
-
-#if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 66, "memory usage is correctly reported");
-#endif
-
-  stats = store->stats(ctx2);
-
-#if defined __x86_64 || defined i386
-  check(stats->memory_usage == 32, "memory usage is correctly reported for context 2");
-#endif
-
-#if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 20, "memory usage is correctly reported for context 2");
-#endif
 
   entry = store->store_read(ctx2, (unsigned char *) "foo");
 
@@ -139,16 +97,6 @@ uint8_t test_context_isolation ( ) {
   entry = store->store_read(ctx1, (unsigned char *) "foo");
 
   check(entry == NULL, "entry is null after delete called");
-
-  stats = store->stats(ctx1);
-
-#if defined __x86_64 || defined i386
-  check(stats->memory_usage == 106, "memory usage is correctly reported");
-#endif
-
-#if defined __ARM_ARCH_6__ || defined __arm__ || defined __mips__
-  check(stats->memory_usage == 66, "memory usage is correctly reported");
-#endif
 
   store->destroy_context(ctx1);
   store->destroy_context(ctx2);

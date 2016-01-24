@@ -52,7 +52,6 @@ typedef struct Key {
  * statistics that are tracked internally.
  */
 typedef struct Stats {
-  uint32_t memory_usage; /**< current memory usage in sizeof(byte) */
   uint16_t entries; /**< current number of entries being tracked */
 } Stats;
 
@@ -81,8 +80,6 @@ typedef struct Storage {
  */
 typedef struct EMDB {
   uint16_t count; /**< count of entries in the database */
-  uint32_t memory; /**< total amount of memory in use by the storage engine */
-  uint32_t max_memory; /**< an optimistic maximum amount of memory to use */
   uint8_t error; /**< last error encountered */
   Storage *store; /**< storage engine in use */
   void *ctx; /**< context for the storage engine */
@@ -96,10 +93,9 @@ typedef struct EMDB {
  * Engine to operate.
  * @returns EMDB
  * @param store - pointer to the Storage Engine defining operations
- * @param max_memory - maximum amount of memory to optimistically stay under
  * @param cfg - configuration for the Storage Engine, cast as a void *
  */
-EMDB *emdb_create_db(Storage *, uint32_t, void *);
+EMDB *emdb_create_db(Storage *, void *);
 
 /**
  * @brief Closes a database and releases any memory associated

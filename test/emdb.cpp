@@ -8,7 +8,7 @@ uint8_t test_emdb ( ) {
   Entry *entry;
   uint8_t ret;
 
-  db = emdb_create_db(getMemoryStorage(), 1024, NULL);
+  db = emdb_create_db(getMemoryStorage(), NULL);
 
   check(db != NULL, "database is created");
 

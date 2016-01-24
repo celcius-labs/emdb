@@ -4,6 +4,10 @@
 
 #include "memory.h"
 
+#ifdef DEBUG
+#include "debug.h"
+#endif
+
 static MemoryKey *find_key (void *, uint8_t *);
 static Entry *store_read (void *, uint8_t *);
 static uint8_t store_write (void *, uint8_t *, uint8_t *, uint16_t);
@@ -13,10 +17,6 @@ static uint8_t *last_error (void *);
 static void scan (void *, void *, void (*)(void *, uint8_t *, Entry *), void (*)(void *), void (*)(void *, uint8_t *));
 static void *create_context (void *);
 static void destroy_context (void *);
-
-// custom malloc/free for statistics
-static void *_malloc(void *, uint16_t);
-static void _free(void *, void *);
 
 // initialize the storage engine
 Storage MemoryStorage = {
@@ -67,7 +67,7 @@ static uint8_t store_write (void *ctx, uint8_t *key, uint8_t *value, uint16_t si
 
   if (current == NULL) {
     // new entry, create it, and add it to the list as the head
-    current = (MemoryKey *) _malloc(ctx, sizeof (MemoryKey));
+    current = (MemoryKey *) malloc(sizeof (MemoryKey));
 
     // failed to allocate memory
     if (current == NULL) {
@@ -76,21 +76,21 @@ static uint8_t store_write (void *ctx, uint8_t *key, uint8_t *value, uint16_t si
     }
 
     // allocate the memory for the key
-    current->key = (Key *) _malloc(ctx, sizeof (Key));
+    current->key = (Key *) malloc(sizeof (Key));
 
     // failed to allocate memory
     if (current->key == NULL) {
-      _free(ctx, current);
+      free(current);
       context->error = 1;
       return 0;
     }
 
-    current->key->key = (uint8_t *) _malloc(ctx, sizeof (uint8_t) * key_size);
+    current->key->key = (uint8_t *) malloc(sizeof (uint8_t) * key_size);
 
     // falled to allocate memory
     if (current->key->key == NULL) {
-      _free(ctx, current->key);
-      _free(ctx, current);
+      free(current->key);
+      free(current);
       context->error = 1;
       return 0;
     }
@@ -99,26 +99,26 @@ static uint8_t store_write (void *ctx, uint8_t *key, uint8_t *value, uint16_t si
     memcpy(current->key->key, key, sizeof (uint8_t) * key_size);
 
     // allocate memory for the Entry
-    current->entry = (Entry *) _malloc(ctx, sizeof (Entry));
+    current->entry = (Entry *) malloc(sizeof (Entry));
 
     // failed to allocate memory
     if (current->entry == NULL) {
-      _free(ctx, current->key->key);
-      _free(ctx, current->key);
-      _free(ctx, current);
+      free(current->key->key);
+      free(current->key);
+      free(current);
       context->error = 1;
       return 0;
     }
 
     // allocate the memory for the data itself
-    current->entry->ptr = (void *) _malloc(ctx, sizeof (uint8_t) * size);
+    current->entry->ptr = (void *) malloc(sizeof (uint8_t) * size);
 
     // unable to malloc, free up the container and return 0
     if (current->entry->ptr == NULL) {
-      _free(ctx, current->key->key);
-      _free(ctx, current->key);
-      _free(ctx, current->entry);
-      _free(ctx, current);
+      free(current->key->key);
+      free(current->key);
+      free(current->entry);
+      free(current);
       context->error = 1;
       return 0;
     }
@@ -131,10 +131,10 @@ static uint8_t store_write (void *ctx, uint8_t *key, uint8_t *value, uint16_t si
   } else {
     // replace the existing data with the new data
     if (current->entry->ptr) {
-      _free(ctx, current->entry->ptr);
+      free(current->entry->ptr);
     }
 
-    current->entry->ptr = (void *) _malloc(ctx, sizeof (uint8_t) * size);
+    current->entry->ptr = (void *) malloc(sizeof (uint8_t) * size);
 
     if (current->entry->ptr == NULL) {
       context->error = 1;
@@ -179,11 +179,11 @@ static uint8_t store_delete (void *ctx, uint8_t *key) {
 
   context->stats->entries--;
 
-  _free(ctx, current->key->key);
-  _free(ctx, current->key);
-  _free(ctx, current->entry->ptr);
-  _free(ctx, current->entry);
-  _free(ctx, current);
+  free(current->key->key);
+  free(current->key);
+  free(current->entry->ptr);
+  free(current->entry);
+  free(current);
 
   return 1;
 }
@@ -245,7 +245,6 @@ static void *create_context (void *cfg) {
   ctx->error = 0;
   ctx->head = NULL;
   ctx->stats = (Stats *) malloc(sizeof(Stats));
-  ctx->stats->memory_usage = sizeof(Stats) + sizeof(MemoryCtx);
   ctx->stats->entries = 0;
 
   return (void *) ctx;
@@ -262,57 +261,23 @@ static void destroy_context (void *ctx) {
 
     if (last->key) {
       if (last->key->key) {
-        _free(ctx, last->key->key);
+        free(last->key->key);
       }
 
-      _free(ctx, last->key);
+      free(last->key);
     }
 
     if (last->entry) {
       if (last->entry->ptr) {
-        _free(ctx, last->entry->ptr);
+        free(last->entry->ptr);
       }
 
-      _free(ctx, last->entry);
+      free(last->entry);
     }
 
-    _free(ctx, last);
+    free(last);
   }
 
   free(context->stats);
   free(ctx);
-}
-
-
-static void *_malloc (void *ctx, uint16_t size) {
-  MemoryCtx *context = (MemoryCtx *) ctx;
-  void *ptr;
-  void *new_ptr;
-  uint16_t *sz;
-
-  size += sizeof(uint16_t);
-
-  ptr = malloc(size);
-  context->stats->memory_usage += size;
-
-  sz = (uint16_t *) ptr;
-  *sz = size;
-
-  new_ptr = (void *)((uint16_t *) ptr + sizeof(uint16_t));
-
-  return new_ptr;
-}
-
-static void _free (void *ctx, void *ptr) {
-  MemoryCtx *context = (MemoryCtx *) ctx;
-  uint16_t *sz;
-  void *true_ptr;
-
-  true_ptr = (void *) ((uint16_t *) ptr - sizeof(uint16_t));
-
-  sz = (uint16_t *) true_ptr;
-
-  context->stats->memory_usage -= *sz;
-
-  free(true_ptr);
 }

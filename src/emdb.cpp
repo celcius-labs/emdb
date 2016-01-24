@@ -13,7 +13,7 @@ static uint8_t *errors[] = {
   (uint8_t *)"Query error"
 };
 
-EMDB *emdb_create_db (Storage *store, uint32_t max_memory, void *cfg) {
+EMDB *emdb_create_db (Storage *store, void *cfg) {
 #ifdef DEBUG
   emdb_debug("emdb_create_db(): allocating memory");
 #endif
@@ -29,8 +29,6 @@ EMDB *emdb_create_db (Storage *store, uint32_t max_memory, void *cfg) {
 
   db->store = store;
   db->count = 0;
-  db->memory = 0;
-  db->max_memory = max_memory;
   db->error = 0;
 
 #ifdef DEBUG
@@ -67,19 +65,11 @@ uint8_t emdb_write(EMDB *db, uint8_t *key, uint8_t *value, uint16_t size) {
   uint8_t ret;
   Stats *stats;
 
-  // if we are out of memory, set the error and return
-  if (db->max_memory && db->memory >= db->max_memory) {
-    db->error = 2;
-
-    return 0;
-  }
-
   ret = db->store->store_write(db->ctx, key, value, size);
 
   // update the statistics
   stats = db->store->stats(db->ctx);
 
-  db->memory = stats->memory_usage;
   db->count = stats->entries;
 
   return ret;
@@ -102,7 +92,6 @@ uint8_t emdb_delete(EMDB *db, uint8_t *key) {
   // update the statistics
   stats = db->store->stats(db->ctx);
 
-  db->memory = stats->memory_usage;
   db->count = stats->entries;
 
   return ret;

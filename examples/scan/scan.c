@@ -87,7 +87,7 @@ int main ( ) {
   t.count = 0;
   t.total = 0;
 
-  db = emdb_create_db(store, 1024, NULL);
+  db = emdb_create_db(store, NULL);
   add_data(db);
 
   emdb_scan(db, (void *) &t, entry_handler, end_handler, error_handler);
