@@ -25,6 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EMDB
    </div>
+   <div id="projectbrief">Queryable Embedded Database for the Tiniest of Devices</div>
   </td>
  </tr>
  </tbody>
@@ -94,21 +95,31 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aaed6b2878aee96fe201fb2f742263ffc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaed6b2878aee96fe201fb2f742263ffc"></a>
 <a class="el" href="query_8h.html#a5f007a3fe5613ea1d283e0f5b9b1fdf6">WhereType</a>&#160;</td><td class="memItemRight" valign="bottom"><b>type</b></td></tr>
 <tr class="separator:aaed6b2878aee96fe201fb2f742263ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc56730a928e427386a12d774daed6f4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc56730a928e427386a12d774daed6f4"></a>
-unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><b>key</b></td></tr>
-<tr class="separator:acc56730a928e427386a12d774daed6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cde10d3f5c5539ce110c8db2c22a0aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0cde10d3f5c5539ce110c8db2c22a0aa"></a>
-unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><b>value</b></td></tr>
-<tr class="separator:a0cde10d3f5c5539ce110c8db2c22a0aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af875188cf4d8323816057033f7ef4c89"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af875188cf4d8323816057033f7ef4c89"></a>
-unsigned char&#160;</td><td class="memItemRight" valign="bottom"><b>not</b></td></tr>
-<tr class="separator:af875188cf4d8323816057033f7ef4c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af822cf3ae78213cd8a8a3104646fdddc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af822cf3ae78213cd8a8a3104646fdddc"></a>
+uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><b>key</b></td></tr>
+<tr class="separator:af822cf3ae78213cd8a8a3104646fdddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5ce2bd80b4fca398cc1c1d776cebdf3"><td class="memItemLeft" ><a class="anchor" id="af5ce2bd80b4fca398cc1c1d776cebdf3"></a>
+union {</td></tr>
+<tr class="memitem:ac482a477513fea9e7ac520d2420cb9d4"><td class="memItemLeft" >
+&#160;&#160;&#160;uint8_t *&#160;&#160;&#160;<b>as_char</b></td></tr>
+<tr class="separator:ac482a477513fea9e7ac520d2420cb9d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5db6abe30e6e7bb949fe125def97d9aa"><td class="memItemLeft" >
+&#160;&#160;&#160;int16_t&#160;&#160;&#160;<b>as_int</b></td></tr>
+<tr class="separator:a5db6abe30e6e7bb949fe125def97d9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbf93316acd448aa6954fcf7a5a4f17f"><td class="memItemLeft" >
+&#160;&#160;&#160;float&#160;&#160;&#160;<b>as_float</b></td></tr>
+<tr class="separator:adbf93316acd448aa6954fcf7a5a4f17f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5ce2bd80b4fca398cc1c1d776cebdf3"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><b>value</b></td></tr>
+<tr class="separator:af5ce2bd80b4fca398cc1c1d776cebdf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13756392512c4ffe9cd932ab91174a1b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13756392512c4ffe9cd932ab91174a1b"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>query_not</b></td></tr>
+<tr class="separator:a13756392512c4ffe9cd932ab91174a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10bb3d6cdf41f7844b6f93a7f794e48a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a10bb3d6cdf41f7844b6f93a7f794e48a"></a>
 ValueType&#160;</td><td class="memItemRight" valign="bottom"><b>value_type</b></td></tr>
 <tr class="separator:a10bb3d6cdf41f7844b6f93a7f794e48a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcde741e6892e6f5cbde454c204771b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adcde741e6892e6f5cbde454c204771b0"></a>
-unsigned char&#160;</td><td class="memItemRight" valign="bottom"><b>child_count</b></td></tr>
-<tr class="separator:adcde741e6892e6f5cbde454c204771b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88dfe29fc91a30cc3d91ff06c7317e22"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a88dfe29fc91a30cc3d91ff06c7317e22"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>child_count</b></td></tr>
+<tr class="separator:a88dfe29fc91a30cc3d91ff06c7317e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a703bc718d62931c8bf2edf1bc6924c61"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a703bc718d62931c8bf2edf1bc6924c61"></a>
 void **&#160;</td><td class="memItemRight" valign="bottom"><b>children</b></td></tr>
 <tr class="separator:a703bc718d62931c8bf2edf1bc6924c61"><td class="memSeparator" colspan="2">&#160;</td></tr>

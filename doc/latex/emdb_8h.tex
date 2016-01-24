@@ -33,6 +33,9 @@ struct \hyperlink{struct_e_m_d_b}{E\+M\+D\+B}
 \item 
 \hypertarget{emdb_8h_ad9218104c46ac20fc41729a60be8f58b}{}\#define {\bfseries C\+A\+P\+A\+B\+I\+L\+I\+T\+Y\+\_\+\+I\+N\+D\+E\+X\+E\+D}~2\label{emdb_8h_ad9218104c46ac20fc41729a60be8f58b}
 
+\item 
+\hypertarget{emdb_8h_a13c9d13ad0848cdd6bb915edf4deebf4}{}\#define {\bfseries C\+A\+P\+A\+B\+I\+L\+I\+T\+Y\+\_\+\+O\+I\+D}~4\label{emdb_8h_a13c9d13ad0848cdd6bb915edf4deebf4}
+
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -50,7 +53,7 @@ typedef struct \hyperlink{struct_e_m_d_b}{E\+M\+D\+B} \hyperlink{emdb_8h_a30af4e
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$ \hyperlink{emdb_8h_a93b32b74aa2b84d756374f96b51cf3f4}{emdb\+\_\+create\+\_\+db} (\hyperlink{struct_storage}{Storage} $\ast$, uint32\+\_\+t, void $\ast$)
+\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$ \hyperlink{emdb_8h_a68a309f9a145323363292df52c7382c3}{emdb\+\_\+create\+\_\+db} (\hyperlink{struct_storage}{Storage} $\ast$, void $\ast$)
 \begin{DoxyCompactList}\small\item\em Creates a database, along with the context for it to be run in. \end{DoxyCompactList}\item 
 void \hyperlink{emdb_8h_a0de03f227038828bdacbab4c93a07ddb}{emdb\+\_\+destroy\+\_\+db} (\hyperlink{struct_e_m_d_b}{E\+M\+D\+B} $\ast$)
 \begin{DoxyCompactList}\small\item\em Closes a database and releases any memory associated. \end{DoxyCompactList}\item 
@@ -136,15 +139,14 @@ Copies an \hyperlink{struct_entry}{Entry} and allocates any memory needed. The r
 \begin{DoxyReturn}{Returns}
 \hyperlink{struct_entry}{Entry} containing the new copy 
 \end{DoxyReturn}
-\hypertarget{emdb_8h_a93b32b74aa2b84d756374f96b51cf3f4}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+create\+\_\+db@{emdb\+\_\+create\+\_\+db}}
+\hypertarget{emdb_8h_a68a309f9a145323363292df52c7382c3}{}\index{emdb.\+h@{emdb.\+h}!emdb\+\_\+create\+\_\+db@{emdb\+\_\+create\+\_\+db}}
 \index{emdb\+\_\+create\+\_\+db@{emdb\+\_\+create\+\_\+db}!emdb.\+h@{emdb.\+h}}
-\subsubsection[{emdb\+\_\+create\+\_\+db(\+Storage $\ast$, uint32\+\_\+t, void $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+M\+D\+B}$\ast$ emdb\+\_\+create\+\_\+db (
+\subsubsection[{emdb\+\_\+create\+\_\+db(\+Storage $\ast$, void $\ast$)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+M\+D\+B}$\ast$ emdb\+\_\+create\+\_\+db (
 \begin{DoxyParamCaption}
 \item[{{\bf Storage} $\ast$}]{, }
-\item[{uint32\+\_\+t}]{, }
 \item[{void $\ast$}]{}
 \end{DoxyParamCaption}
-)}\label{emdb_8h_a93b32b74aa2b84d756374f96b51cf3f4}
+)}\label{emdb_8h_a68a309f9a145323363292df52c7382c3}
 
 
 Creates a database, along with the context for it to be run in. 
@@ -155,8 +157,6 @@ Creates a database, along with the context required for the \hyperlink{struct_st
 
 \begin{DoxyParams}{Parameters}
 {\em store} & -\/ pointer to the \hyperlink{struct_storage}{Storage} Engine defining operations \\
-\hline
-{\em max\+\_\+memory} & -\/ maximum amount of memory to optimistically stay under \\
 \hline
 {\em cfg} & -\/ configuration for the \hyperlink{struct_storage}{Storage} Engine, cast as a void $\ast$ \\
 \hline

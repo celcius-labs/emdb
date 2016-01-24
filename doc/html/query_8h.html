@@ -25,6 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EMDB
    </div>
+   <div id="projectbrief">Queryable Embedded Database for the Tiniest of Devices</div>
   </td>
  </tr>
  </tbody>
@@ -97,6 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Header for Query Functions.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="emdb_8h_source.html">emdb.h</a>&quot;</code><br />
+<code>#include &quot;json.h&quot;</code><br />
 </div>
 <p><a href="query_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -105,6 +107,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_where.html">Where</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_query_results.html">QueryResults</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_simple_query_context.html">SimpleQueryContext</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -121,21 +125,24 @@ typedef struct <a class="el" href="struct_where.html">Where</a>&#160;</td><td cl
 <tr class="memitem:aa1fb440747d837ce87a9da47e0ad0eb7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1fb440747d837ce87a9da47e0ad0eb7"></a>
 typedef struct <a class="el" href="struct_query_results.html">QueryResults</a>&#160;</td><td class="memItemRight" valign="bottom"><b>QueryResults</b></td></tr>
 <tr class="separator:aa1fb440747d837ce87a9da47e0ad0eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0387e4448c71ca16a147b7d8ffa2390"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0387e4448c71ca16a147b7d8ffa2390"></a>
+typedef struct <a class="el" href="struct_simple_query_context.html">SimpleQueryContext</a>&#160;</td><td class="memItemRight" valign="bottom"><b>SimpleQueryContext</b></td></tr>
+<tr class="separator:ad0387e4448c71ca16a147b7d8ffa2390"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a5f007a3fe5613ea1d283e0f5b9b1fdf6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#a5f007a3fe5613ea1d283e0f5b9b1fdf6">WhereType</a> { <br />
-&#160;&#160;<b>and</b> = 0, 
-<b>or</b> = 1, 
-<b>equals</b> = 2, 
-<b>gt</b> = 3, 
+&#160;&#160;<b>query_and</b> = 0, 
+<b>query_or</b> = 1, 
+<b>query_equals</b> = 2, 
+<b>query_gt</b> = 3, 
 <br />
-&#160;&#160;<b>lt</b> = 4, 
-<b>gte</b> = 5, 
-<b>lte</b> = 6, 
-<b>between</b> = 7, 
+&#160;&#160;<b>query_lt</b> = 4, 
+<b>query_gte</b> = 5, 
+<b>query_lte</b> = 6, 
+<b>query_between</b> = 7, 
 <br />
-&#160;&#160;<b>in</b> = 8
+&#160;&#160;<b>query_in</b> = 8
 <br />
  }<tr class="memdesc:a5f007a3fe5613ea1d283e0f5b9b1fdf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of Equality.  <a href="query_8h.html#a5f007a3fe5613ea1d283e0f5b9b1fdf6">More...</a><br /></td></tr>
 <tr class="separator:a5f007a3fe5613ea1d283e0f5b9b1fdf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,36 +155,39 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4aabb2720529c4268b48d0691e6f707e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4aabb2720529c4268b48d0691e6f707e"></a>
-<a class="el" href="struct_query_results.html">QueryResults</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_query_db</b> (<a class="el" href="struct_e_m_d_b.html">EMDB</a> *, <a class="el" href="struct_where.html">Where</a> *)</td></tr>
-<tr class="separator:a4aabb2720529c4268b48d0691e6f707e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed4c7710e864520f4651572dab24027b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed4c7710e864520f4651572dab24027b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_query_db</b> (<a class="el" href="struct_e_m_d_b.html">EMDB</a> *, <a class="el" href="struct_where.html">Where</a> *, void(*)(<a class="el" href="struct_query_results.html">QueryResults</a> *))</td></tr>
+<tr class="separator:aed4c7710e864520f4651572dab24027b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f6d97112e9b4ff69e2878c4c6dd183b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f6d97112e9b4ff69e2878c4c6dd183b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b> (<a class="el" href="struct_query_results.html">QueryResults</a> *)</td></tr>
 <tr class="separator:a2f6d97112e9b4ff69e2878c4c6dd183b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06273d6546387269b21fd12ac4ed064e"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#a06273d6546387269b21fd12ac4ed064e">compare_float</a> (float, float, <a class="el" href="query_8h.html#a5f007a3fe5613ea1d283e0f5b9b1fdf6">WhereType</a>)</td></tr>
-<tr class="memdesc:a06273d6546387269b21fd12ac4ed064e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two floats.  <a href="#a06273d6546387269b21fd12ac4ed064e">More...</a><br /></td></tr>
-<tr class="separator:a06273d6546387269b21fd12ac4ed064e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b4c0009a577fa59b355aa69129d5f4b"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#a2b4c0009a577fa59b355aa69129d5f4b">compare_int</a> (int, int, <a class="el" href="query_8h.html#a5f007a3fe5613ea1d283e0f5b9b1fdf6">WhereType</a>)</td></tr>
-<tr class="memdesc:a2b4c0009a577fa59b355aa69129d5f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two integers.  <a href="#a2b4c0009a577fa59b355aa69129d5f4b">More...</a><br /></td></tr>
-<tr class="separator:a2b4c0009a577fa59b355aa69129d5f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eff07510d50ce12b4fa0fe9614bcdd1"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#a0eff07510d50ce12b4fa0fe9614bcdd1">compare_string</a> (char *, char *, <a class="el" href="query_8h.html#a5f007a3fe5613ea1d283e0f5b9b1fdf6">WhereType</a>)</td></tr>
-<tr class="memdesc:a0eff07510d50ce12b4fa0fe9614bcdd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two strings.  <a href="#a0eff07510d50ce12b4fa0fe9614bcdd1">More...</a><br /></td></tr>
-<tr class="separator:a0eff07510d50ce12b4fa0fe9614bcdd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4435a4d31a21fac155edf425aa6f25ca"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#a4435a4d31a21fac155edf425aa6f25ca">compare_float_between</a> (float, float, float)</td></tr>
-<tr class="memdesc:a4435a4d31a21fac155edf425aa6f25ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if a float is between two other floats, inclusively.  <a href="#a4435a4d31a21fac155edf425aa6f25ca">More...</a><br /></td></tr>
-<tr class="separator:a4435a4d31a21fac155edf425aa6f25ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae721fa530064c7b72de8dc4ff99e6923"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#ae721fa530064c7b72de8dc4ff99e6923">compare_int_between</a> (int, int, int)</td></tr>
-<tr class="memdesc:ae721fa530064c7b72de8dc4ff99e6923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if an integer is between two other integers, inclusively.  <a href="#ae721fa530064c7b72de8dc4ff99e6923">More...</a><br /></td></tr>
-<tr class="separator:ae721fa530064c7b72de8dc4ff99e6923"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a384897f6aa5c0201bfaba887ec0a451f"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#a384897f6aa5c0201bfaba887ec0a451f">compare_string_between</a> (char *, char *, char *)</td></tr>
-<tr class="memdesc:a384897f6aa5c0201bfaba887ec0a451f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if a string is between two other strings, inclusively.  <a href="#a384897f6aa5c0201bfaba887ec0a451f">More...</a><br /></td></tr>
-<tr class="separator:a384897f6aa5c0201bfaba887ec0a451f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af31ff0445612d999c15a665dbfb08d99"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#af31ff0445612d999c15a665dbfb08d99">and_list</a> (char **, char **, int, int)</td></tr>
-<tr class="memdesc:af31ff0445612d999c15a665dbfb08d99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two lists and returns all entries that are in both lists.  <a href="#af31ff0445612d999c15a665dbfb08d99">More...</a><br /></td></tr>
-<tr class="separator:af31ff0445612d999c15a665dbfb08d99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c726867b7678a9e45d63d42acab5f3f"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#a9c726867b7678a9e45d63d42acab5f3f">or_list</a> (char **, char **, int, int)</td></tr>
-<tr class="memdesc:a9c726867b7678a9e45d63d42acab5f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two lists and returns all entries of the combined lists.  <a href="#a9c726867b7678a9e45d63d42acab5f3f">More...</a><br /></td></tr>
-<tr class="separator:a9c726867b7678a9e45d63d42acab5f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56d7a3199966c27882ef4da9b99a7c66"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#a56d7a3199966c27882ef4da9b99a7c66">compare_float</a> (float, float, <a class="el" href="query_8h.html#a5f007a3fe5613ea1d283e0f5b9b1fdf6">WhereType</a>)</td></tr>
+<tr class="memdesc:a56d7a3199966c27882ef4da9b99a7c66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two floats.  <a href="#a56d7a3199966c27882ef4da9b99a7c66">More...</a><br /></td></tr>
+<tr class="separator:a56d7a3199966c27882ef4da9b99a7c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1bf64aa89d32b82da756c7bcb220d72"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#ab1bf64aa89d32b82da756c7bcb220d72">compare_int</a> (uint16_t, uint16_t, <a class="el" href="query_8h.html#a5f007a3fe5613ea1d283e0f5b9b1fdf6">WhereType</a>)</td></tr>
+<tr class="memdesc:ab1bf64aa89d32b82da756c7bcb220d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two integers.  <a href="#ab1bf64aa89d32b82da756c7bcb220d72">More...</a><br /></td></tr>
+<tr class="separator:ab1bf64aa89d32b82da756c7bcb220d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae817f75bbf69cbebd0d0aa121e5e88b3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#ae817f75bbf69cbebd0d0aa121e5e88b3">compare_string</a> (uint8_t *, uint8_t *, <a class="el" href="query_8h.html#a5f007a3fe5613ea1d283e0f5b9b1fdf6">WhereType</a>)</td></tr>
+<tr class="memdesc:ae817f75bbf69cbebd0d0aa121e5e88b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two strings.  <a href="#ae817f75bbf69cbebd0d0aa121e5e88b3">More...</a><br /></td></tr>
+<tr class="separator:ae817f75bbf69cbebd0d0aa121e5e88b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff38b0e9ee98e064b07d6ddc4ae06528"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#aff38b0e9ee98e064b07d6ddc4ae06528">compare_float_between</a> (float, float, float)</td></tr>
+<tr class="memdesc:aff38b0e9ee98e064b07d6ddc4ae06528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if a float is between two other floats, inclusively.  <a href="#aff38b0e9ee98e064b07d6ddc4ae06528">More...</a><br /></td></tr>
+<tr class="separator:aff38b0e9ee98e064b07d6ddc4ae06528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85425df807a5091c307ee340e459c3c0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#a85425df807a5091c307ee340e459c3c0">compare_int_between</a> (uint16_t, uint16_t, uint16_t)</td></tr>
+<tr class="memdesc:a85425df807a5091c307ee340e459c3c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if an integer is between two other integers, inclusively.  <a href="#a85425df807a5091c307ee340e459c3c0">More...</a><br /></td></tr>
+<tr class="separator:a85425df807a5091c307ee340e459c3c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6999e50c2b19e68fad2b40c7a8d4697"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#ad6999e50c2b19e68fad2b40c7a8d4697">compare_string_between</a> (uint8_t *, uint8_t *, uint8_t *)</td></tr>
+<tr class="memdesc:ad6999e50c2b19e68fad2b40c7a8d4697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if a string is between two other strings, inclusively.  <a href="#ad6999e50c2b19e68fad2b40c7a8d4697">More...</a><br /></td></tr>
+<tr class="separator:ad6999e50c2b19e68fad2b40c7a8d4697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a635d9b07addf3edbd0ff4e16d05ad3c5"><td class="memItemLeft" align="right" valign="top">uint8_t **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#a635d9b07addf3edbd0ff4e16d05ad3c5">and_list</a> (uint8_t **, uint8_t **, uint16_t, uint16_t)</td></tr>
+<tr class="memdesc:a635d9b07addf3edbd0ff4e16d05ad3c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two lists and returns all entries that are in both lists.  <a href="#a635d9b07addf3edbd0ff4e16d05ad3c5">More...</a><br /></td></tr>
+<tr class="separator:a635d9b07addf3edbd0ff4e16d05ad3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaddc7b08314a94a758371d8f82edca12"><td class="memItemLeft" align="right" valign="top">uint8_t **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query_8h.html#aaddc7b08314a94a758371d8f82edca12">or_list</a> (uint8_t **, uint8_t **, uint16_t, uint16_t)</td></tr>
+<tr class="memdesc:aaddc7b08314a94a758371d8f82edca12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two lists and returns all entries of the combined lists.  <a href="#aaddc7b08314a94a758371d8f82edca12">More...</a><br /></td></tr>
+<tr class="separator:aaddc7b08314a94a758371d8f82edca12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a424a45334839afb21e52ac9202c1dde0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a424a45334839afb21e52ac9202c1dde0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>destroy_simple_query_context</b> (<a class="el" href="struct_simple_query_context.html">SimpleQueryContext</a> *)</td></tr>
+<tr class="separator:a424a45334839afb21e52ac9202c1dde0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header for Query Functions. </p>
@@ -214,32 +224,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="af31ff0445612d999c15a665dbfb08d99"></a>
+<a class="anchor" id="a635d9b07addf3edbd0ff4e16d05ad3c5"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char** and_list </td>
+          <td class="memname">uint8_t** and_list </td>
           <td>(</td>
-          <td class="paramtype">char **&#160;</td>
+          <td class="paramtype">uint8_t **&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char **&#160;</td>
+          <td class="paramtype">uint8_t **&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -251,11 +261,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 </div><div class="memdoc">
 
 <p>Compares two lists and returns all entries that are in both lists. </p>
-<p>Iterates through two lists, and returns every entry that is in both lists, NULL terminated. The results must be cleaned up by calling free(), as this will allocate memory. </p><dl class="section return"><dt>Returns</dt><dd>char ** - allocated array of strings that points to the list of the combined lists. </dd></dl>
+<p>Iterates through two lists, and returns every entry that is in both lists, NULL terminated. The results must be cleaned up by calling free(), as this will allocate memory. </p><dl class="section return"><dt>Returns</dt><dd>uint8_t ** - allocated array of strings that points to the list of the combined lists. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">list1</td><td>- char ** first list </td></tr>
-    <tr><td class="paramname">list2</td><td>- char ** second list </td></tr>
+    <tr><td class="paramname">list1</td><td>- uint8_t ** first list </td></tr>
+    <tr><td class="paramname">list2</td><td>- uint8_t ** second list </td></tr>
     <tr><td class="paramname">len1</td><td>- length of list 1 </td></tr>
     <tr><td class="paramname">len2</td><td>- length of list 2 </td></tr>
   </table>
@@ -264,12 +274,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 
 </div>
 </div>
-<a class="anchor" id="a06273d6546387269b21fd12ac4ed064e"></a>
+<a class="anchor" id="a56d7a3199966c27882ef4da9b99a7c66"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned char compare_float </td>
+          <td class="memname">uint8_t compare_float </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname">, </td>
@@ -308,12 +318,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 
 </div>
 </div>
-<a class="anchor" id="a4435a4d31a21fac155edf425aa6f25ca"></a>
+<a class="anchor" id="aff38b0e9ee98e064b07d6ddc4ae06528"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned char compare_float_between </td>
+          <td class="memname">uint8_t compare_float_between </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname">, </td>
@@ -351,20 +361,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 
 </div>
 </div>
-<a class="anchor" id="a2b4c0009a577fa59b355aa69129d5f4b"></a>
+<a class="anchor" id="ab1bf64aa89d32b82da756c7bcb220d72"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned char compare_int </td>
+          <td class="memname">uint8_t compare_int </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -385,8 +395,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 <p>Compares the value of two integers for equality, less than, greater than, less than or equal, or greater than or equal. </p><dl class="section return"><dt>Returns</dt><dd>true or false </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">int1</td><td>- int </td></tr>
-    <tr><td class="paramname">int2</td><td>- int </td></tr>
+    <tr><td class="paramname">int1</td><td>- uint16_t </td></tr>
+    <tr><td class="paramname">int2</td><td>- uint16_t </td></tr>
     <tr><td class="paramname">type</td><td>- type of match to do </td></tr>
   </table>
   </dd>
@@ -395,26 +405,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 
 </div>
 </div>
-<a class="anchor" id="ae721fa530064c7b72de8dc4ff99e6923"></a>
+<a class="anchor" id="a85425df807a5091c307ee340e459c3c0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned char compare_int_between </td>
+          <td class="memname">uint8_t compare_int_between </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -429,29 +439,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 <p>Compares the value of an integer to two other integers, to see if it is between them, or equals them </p><dl class="section return"><dt>Returns</dt><dd>true or false </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">integer</td><td>- integer to check </td></tr>
-    <tr><td class="paramname">minimum</td><td>- integer marking the minimum </td></tr>
-    <tr><td class="paramname">maximum</td><td>- integer marking the maximum </td></tr>
+    <tr><td class="paramname">integer</td><td>- uint16_t to check </td></tr>
+    <tr><td class="paramname">minimum</td><td>- uint16_t marking the minimum </td></tr>
+    <tr><td class="paramname">maximum</td><td>- uint16_t marking the maximum </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a0eff07510d50ce12b4fa0fe9614bcdd1"></a>
+<a class="anchor" id="ae817f75bbf69cbebd0d0aa121e5e88b3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned char compare_string </td>
+          <td class="memname">uint8_t compare_string </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -472,8 +482,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 <p>Compares the value of two strings for equality, less than, greater than, less than or equal, or greater than or equal. </p><dl class="section return"><dt>Returns</dt><dd>true or false </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">string1</td><td>- char * </td></tr>
-    <tr><td class="paramname">string2</td><td>- char * </td></tr>
+    <tr><td class="paramname">string1</td><td>- uint8_t * </td></tr>
+    <tr><td class="paramname">string2</td><td>- uint8_t * </td></tr>
     <tr><td class="paramname">type</td><td>- type of match to do </td></tr>
   </table>
   </dd>
@@ -482,26 +492,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 
 </div>
 </div>
-<a class="anchor" id="a384897f6aa5c0201bfaba887ec0a451f"></a>
+<a class="anchor" id="ad6999e50c2b19e68fad2b40c7a8d4697"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned char compare_string_between </td>
+          <td class="memname">uint8_t compare_string_between </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -525,32 +535,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 
 </div>
 </div>
-<a class="anchor" id="a9c726867b7678a9e45d63d42acab5f3f"></a>
+<a class="anchor" id="aaddc7b08314a94a758371d8f82edca12"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char** or_list </td>
+          <td class="memname">uint8_t** or_list </td>
           <td>(</td>
-          <td class="paramtype">char **&#160;</td>
+          <td class="paramtype">uint8_t **&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char **&#160;</td>
+          <td class="paramtype">uint8_t **&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -562,11 +572,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>emdb_free_results</b>
 </div><div class="memdoc">
 
 <p>Compares two lists and returns all entries of the combined lists. </p>
-<p>Iterates through two lists, and returns every entry in each list, NULL terminated. The results must be cleaned up by calling free(), as this will allocate memory. </p><dl class="section return"><dt>Returns</dt><dd>char ** - allocated array of strings that points to the list of the combined lists. </dd></dl>
+<p>Iterates through two lists, and returns every entry in each list, NULL terminated. The results must be cleaned up by calling free(), as this will allocate memory. </p><dl class="section return"><dt>Returns</dt><dd>uint8_t ** - allocated array of strings that points to the list of the combined lists. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">list1</td><td>- char ** first list </td></tr>
-    <tr><td class="paramname">list2</td><td>- char ** second list </td></tr>
+    <tr><td class="paramname">list1</td><td>- uint8_t ** first list </td></tr>
+    <tr><td class="paramname">list2</td><td>- uint8_t ** second list </td></tr>
     <tr><td class="paramname">len1</td><td>- length of list 1 </td></tr>
     <tr><td class="paramname">len2</td><td>- length of list 2 </td></tr>
   </table>

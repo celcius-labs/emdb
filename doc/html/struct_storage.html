@@ -25,6 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EMDB
    </div>
+   <div id="projectbrief">Queryable Embedded Database for the Tiniest of Devices</div>
   </td>
  </tr>
  </tbody>
@@ -96,12 +97,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a1024d08a7a0b30fb2d9a492a672d9f05"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a1024d08a7a0b30fb2d9a492a672d9f05">write</a> )(void *, uint8_t *, uint8_t *, uint16_t)</td></tr>
-<tr class="separator:a1024d08a7a0b30fb2d9a492a672d9f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06f9fdcde49a3bbae624b5f673d5798a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_entry.html">Entry</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a06f9fdcde49a3bbae624b5f673d5798a">read</a> )(void *, uint8_t *)</td></tr>
-<tr class="separator:a06f9fdcde49a3bbae624b5f673d5798a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a683a58e3ef6da9f3a95fdf4a94f80dc3"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a683a58e3ef6da9f3a95fdf4a94f80dc3">delete</a> )(void *, uint8_t *)</td></tr>
-<tr class="separator:a683a58e3ef6da9f3a95fdf4a94f80dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97c4534c1944aa12f98e645427fe1cc0"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a97c4534c1944aa12f98e645427fe1cc0">store_write</a> )(void *, uint8_t *, uint8_t *, uint16_t)</td></tr>
+<tr class="separator:a97c4534c1944aa12f98e645427fe1cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a57b49c99b8f97439941c2705aa9280"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_entry.html">Entry</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a6a57b49c99b8f97439941c2705aa9280">store_read</a> )(void *, uint8_t *)</td></tr>
+<tr class="separator:a6a57b49c99b8f97439941c2705aa9280"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3c5c981f9f3fc423a63f00af6172642"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#ac3c5c981f9f3fc423a63f00af6172642">store_delete</a> )(void *, uint8_t *)</td></tr>
+<tr class="separator:ac3c5c981f9f3fc423a63f00af6172642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e24b45fef757acae34cca3bb8464935"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a5e24b45fef757acae34cca3bb8464935">scan</a> )(void *, void *, void(*)(void *, uint8_t *, <a class="el" href="struct_entry.html">Entry</a> *), void(*)(void *), void(*)(void *, uint8_t *))</td></tr>
 <tr class="separator:a5e24b45fef757acae34cca3bb8464935"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6642751e068c1e64f8b65703a8bc51a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_stats.html">Stats</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_storage.html#a6642751e068c1e64f8b65703a8bc51a0">stats</a> )(void *)</td></tr>
@@ -145,19 +146,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a683a58e3ef6da9f3a95fdf4a94f80dc3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t(* Storage::delete) (void *, uint8_t *)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>delete method </p>
-
-</div>
-</div>
 <a class="anchor" id="af425b1971a9fcfed315e6aec547df8da"></a>
 <div class="memitem">
 <div class="memproto">
@@ -181,19 +169,6 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>last_error method </p>
-
-</div>
-</div>
-<a class="anchor" id="a06f9fdcde49a3bbae624b5f673d5798a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_entry.html">Entry</a>*(* Storage::read) (void *, uint8_t *)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>read method </p>
 
 </div>
 </div>
@@ -223,12 +198,38 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1024d08a7a0b30fb2d9a492a672d9f05"></a>
+<a class="anchor" id="ac3c5c981f9f3fc423a63f00af6172642"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t(* Storage::write) (void *, uint8_t *, uint8_t *, uint16_t)</td>
+          <td class="memname">uint8_t(* Storage::store_delete) (void *, uint8_t *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>delete method </p>
+
+</div>
+</div>
+<a class="anchor" id="a6a57b49c99b8f97439941c2705aa9280"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_entry.html">Entry</a>*(* Storage::store_read) (void *, uint8_t *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>read method </p>
+
+</div>
+</div>
+<a class="anchor" id="a97c4534c1944aa12f98e645427fe1cc0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t(* Storage::store_write) (void *, uint8_t *, uint8_t *, uint16_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">

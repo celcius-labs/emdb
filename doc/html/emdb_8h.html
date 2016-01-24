@@ -25,6 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EMDB
    </div>
+   <div id="projectbrief">Queryable Embedded Database for the Tiniest of Devices</div>
   </td>
  </tr>
  </tbody>
@@ -132,6 +133,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ad9218104c46ac20fc41729a60be8f58b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9218104c46ac20fc41729a60be8f58b"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CAPABILITY_INDEXED</b>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:ad9218104c46ac20fc41729a60be8f58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13c9d13ad0848cdd6bb915edf4deebf4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13c9d13ad0848cdd6bb915edf4deebf4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAPABILITY_OID</b>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:a13c9d13ad0848cdd6bb915edf4deebf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -153,9 +157,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a93b32b74aa2b84d756374f96b51cf3f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_m_d_b.html">EMDB</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emdb_8h.html#a93b32b74aa2b84d756374f96b51cf3f4">emdb_create_db</a> (<a class="el" href="struct_storage.html">Storage</a> *, uint32_t, void *)</td></tr>
-<tr class="memdesc:a93b32b74aa2b84d756374f96b51cf3f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a database, along with the context for it to be run in.  <a href="#a93b32b74aa2b84d756374f96b51cf3f4">More...</a><br /></td></tr>
-<tr class="separator:a93b32b74aa2b84d756374f96b51cf3f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68a309f9a145323363292df52c7382c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_m_d_b.html">EMDB</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emdb_8h.html#a68a309f9a145323363292df52c7382c3">emdb_create_db</a> (<a class="el" href="struct_storage.html">Storage</a> *, void *)</td></tr>
+<tr class="memdesc:a68a309f9a145323363292df52c7382c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a database, along with the context for it to be run in.  <a href="#a68a309f9a145323363292df52c7382c3">More...</a><br /></td></tr>
+<tr class="separator:a68a309f9a145323363292df52c7382c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0de03f227038828bdacbab4c93a07ddb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emdb_8h.html#a0de03f227038828bdacbab4c93a07ddb">emdb_destroy_db</a> (<a class="el" href="struct_e_m_d_b.html">EMDB</a> *)</td></tr>
 <tr class="memdesc:a0de03f227038828bdacbab4c93a07ddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a database and releases any memory associated.  <a href="#a0de03f227038828bdacbab4c93a07ddb">More...</a><br /></td></tr>
 <tr class="separator:a0de03f227038828bdacbab4c93a07ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -285,7 +289,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a93b32b74aa2b84d756374f96b51cf3f4"></a>
+<a class="anchor" id="a68a309f9a145323363292df52c7382c3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -293,12 +297,6 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="struct_e_m_d_b.html">EMDB</a>* emdb_create_db </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_storage.html">Storage</a> *&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -320,7 +318,6 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">store</td><td>- pointer to the <a class="el" href="struct_storage.html" title="Configuration of a Storage Engine. ">Storage</a> Engine defining operations </td></tr>
-    <tr><td class="paramname">max_memory</td><td>- maximum amount of memory to optimistically stay under </td></tr>
     <tr><td class="paramname">cfg</td><td>- configuration for the <a class="el" href="struct_storage.html" title="Configuration of a Storage Engine. ">Storage</a> Engine, cast as a void * </td></tr>
   </table>
   </dd>

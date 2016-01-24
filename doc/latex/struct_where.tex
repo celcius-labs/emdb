@@ -6,19 +6,26 @@
 \hypertarget{struct_where_aaed6b2878aee96fe201fb2f742263ffc}{}\hyperlink{query_8h_a5f007a3fe5613ea1d283e0f5b9b1fdf6}{Where\+Type} {\bfseries type}\label{struct_where_aaed6b2878aee96fe201fb2f742263ffc}
 
 \item 
-\hypertarget{struct_where_acc56730a928e427386a12d774daed6f4}{}unsigned char $\ast$ {\bfseries key}\label{struct_where_acc56730a928e427386a12d774daed6f4}
+\hypertarget{struct_where_af822cf3ae78213cd8a8a3104646fdddc}{}uint8\+\_\+t $\ast$ {\bfseries key}\label{struct_where_af822cf3ae78213cd8a8a3104646fdddc}
 
 \item 
-\hypertarget{struct_where_a0cde10d3f5c5539ce110c8db2c22a0aa}{}unsigned char $\ast$ {\bfseries value}\label{struct_where_a0cde10d3f5c5539ce110c8db2c22a0aa}
+\hypertarget{struct_where_af5ce2bd80b4fca398cc1c1d776cebdf3}{}\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>uint8\_t $\ast$ {\bfseries as\_char}\\
+\>int16\_t {\bfseries as\_int}\\
+\>float {\bfseries as\_float}\\
+\} {\bfseries value}\label{struct_where_af5ce2bd80b4fca398cc1c1d776cebdf3}
+\\
 
-\item 
-\hypertarget{struct_where_af875188cf4d8323816057033f7ef4c89}{}unsigned char {\bfseries not}\label{struct_where_af875188cf4d8323816057033f7ef4c89}
+\end{tabbing}\item 
+\hypertarget{struct_where_a13756392512c4ffe9cd932ab91174a1b}{}uint8\+\_\+t {\bfseries query\+\_\+not}\label{struct_where_a13756392512c4ffe9cd932ab91174a1b}
 
 \item 
 \hypertarget{struct_where_a10bb3d6cdf41f7844b6f93a7f794e48a}{}Value\+Type {\bfseries value\+\_\+type}\label{struct_where_a10bb3d6cdf41f7844b6f93a7f794e48a}
 
 \item 
-\hypertarget{struct_where_adcde741e6892e6f5cbde454c204771b0}{}unsigned char {\bfseries child\+\_\+count}\label{struct_where_adcde741e6892e6f5cbde454c204771b0}
+\hypertarget{struct_where_a88dfe29fc91a30cc3d91ff06c7317e22}{}uint8\+\_\+t {\bfseries child\+\_\+count}\label{struct_where_a88dfe29fc91a30cc3d91ff06c7317e22}
 
 \item 
 \hypertarget{struct_where_a703bc718d62931c8bf2edf1bc6924c61}{}void $\ast$$\ast$ {\bfseries children}\label{struct_where_a703bc718d62931c8bf2edf1bc6924c61}
