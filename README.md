@@ -99,12 +99,27 @@ FAILED: 0
 
 ### Using
 
-Currently, you must include the `.o` files that you wish to use in your
-linking stage.
-
 There is only one backing store available: `MemoryStorage`.  This is a
 reference implementation that is being used to prove out the platform as a
 viable engine.
+
+#### Library
+
+EMDB can be added to your project by linking against `libemdb.a`.
+
+#### Platformio
+
+EMDB can be used with _platformio_:
+
+```
+$ platformio lib install 569
+```
+
+This will install all dependencies as well.
+
+```
+$ cc myprogram.c -Iemdb/src -Lemdb/src -lemdb -o myprogram
+```
 
 #### Example Program
 
@@ -121,7 +136,7 @@ int main ( ) {
   EMDB *db;
   Entry *entry;
 
-  db = emdb_create_db(&MemoryStorage, 1024, NULL);
+  db = emdb_create_db(getMemoryStorage(), NULL);
 
   emdb_write(db, (unsigned char *)"key", (unsigned char *)"value", 6);
   entry = emdb_read(db, (unsigned char *)"key");
@@ -142,19 +157,19 @@ int main ( ) {
 
 Creates a database, as well as the context that it uses.
 
-`EMDB *emdb_create_db(Storage, max_memory, options)`
+`EMDB *emdb_create_db(Storage, options)`
 
 _Returns:_ `EMDB *` on success, `NULL` on error
 
 ```c
-EMDB *db = emdb_create_db(&MemoryStorage, 1024, NULL);
+EMDB *db = emdb_create_db(&MemoryStorage, NULL);
 ```
 
 ##### Writing an Entry
 
 Writes a value to the database.  This will overwrite any existing entry.
 
-`unsigned char ret = emdb_write(EMDB *, unsigned char *, unsigned char *, size)`
+`unsigned char ret = emdb_write(EMDB *, uint8_t *, uint8_t *, uint16_t)`
 
 _Returns:_ `1` on success, `0` on error
 
