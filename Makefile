@@ -2,8 +2,8 @@
 -include config.mk
 CC=g++
 
-CFLAGS=-I./src -Wall -g -march=native -fsanitize=address -fno-omit-frame-pointer
-LDFLAGS=-g -flto -L. -lemdb -fsanitize=address
+CFLAGS=-I./src -Wall -g -march=native
+LDFLAGS=-g -flto -L. -lemdb 
 
 SRCS=src/emdb.cpp
 
