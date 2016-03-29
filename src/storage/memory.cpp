@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#include "memory.h"
+#include "storage/memory.h"
 
 #ifdef DEBUG
 #include "debug.h"

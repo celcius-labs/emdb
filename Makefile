@@ -2,8 +2,8 @@
 -include config.mk
 CC=g++
 
-CFLAGS=-I./src -Wall -g -march=native
-LDFLAGS=-g -flto -L. -lemdb 
+CFLAGS=-I./include -Wall -g -march=native
+LDFLAGS=-g -flto -L. -lemdb
 
 SRCS=src/emdb.cpp
 
@@ -32,10 +32,10 @@ endif
 ifdef EMDB_MEMORY_STORAGE
 CFLAGS += -DEMDB_MEMORY_STORAGE
 
-obj/storage/memory.o: src/storage/memory.cpp src/storage/memory.h src/emdb.h
+obj/storage/memory.o: src/storage/memory.cpp include/storage/memory.h include/emdb.h
 	$(CC) -c $(CFLAGS) src/storage/memory.cpp -o obj/storage/memory.o
 
-test/memory.o: test/memory.cpp src/storage/memory.cpp src/storage/memory.h
+test/memory.o: test/memory.cpp src/storage/memory.cpp include/storage/memory.h
 	$(CC) -c $(CFLAGS) test/memory.cpp -o test/memory.o
 
 OBJS += obj/storage/memory.o
@@ -49,7 +49,7 @@ CFLAGS += -DEMDB_QUERY
 OBJS += obj/query.o
 TEST += test/query.o
 
-obj/query.o: src/query.h
+obj/query.o: include/query.h
 	$(CC) -c $(CFLAGS) src/query.cpp -o obj/query.o
 
 test/query.o: test/query.cpp
@@ -63,7 +63,7 @@ CFLAGS += -DEMDB_JSON -I./jsmn
 OBJS += obj/json.o jsmn/jsmn.o
 TEST += test/json.o
 
-obj/json.o: src/json.h
+obj/json.o: include/json.h
 	$(CC) -c $(CFLAGS) src/json.cpp -o obj/json.o
 
 test/json.o: test/json.cpp
@@ -87,10 +87,10 @@ test/emdb.o: test/emdb.cpp
 	$(CC) -c $(CFLAGS) test/emdb.cpp -o test/emdb.o
 
 
-obj/emdb.o: src/emdb.cpp src/emdb.h
+obj/emdb.o: src/emdb.cpp include/emdb.h
 	$(CC) -c $(CFLAGS) src/emdb.cpp -o obj/emdb.o
 
-obj/debug.o: src/debug.cpp src/debug.h
+obj/debug.o: src/debug.cpp include/debug.h
 	$(CC) -c $(CFLAGS) src/debug.cpp -o obj/debug.o
 
 build: $(OBJS) $(TEST)
