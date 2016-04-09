@@ -1,6 +1,4 @@
-#ifndef __EMDB_CONFIG__
-#define __EMDB_CONFIG__
-
+#pragma once
 
 #ifdef EMDB_JSON
 
@@ -51,5 +49,3 @@
 #endif
 
 #endif /* EMDB_QUERY */
-
-#endif /* __EMDB_CONFIG__ */
